@@ -17,7 +17,7 @@ sub new
         if exists $params{api_key};
     delete $params{object_id}
         if exists $params{object_id};
-    @$self{ keys( %params ) } = values( %params );
+    @{$self}{ keys( %params ) } = values( %params );
     bless $self, $class;
 }
 
