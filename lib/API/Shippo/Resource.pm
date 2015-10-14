@@ -90,7 +90,7 @@ sub api_url
 
 BEGIN {
     no warnings 'once';
-    *class_url = *class_url;
+    *class_url = *api_url;
 }
 
 1;
