@@ -1,6 +1,6 @@
-use MRO::Compat 'c3';
 use strict;
 use warnings;
+use MRO::Compat 'c3';
 
 package API::Shippo::ListableResource;
 use base ( 'API::Shippo::Resource' );
