@@ -4,7 +4,6 @@ use MRO::Compat 'c3';
 
 package API::Shippo::Object;
 use Scalar::Util ( 'blessed' );
-use Clone        ( 'clone' );
 use namespace::clean;
 
 sub new
