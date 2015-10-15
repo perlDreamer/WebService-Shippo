@@ -28,5 +28,6 @@ diag $obj2->to_json;
 
 diag Dumper( Shippo::Address->all() );
 diag Dumper( Shippo::CarrierAccount->all() );
+diag Dumper( Shippo::CarrierAccount->get('25e8c3acf42b46c5833a53d4378db320') );
 
 done_testing;
