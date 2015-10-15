@@ -2,14 +2,14 @@ use strict;
 use warnings;
 use MRO::Compat 'c3';
 
-package API::Shippo::Resource;
+package WebService::Shippo::Resource;
 use Carp ( 'croak' );
 use namespace::clean;
 use constant DEFAULT_API_SCHEME    => 'https';
 use constant DEFAULT_API_HOST      => 'api.goshippo.com';
 use constant DEFAULT_API_PORT      => '443';
 use constant DEFAULT_API_BASE_PATH => 'v1';
-use base ( 'API::Shippo::Object' );
+use base ( 'WebService::Shippo::Object' );
 
 {
     my $value = undef;

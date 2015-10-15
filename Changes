@@ -1,6 +1,8 @@
-Revision history for API-Shippo
+Revision history for WebService-Shippo
  
 {{$NEXT}}
+
+0.0.1     2015-10-15 15:52:58+01:00 Europe/London
 
 0.0.1     2015-10-15 14:30:34+01:00 Europe/London
     - Initial version

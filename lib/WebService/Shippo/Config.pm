@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-package API::Shippo::Config;
+package WebService::Shippo::Config;
 use Carp ( 'croak' );
 use YAML::XS ();
 use namespace::clean;

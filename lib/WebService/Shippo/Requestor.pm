@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use MRO::Compat 'c3';
 
-package API::Shippo::Requestor;
+package WebService::Shippo::Requestor;
 
 sub new
 {

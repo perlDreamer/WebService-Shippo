@@ -12,10 +12,10 @@ my %WriteMakefileArgs = (
   "CONFIGURE_REQUIRES" => {
     "ExtUtils::MakeMaker" => 0
   },
-  "DISTNAME" => "API-Shippo",
+  "DISTNAME" => "WebService-Shippo",
   "LICENSE" => "perl",
   "MIN_PERL_VERSION" => "5.008008",
-  "NAME" => "API::Shippo",
+  "NAME" => "WebService::Shippo",
   "PREREQ_PM" => {
     "JSON::XS" => 0,
     "MRO::Compat" => 0,

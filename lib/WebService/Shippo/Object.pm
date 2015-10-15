@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use MRO::Compat 'c3';
 
-package API::Shippo::Object;
+package WebService::Shippo::Object;
 use JSON::XS ();
 use Scalar::Util ( 'blessed', 'reftype' );
 use namespace::clean;
@@ -12,9 +12,9 @@ sub new
 {
     my ( $class, $id ) = @_;
     my $self = bless( {}, ref( $class ) || $class );
-    $id = $id->{id}
+    $id = $id->{object_id}
         if ref( $id ) && reftype( $id ) eq 'HASH';
-    $self->{id} = $id
+    $self->{object_id} = $id
         if $id;
     return $self;
 }

@@ -1,5 +1,5 @@
 NAME
-    API::Shippo - A Shippo API Perl Wrapper (coming soon)
+    WebService::Shippo - A Shippo API Perl Wrapper (coming soon)
 
 VERSION
     version 0.0.1
