@@ -42,7 +42,7 @@ diag $obj2->to_json;
 #      metadata       => 'Customer ID 123456',
 #    }
 #)->to_json;
-diag Shippo::Address->all()->to_json;
+diag Dumper(Shippo::Address->all());
 diag Shippo::CarrierAccount->all()->to_json;
 diag Shippo::CarrierAccount->get( '25e8c3acf42b46c5833a53d4378db320' )
     ->to_json;
