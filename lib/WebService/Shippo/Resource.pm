@@ -3,7 +3,8 @@ use warnings;
 use MRO::Compat 'c3';
 
 package WebService::Shippo::Resource;
-use Carp ( 'croak' );
+use Carp        ( 'croak' );
+use URI::Encode ( 'uri_encode' );
 use namespace::clean;
 use base ( 'WebService::Shippo::Object' );
 use constant DEFAULT_API_SCHEME    => 'https';
@@ -107,12 +108,12 @@ sub api_resource
 
 sub url
 {
-    my ( $class ) = @_;
-    my $scheme    = $class->api_scheme;
-    my $port      = $class->api_port;
-    my $path      = $class->api_base_path;
-    my $resource  = $class->api_resource;
-    my $url       = $scheme . '://';
+    my ( $class, $object_id ) = @_;
+    my $scheme   = $class->api_scheme;
+    my $port     = $class->api_port;
+    my $path     = $class->api_base_path;
+    my $resource = $class->api_resource;
+    my $url      = $scheme . '://';
     $url .= $class->api_host;
     $url .= ':' . $port
         unless $port && $port eq '443' && $scheme eq 'https';
@@ -120,6 +121,8 @@ sub url
         if $path;
     $url .= '/' . $resource
         if $resource;
+    $url .= '/' . uri_encode($object_id)
+        if @_ > 1 && $object_id;
     $url .= '/';
     return $url;
 }
