@@ -18,25 +18,23 @@ BEGIN {
     *api_public_token  = *WebService::Shippo::Resource::api_public_token;
     *api_key           = *WebService::Shippo::Resource::api_key;
     *headers           = *WebService::Shippo::Request::headers;
+    # Forcing the dev to always use CPAN's perferred "WebService::Shippo" 
+    # namespace is just cruel; allow the use of "Shippo", too.
+    *Shippo:: = *WebService::Shippo::;
 }
 
 sub import
 {
     my ( $class ) = @_;
     # Load authentication data from config file.
-    my $config = __PACKAGE__->config;
+    my $config = Shippo->config;
     my $default_token = $config->{default_token} || 'private_token';
     my $api_key = $config->{$default_token};
-    __PACKAGE__->api_private_token( $config->{private_token} );
-    __PACKAGE__->api_public_token( $config->{public_token} );
-    __PACKAGE__->api_key( $api_key );
-    __PACKAGE__->headers->{Authorization} = "ShippoToken $api_key";
+    Shippo->api_private_token( $config->{private_token} );
+    Shippo->api_public_token( $config->{public_token} );
+    Shippo->api_key( $api_key );
+    Shippo->headers->{Authorization} = "ShippoToken $api_key";
     goto &Exporter::import;
-}
-
-BEGIN {
-    no warnings 'once';
-    *Shippo:: = *WebService::Shippo::;
 }
 
 1;
