@@ -5,11 +5,11 @@ use MRO::Compat 'c3';
 package WebService::Shippo::Resource;
 use Carp ( 'croak' );
 use namespace::clean;
+use base ( 'WebService::Shippo::Object' );
 use constant DEFAULT_API_SCHEME    => 'https';
 use constant DEFAULT_API_HOST      => 'api.goshippo.com';
 use constant DEFAULT_API_PORT      => '443';
 use constant DEFAULT_API_BASE_PATH => 'v1';
-use base ( 'WebService::Shippo::Object' );
 
 {
     my $value = undef;
@@ -105,7 +105,7 @@ sub api_resource
     croak 'Method not implemented in abstract base class';
 }
 
-sub api_url
+sub url
 {
     my ( $class ) = @_;
     my $scheme    = $class->api_scheme;
@@ -122,11 +122,6 @@ sub api_url
         if $resource;
     $url .= '/';
     return $url;
-}
-
-BEGIN {
-    no warnings 'once';
-    *class_url = *api_url;
 }
 
 1;

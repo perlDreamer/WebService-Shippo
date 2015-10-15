@@ -3,10 +3,11 @@ use warnings;
 use MRO::Compat 'c3';
 
 package WebService::Shippo::CarrierAccount;
-use base ( 'WebService::Shippo::CreatableResource',
-           'WebService::Shippo::FetchableResource',
-           'WebService::Shippo::ListableResource',
-           'WebService::Shippo::UpdatableResource'
+use base ( 'WebService::Shippo::Creator',
+           'WebService::Shippo::Fetcher',
+           'WebService::Shippo::Lister',
+           'WebService::Shippo::Updater',
+           'WebService::Shippo::Resource',
 );
 
 sub api_resource {'carrier_accounts'}    # why not "carrier/accounts", which

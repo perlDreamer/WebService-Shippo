@@ -1,5 +1,6 @@
 use strict;
 use warnings;
+use MRO::Compat 'c3';
 
 package WebService::Shippo::Config;
 use Carp ( 'croak' );

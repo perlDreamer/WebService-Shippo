@@ -29,7 +29,7 @@ sub construct_from
         return [ map { $invocant->construct_from( $_ ) } @$ref ];
     }
     elsif ( $ref_type eq 'HASH' ) {
-        my $self = $invocant->new( $ref->{id} );
+        my $self = $invocant->new( $ref->{object_id} );
         return $self->refresh_from( $ref );
     }
     else {
