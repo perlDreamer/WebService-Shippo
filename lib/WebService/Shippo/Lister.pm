@@ -8,8 +8,7 @@ require WebService::Shippo::Request;
 sub all
 {
     my ( $self, $params ) = @_;
-    my $url = $self->url;
-    my $response = WebService::Shippo::Request->get( $url, $params );
+    my $response = WebService::Shippo::Request->get( $self->url, $params );
     return $self->construct_from( $response );
 }
 
