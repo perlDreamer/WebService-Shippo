@@ -6,7 +6,6 @@ package WebService::Shippo::Object;
 use JSON::XS ();
 use Scalar::Util ( 'blessed', 'reftype' );
 use namespace::clean;
-use constant JSON => JSON::XS->new->utf8->indent->pretty->canonical;
 
 sub new
 {
@@ -44,10 +43,14 @@ sub refresh_from
     return $self;
 }
 
-sub to_json
 {
-    my ( $self ) = @_;
-    return JSON->encode( {%$self} );
+    my $json = JSON::XS->new->utf8->indent->pretty->canonical;
+    
+    sub to_json
+    {
+        my ( $self ) = @_;
+        return $json->encode( {%$self} );
+    }
 }
 
 1;

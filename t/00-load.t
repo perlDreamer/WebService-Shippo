@@ -26,7 +26,7 @@ diag Dumper( { obj1 => $obj1, obj2 => $obj2 } );
 diag $obj1->to_json;
 diag $obj2->to_json;
 
-diag Dumper(Shippo::Request->get( 'https://api.goshippo.com/v1/addresses/', {foo => 1, bar => '"bar baz"'} ) )
-    ;
+diag Dumper( Shippo::Address->all() );
+diag Dumper( Shippo::CarrierAccount->all() );
 
 done_testing;
