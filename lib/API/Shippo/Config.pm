@@ -49,7 +49,7 @@ private_token: <YOUR PRIVATE API AUTHENTICATION TOKEN>
 public_token: <YOUR PUBLISHABLE API AUTHENTICATION TOKEN>
 default_token: public_token
 EOF
-        croak "Can't find file '$config_file'";
+        return {};
     }
     open my $fh, '<:encoding(UTF-8)', $config_file
         or croak "Can't open file '$config_file': $!";

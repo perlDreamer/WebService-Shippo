@@ -16,6 +16,7 @@ use API::Shippo::Shipment;
 use API::Shippo::Transaction;
 use API::Shippo::Rate;
 use API::Shippo::CarrierAccount;
+use base ( 'Exporter' );
 
 sub import
 {
