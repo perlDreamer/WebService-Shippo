@@ -27,8 +27,9 @@ sub import
 {
     my ( $class ) = @_;
     # Both public and private auth tokens are stored in Config.yml, which
-    # should be located in the same folder as Config.pm. Load the config
-    # file to get at the authentication data.
+    # should be located in the same folder as Config.pm. Load that config
+    # file to get at the authentication data. You can't have mine, go and
+    # create your own.
     my $config        = Shippo->config;
     my $default_token = $config->{default_token} || 'private_token';
     my $api_key       = $config->{$default_token};
