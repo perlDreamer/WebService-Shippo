@@ -2,7 +2,8 @@ use strict;
 use warnings;
 use MRO::Compat 'c3';
 
-package API::Shippo::Address;
+package # Hide from PAUSE
+    API::Shippo::Address;
 use base ( 'API::Shippo::CreatableResource',
            'API::Shippo::FetchableResource',
            'API::Shippo::ListableResource'

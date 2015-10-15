@@ -5,7 +5,7 @@ package API::Shippo;
 # ABSTRACT: Shippo Perl API wrapper
 our $VERSION = '0.0.1';
 use Carp ( 'croak' );
-use YAML::XS ();
+use API::Shippo::Config;
 use API::Shippo::Address;
 use API::Shippo::CustomsItem;
 use API::Shippo::CustomsDeclaration;
@@ -16,49 +16,11 @@ use API::Shippo::Shipment;
 use API::Shippo::Transaction;
 use API::Shippo::Rate;
 use API::Shippo::CarrierAccount;
-use base ( 'Exporter' );
-
-{
-    ( my $value = __FILE__ ) =~ s{\.\w+$}{.yml};
-
-    sub config_file
-    {
-        my ( $class, $new_value ) = @_;
-        return $value unless @_ > 1;
-        $value = $new_value;
-        return $class;
-    }
-}
-
-{
-    my $value = __PACKAGE__->parse_config_file;
-
-    sub config
-    {
-        my ( $class, $new_value ) = @_;
-        return $value unless @_ > 1;
-        $value = $new_value;
-        return $class;
-    }
-}
-
-sub parse_config_file
-{
-    my ( $class ) = @_;
-    my $config_file = __PACKAGE__->config_file;
-    return {}
-        unless -e $config_file;
-    open my $fh, '<:encoding(UTF-8)', $config_file
-        or croak "Can't open file '$config_file': $!";
-    my $config_yaml = do { local $/ = <$fh> };
-    close $fh;
-    return YAML::XS::Load( $config_yaml );
-}
 
 sub import
 {
     my ( $class )     = @_;
-    my $c             = $class->config;
+    my $c             = API::Shippo::Config->config;
     my $private_token = $c->{private_token};
     my $public_token  = $c->{public_token};
     my $default_token = $c->{default_token} || 'public_token';
@@ -68,5 +30,37 @@ sub import
     API::Shippo::Resource->api_token( $c->{$default_token} );
     goto &Exporter::import;
 }
+
+=pod
+
+=encoding utf8
+
+=head1 NAME
+
+API::Shippo - A Shippo API Perl Wrapper (coming soon)
+
+=head1 SYNOPIS
+
+    # TO FOLLOW
+    
+=head1 DESCRIPTION
+
+Will provide a Shippo API client implementation for Perl.
+
+This is a work in progress and is being actively developed with regular 
+updates as work progresses.
+
+=head1 AUTHOR
+
+Iain Campbell <cpanic@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2012-2015 by Iain Campbell.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
 
 1;

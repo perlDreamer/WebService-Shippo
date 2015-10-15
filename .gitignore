@@ -21,4 +21,4 @@ nytprof.out
 pod2htm*.tmp
 pm_to_blib
 API-Shippo-*
-lib/API/Shippo.yml
+lib/API/Shippo/Config.yml

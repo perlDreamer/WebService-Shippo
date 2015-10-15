@@ -2,7 +2,8 @@ use strict;
 use warnings;
 use MRO::Compat 'c3';
 
-package API::Shippo::Resource;
+package # Hide from PAUSE
+    API::Shippo::Resource;
 use Carp ( 'croak' );
 use namespace::clean;
 use constant DEFAULT_API_SCHEME    => 'https';

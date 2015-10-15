@@ -2,8 +2,8 @@ use strict;
 use warnings;
 use MRO::Compat 'c3';
 
-package API::Shippo::Requestor;
-use constant _CERTIFICATE_VERIFIED => 0;
+package # Hide from PAUSE
+    API::Shippo::Requestor;
 
 sub new
 {
