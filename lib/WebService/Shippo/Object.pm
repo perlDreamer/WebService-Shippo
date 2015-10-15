@@ -58,6 +58,7 @@ sub rebless
             # is a WebService::Shippo::Object.
             if ( exists( $self->{count} ) && exists( $self->{results} ) ) {
                 for my $thing ( @{ $self->{results} } ) {
+                    # Correctly bless the members of the list
                     bless $thing, $self->class;
                 }
                 $self->rebless( $self->class . 'List' );
