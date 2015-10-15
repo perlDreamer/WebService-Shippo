@@ -46,17 +46,18 @@ sub parse_config_file
         print STDERR << "EOF";
 Oops!
 
-Configuration file not found:
+Your configuration file not found. Without it, your API requests may not be
+authorized if you haven't used "Shippo->api_key(...)" to set your Shippo
+API key.
 
     $config_file
 
-You should create it at that location. It's a YAML file that should look
+You should create the file mentioned above. It's a YAML file that should look
 something like this.
 
 ---
 private_token: <YOUR PRIVATE API AUTHENTICATION TOKEN>
 public_token: <YOUR PUBLISHABLE API AUTHENTICATION TOKEN>
-default_token: private_token
 EOF
         return {};
     }
@@ -65,6 +66,13 @@ EOF
     my $config_yaml = do { local $/ = <$fh> };
     close $fh;
     return bless( YAML::XS::Load( $config_yaml ), $class );
+}
+
+BEGIN {
+    no warnings 'once';
+    # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
+    # namespace is just cruel; allow the use of "Shippo", too.
+    *Shippo::Config:: = *WebService::Shippo::Config::;
 }
 
 1;

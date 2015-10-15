@@ -11,4 +11,11 @@ use base ( 'WebService::Shippo::Creator',
 
 sub api_resource {'transactions'}
 
+BEGIN {
+    no warnings 'once';
+    # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
+    # namespace is just cruel; allow the use of "Shippo", too.
+    *Shippo::Transaction:: = *WebService::Shippo::Transaction::;
+}
+
 1;

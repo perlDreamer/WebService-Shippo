@@ -108,7 +108,7 @@ sub api_resource
 
 sub url
 {
-    my ( $class, $object_id ) = @_;
+    my ( $class, $id ) = @_;
     my $scheme   = $class->api_scheme;
     my $port     = $class->api_port;
     my $path     = $class->api_base_path;
@@ -121,8 +121,8 @@ sub url
         if $path;
     $url .= '/' . $resource
         if $resource;
-    $url .= '/' . uri_encode($object_id)
-        if @_ > 1 && $object_id;
+    $url .= '/' . uri_encode($id)
+        if @_ > 1 && $id;
     $url .= '/';
     return $url;
 }

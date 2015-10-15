@@ -14,4 +14,11 @@ sub api_resource {'carrier_accounts'}    # why not "carrier/accounts", which
                                          # would be consistent with Customs
                                          # Declaration resource?
 
+BEGIN {
+    no warnings 'once';
+    # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
+    # namespace is just cruel; allow the use of "Shippo", too.
+    *Shippo::CarrierAccount:: = *WebService::Shippo::CarrierAccount::;
+}
+
 1;
