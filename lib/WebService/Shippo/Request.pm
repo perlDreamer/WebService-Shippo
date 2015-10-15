@@ -33,7 +33,7 @@ sub query_string
     return ''
         unless ref( $params );
     my @pairs;
-    while ( my ( $k, $v ) = each( %$params ) ) {
+    while ( my ( $k, $v ) = each %$params ) {
         $k = uri_encode( $k );
         $v = uri_encode( $v );
         push @pairs, join( '=', $k, $v );
@@ -74,4 +74,5 @@ sub get
         return $response;
     }
 }
+
 1;
