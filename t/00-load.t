@@ -26,10 +26,29 @@ diag Dumper( { obj1 => $obj1, obj2 => $obj2 } );
 diag $obj1->to_json;
 diag $obj2->to_json;
 
-diag Dumper( Shippo::Address->all() );
-diag Dumper( Shippo::CarrierAccount->all() );
-diag Dumper( Shippo::CarrierAccount->get( '25e8c3acf42b46c5833a53d4378db320' ) );
-diag Dumper( Shippo::CarrierAccount->update( '25e8c3acf42b46c5833a53d4378db320', { test => 1 } )
-);
+#diag Shippo::Address->create(
+#    { name           => 'Shawn Ippotle',
+#      object_purpose => 'QUOTE',
+#      company        => 'Shippo',
+#      street1        => '215 Clayton St.',
+#      street2        => '',
+#      city           => 'San Francisco',
+#      state          => 'CA',
+#      zip            => 94117,
+#      country        => 'US',
+#      phone          => '+1 555 341 9393',
+#      email          => 'shippotle@goshippo.com',
+#      is_residential => 1,
+#      metadata       => 'Customer ID 123456',
+#    }
+#)->to_json;
+diag Shippo::Address->all()->to_json;
+diag Shippo::CarrierAccount->all()->to_json;
+diag Shippo::CarrierAccount->get( '25e8c3acf42b46c5833a53d4378db320' )
+    ->to_json;
+diag Shippo::CarrierAccount->update(
+    '25e8c3acf42b46c5833a53d4378db320',
+    { test => 1 }
+)->to_json;
 
 done_testing;
