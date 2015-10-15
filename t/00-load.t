@@ -17,4 +17,8 @@ diag API::Shippo::Transaction->api_url;
 diag API::Shippo::Rate->api_url;
 diag API::Shippo::CarrierAccount->api_url;
 diag Dumper(API::Shippo::Address->new('object_id', 'my_key', foo => 1, bar => 2));
+diag API::Shippo::Resource->api_private_token;
+diag API::Shippo::Resource->api_public_token;
+diag API::Shippo::Resource->api_token;
+
 done_testing;

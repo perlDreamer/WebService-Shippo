@@ -16,7 +16,9 @@ inc/
 .lwpcookies
 .last_cover_stats
 .project
+.includepath
 nytprof.out
 pod2htm*.tmp
 pm_to_blib
 API-Shippo-*
+lib/API/Shippo.yml

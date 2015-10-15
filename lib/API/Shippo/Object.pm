@@ -3,49 +3,51 @@ use warnings;
 use MRO::Compat 'c3';
 
 package API::Shippo::Object;
-use Scalar::Util ( 'blessed' );
+use Scalar::Util ( 'blessed', 'reftype' );
 use namespace::clean;
 
 sub new
 {
-    my ( $class, $id, $api_key, %params ) = @_;
-    $class = ref( $class ) || $class;
-    my $self = { api_key => $api_key };
-    $self->{object_id} = $id
+    my ( $class, $id ) = @_;
+    my $self = bless( {}, ref( $class ) || $class );
+    $id = $id->{id}
+        if ref( $id ) && reftype( $id ) eq 'HASH';
+    $self->{id} = $id
         if $id;
-    delete $params{api_key}
-        if exists $params{api_key};
-    delete $params{object_id}
-        if exists $params{object_id};
-    @{$self}{ keys( %params ) } = values( %params );
-    bless $self, $class;
+    return $self;
 }
 
-sub new_from_hash
+sub construct_from
 {
-    my ( $class, $hash, $api_key ) = @_;
-    return $class->new( $hash->{object_id}, $api_key || $hash->{api_key},
-                        %$hash );
+    my ( $invocant, $ref ) = @_;
+    my $ref_type = ref( $ref );
+    return $ref_type
+        unless defined $ref_type;
+    if ( $ref_type eq 'ARRAY' ) {
+        return [ map { $invocant->construct_from( $_ ) } @$ref ];
+    }
+    elsif ( $ref_type eq 'HASH' ) {
+        my $self = $invocant->new( $ref->{id} );
+        return $self->refresh_from( $ref );
+    }
+    else {
+        return $ref;
+    }
+}
+
+sub refresh_from
+{
+    my ( $self, $hash ) = @_;
+    @{$self}{ keys( %$hash ) } = values( %$hash );
+    return $self;
 }
 
 sub request
 {
     my ( $self, $method, $url, %params ) = @_;
-    my $requestor = API::Shippo::Requestor->new($self->api_key);
+    my $requestor = API::Shippo::Requestor->new( $self->api_key );
     my ( $response, $api_key ) = $requestor->request( $method, $url, %params );
     return $self->_convert_to_shippo_object( $response, $api_key );
-}
-
-sub _convert_to_shippo_object
-{
-    my ( $class, $response, $api_key ) = @_;
-    $class = ref( $class ) || $class;
-    return [ map { $class->_convert_to_shippo_object( $_, $api_key ) }
-             @$response ]
-        if ref( $response ) && ref( $response ) eq 'ARRAY';
-    return $class->new_from_hash( $response, $api_key )
-        if ref( $response ) && ref( $response ) eq 'HASH';
-    return $response;
 }
 
 1;

@@ -3,13 +3,49 @@ use warnings;
 use MRO::Compat 'c3';
 
 package API::Shippo::Resource;
-use Carp ( 'confess' );
+use Carp ( 'croak' );
 use namespace::clean;
 use constant DEFAULT_API_SCHEME    => 'https';
 use constant DEFAULT_API_HOST      => 'api.goshippo.com';
 use constant DEFAULT_API_PORT      => '443';
 use constant DEFAULT_API_BASE_PATH => 'v1';
 use base ( 'API::Shippo::Object' );
+
+{
+    my $value = undef;
+
+    sub api_private_token
+    {
+        my ( $class, $new_value ) = @_;
+        return $value unless @_ > 1;
+        $value = $new_value;
+        return $class;
+    }
+}
+
+{
+    my $value = undef;
+
+    sub api_public_token
+    {
+        my ( $class, $new_value ) = @_;
+        return $value unless @_ > 1;
+        $value = $new_value;
+        return $class;
+    }
+}
+
+{
+    my $value = undef;
+
+    sub api_token
+    {
+        my ( $class, $new_value ) = @_;
+        return $value unless @_ > 1;
+        $value = $new_value;
+        return $class;
+    }
+}
 
 {
     my $value = DEFAULT_API_SCHEME;
@@ -66,7 +102,7 @@ use base ( 'API::Shippo::Object' );
 
 sub api_resource
 {
-    confess 'Method not implemented in abstract base class';
+    croak 'Method not implemented in abstract base class';
 }
 
 sub api_url
