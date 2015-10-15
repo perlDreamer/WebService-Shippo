@@ -47,10 +47,7 @@ sub rebless
         my $ref_type = ref( $response );
         return $ref_type
             unless defined $ref_type;
-        if ( $ref_type eq 'ARRAY' ) {
-            return [ map { $invocant->construct_from( $_ ) } @$response ];
-        }
-        elsif ( $ref_type eq 'HASH' ) {
+        if ( $ref_type eq 'HASH' ) {
             my $self = $invocant->new( $response->{object_id} );
             $self->refresh_from( $response );
             # Rebless as WebService::Shippo::<Thing>List if the response is
@@ -64,6 +61,9 @@ sub rebless
                 $self->rebless( $self->class . 'List' );
             }
             return $self;
+        }
+        elsif ( $ref_type eq 'ARRAY' ) {
+            return [ map { $invocant->construct_from( $_ ) } @$response ];
         }
         elsif ( $response->isa( 'HTTP::Response' ) ) {
             croak $response->status_line
@@ -98,7 +98,7 @@ sub refresh_from
     # Required by JSON::XS because we use the convert_blessed encoding
     # modifier to allow blessed references (aka Perl object instances)
     # to be serialized. Returns a scalar value that can be serialized
-    # as JSON (essentially an unblessed shallow clone of the original
+    # as JSON (essentially an unblessed shallow copy of the original
     # object).
     sub TO_JSON
     {
