@@ -2,10 +2,11 @@ use strict;
 use warnings;
 use MRO::Compat 'c3';
 
-package # Hide from PAUSE
-    API::Shippo::Object;
+package API::Shippo::Object;
+use JSON::XS ();
 use Scalar::Util ( 'blessed', 'reftype' );
 use namespace::clean;
+use constant JSON => JSON::XS->new->utf8->indent->pretty->canonical;
 
 sub new
 {
@@ -43,12 +44,10 @@ sub refresh_from
     return $self;
 }
 
-sub request
+sub to_json
 {
-    my ( $self, $method, $url, %params ) = @_;
-    my $requestor = API::Shippo::Requestor->new( $self->api_key );
-    my ( $response, $api_key ) = $requestor->request( $method, $url, %params );
-    return $self->_convert_to_shippo_object( $response, $api_key );
+    my ( $self ) = @_;
+    return JSON->encode( {%$self} );
 }
 
 1;

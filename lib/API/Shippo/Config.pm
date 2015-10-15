@@ -1,8 +1,7 @@
 use strict;
 use warnings;
 
-package    # Hide from PAUSE
-    API::Shippo::Config;
+package API::Shippo::Config;
 use Carp ( 'croak' );
 use YAML::XS ();
 use namespace::clean;
@@ -47,7 +46,7 @@ It should look something like this:
 ---
 private_token: <YOUR PRIVATE API AUTHENTICATION TOKEN>
 public_token: <YOUR PUBLISHABLE API AUTHENTICATION TOKEN>
-default_token: public_token
+default_token: private_token
 EOF
         return {};
     }

@@ -17,6 +17,7 @@ my %WriteMakefileArgs = (
   "MIN_PERL_VERSION" => "5.008008",
   "NAME" => "API::Shippo",
   "PREREQ_PM" => {
+    "JSON::XS" => 0,
     "MRO::Compat" => 0,
     "YAML::XS" => 0,
     "namespace::clean" => 0
@@ -34,6 +35,7 @@ my %WriteMakefileArgs = (
 
 my %FallbackPrereqs = (
   "Data::Dumper::Concise" => 0,
+  "JSON::XS" => 0,
   "MRO::Compat" => 0,
   "Test::Deep" => 0,
   "YAML::XS" => 0,

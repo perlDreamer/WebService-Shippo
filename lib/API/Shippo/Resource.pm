@@ -2,8 +2,7 @@ use strict;
 use warnings;
 use MRO::Compat 'c3';
 
-package # Hide from PAUSE
-    API::Shippo::Resource;
+package API::Shippo::Resource;
 use Carp ( 'croak' );
 use namespace::clean;
 use constant DEFAULT_API_SCHEME    => 'https';
@@ -39,7 +38,7 @@ use base ( 'API::Shippo::Object' );
 {
     my $value = undef;
 
-    sub api_token
+    sub api_key
     {
         my ( $class, $new_value ) = @_;
         return $value unless @_ > 1;

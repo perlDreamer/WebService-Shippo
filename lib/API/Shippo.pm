@@ -18,17 +18,22 @@ use API::Shippo::Rate;
 use API::Shippo::CarrierAccount;
 use base ( 'Exporter' );
 
+BEGIN {
+    no warnings 'once';
+    *api_private_token = *API::Shippo::Resource::api_private_token;
+    *api_public_token  = *API::Shippo::Resource::api_public_token;
+    *api_key           = *API::Shippo::Resource::api_key;
+}
+
 sub import
 {
-    my ( $class )     = @_;
-    my $c             = API::Shippo::Config->config;
-    my $private_token = $c->{private_token};
-    my $public_token  = $c->{public_token};
-    my $default_token = $c->{default_token} || 'public_token';
-    # Setup some resource defaults
-    API::Shippo::Resource->api_private_token( $private_token );
-    API::Shippo::Resource->api_public_token( $public_token );
-    API::Shippo::Resource->api_token( $c->{$default_token} );
+    my ( $class ) = @_;
+    # Load authentication data from config file
+    my $config = API::Shippo::Config->config;
+    my $default_token = $config->{default_token} || 'private_token';
+    API::Shippo->api_private_token( $config->{private_token} );
+    API::Shippo->api_public_token( $config->{public_token} );
+    API::Shippo->api_key( $config->{$default_token} );
     goto &Exporter::import;
 }
 
