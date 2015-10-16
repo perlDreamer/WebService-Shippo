@@ -6,7 +6,6 @@ use Data::Dumper::Concise;
 
 use_ok( 'WebService::Shippo' );
 
-diag Shippo->api_key;
 diag Shippo::Address->url;
 diag Shippo::CustomsItem->url;
 diag Shippo::CustomsDeclaration->url;

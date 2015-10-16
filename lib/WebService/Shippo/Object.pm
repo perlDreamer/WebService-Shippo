@@ -7,7 +7,6 @@ require WebService::Shippo::ListObject;
 use Carp         ( 'croak' );
 use JSON::XS     ();
 use Scalar::Util ( 'blessed', 'reftype' );
-use namespace::clean;
 
 sub class
 {

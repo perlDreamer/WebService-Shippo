@@ -4,8 +4,6 @@ use MRO::Compat 'c3';
 
 package WebService::Shippo::Shipment;
 use Carp ( 'croak' );
-use Locale::Codes::Currency;
-use namespace::clean;
 use base ( 'WebService::Shippo::Creator',
            'WebService::Shippo::Fetcher',
            'WebService::Shippo::Lister',

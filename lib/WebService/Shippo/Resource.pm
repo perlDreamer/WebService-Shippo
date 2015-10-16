@@ -6,7 +6,6 @@ package WebService::Shippo::Resource;
 require WebService::Shippo::Request;
 use Carp        ( 'croak' );
 use URI::Encode ( 'uri_encode' );
-use namespace::clean;
 use base ( 'WebService::Shippo::Object' );
 use constant DEFAULT_API_SCHEME    => 'https';
 use constant DEFAULT_API_HOST      => 'api.goshippo.com';

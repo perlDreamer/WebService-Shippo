@@ -5,8 +5,7 @@ package WebService::Shippo::Request;
 require WebService::Shippo::Resource;
 use JSON::XS    ();
 use LWP         ();
-use URI::Encode ( 'uri_encode' );
-use namespace::clean;
+use URI::Encode ( 'uri_encode' );use namespace::clean;
 
 {
     my $value = { 'Content-Type' => 'application/json',

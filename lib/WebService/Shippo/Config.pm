@@ -9,7 +9,6 @@ use Carp          ( 'croak' );
 use File::HomeDir ();
 use Path::Class   ();
 use YAML::XS      ();
-use namespace::clean;
 
 #<<< PerlTidy, leave this:
 ( my $temp = __FILE__ ) =~ s{\.\w+$}{.yml};
