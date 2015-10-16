@@ -8,23 +8,32 @@ use URI::Encode ( 'uri_encode' );
 use namespace::clean;
 
 {
-    my $value = LWP::UserAgent->new;
+    my $value = { 'Content-Type' => 'application/json',
+                  'Accept'       => 'application/json',
+    };
+
+    sub headers { wantarray ? %$value : $value }
+}
+
+{
+    my $value = undef;
 
     sub user_agent
     {
         my ( $class, $new_value ) = @_;
         return $value unless @_ > 1;
         $value = $new_value;
+        if ( $value->can( 'agent' ) ) {
+            my $product = "WebService\::Shippo/$WebService::Shippo::VERSION";
+            $product .= ' ' . $value->_agent
+                if $value->can( '_agent' );
+            $value->agent( $product );
+            headers->{'X-Shippo-Client-User-Agent'} = $value->agent;
+        }
         return $class;
     }
-}
 
-{
-    my $value = { 'Content-Type' => 'application/json',
-                  'Accept'       => 'application/json',
-    };
-
-    sub headers { wantarray ? %$value : $value }
+    __PACKAGE__->user_agent( LWP::UserAgent->new );
 }
 
 sub query_string
