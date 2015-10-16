@@ -11,6 +11,11 @@ use base ( 'WebService::Shippo::Creator',
 
 sub api_resource {'shipments'}
 
+sub rates 
+{
+    ;
+}
+
 BEGIN {
     no warnings 'once';
     # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
