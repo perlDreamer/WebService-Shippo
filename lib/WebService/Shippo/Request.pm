@@ -2,10 +2,9 @@ use strict;
 use warnings;
 
 package WebService::Shippo::Request;
-require WebService::Shippo::Resource;
 use JSON::XS    ();
 use LWP         ();
-use URI::Encode ( 'uri_encode' );use namespace::clean;
+use URI::Encode ( 'uri_encode' );
 
 {
     my $value = { 'Content-Type' => 'application/json',
@@ -24,7 +23,7 @@ use URI::Encode ( 'uri_encode' );use namespace::clean;
         return $value unless @_ > 1;
         $value = $new_value;
         if ( $value->can( 'agent' ) ) {
-            my $prod = 'Shippo/' . Shippo::Resource->DEFAULT_API_BASE_PATH;
+            my $prod = 'Shippo/' . WebService::Shippo::Resource->DEFAULT_API_BASE_PATH;
             $prod .= " WebService\::Shippo/$WebService::Shippo::VERSION";
             $prod .= ' ' . $value->_agent
                 if $value->can( '_agent' );
