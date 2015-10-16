@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use MRO::Compat 'c3';
 
-package WebService::Shippo::ContainerObject;
+package WebService::Shippo::ListObject;
 use base ( 'WebService::Shippo::Object' );
 
 sub count
