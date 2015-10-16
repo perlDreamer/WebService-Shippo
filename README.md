@@ -1,6 +1,6 @@
 [![Language](https://img.shields.io/badge/perl-v5.8%20to%205.22-blue.svg)](https://img.shields.io/badge/perl-v5.8%20to%205.22-blue.svg) [![Build Status](https://travis-ci.org/cpanic/WebService-Shippo.svg?branch=master)](https://travis-ci.org/cpanic/WebService-Shippo) [![Coverage Status](https://coveralls.io/repos/cpanic/WebService-Shippo/badge.svg?branch=master&service=github)](https://coveralls.io/github/cpanic/WebService-Shippo?branch=master)
 
-## Shippo Perl API Client
+## Shippo Perl API Client, v0.0.3
 
 Shippo is a shipping API that connects you with multiple shipping 
 providers (such as USPS, UPS, and Fedex) through one interface, and offers 
@@ -13,6 +13,8 @@ Don't have an account? Sign up at https://goshippo.com/
 Perl 5.8.8 minimum. 
 
 Build tests have been conducted successfully on all later versions of Perl.
+
+_**The Shippo Perl API Client is functional but is in a pre-release stage of its development. There are still tests and documentation to be written, and those tasks are currently under way.**_
 
 ### Dependencies
 
@@ -57,7 +59,7 @@ cpanm WebService::Shippo
 use strict;
 use WebService::Shippo;
 
-# Following statement not necessary if SHIPPO_TOKEN is set in
+# Following statement is not necessary if SHIPPO_TOKEN is set in
 # your process environment.
 Shippo->api_key(PRIVATE-AUTH-TOKEN);
 
