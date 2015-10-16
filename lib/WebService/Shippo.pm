@@ -9,40 +9,40 @@ require WebService::Shippo::Request;
 require WebService::Shippo::Entities;
 use base ( 'Exporter' );
 
-our @EXPORT_OK = (
-    qw/shippo_address
-        shippo_address_list
-        shippo_address_validate
-        shippo_address_create
-        shippo_carrier_account
-        shippo_carrier_account_list
-        shippo_carrier_account_create
-        shippo_carrier_account_update
-        shippo_customs_declaration
-        shippo_customs_declaration_list
-        shippo_customs_declaration_create
-        shippo_customs_item
-        shippo_customs_item_list
-        shippo_customs_item_create
-        shippo_manifest
-        shippo_manifest_list
-        shippo_manifest_create
-        shippo_parcel
-        shippo_parcel_list
-        shippo_parcel_create
-        shippo_rate
-        shippo_rate_list
-        shippo_refund
-        shippo_refund_list
-        shippo_refund_create
-        shippo_shipment
-        shippo_shipment_list
-        shippo_shipment_create
-        shippo_shipment_rates
-        shippo_return_shipment_create
-        shippo_transaction
-        shippo_transaction_list
-        shippo_transaction_create/
+our @EXPORT_OK = qw(
+    shippo_address
+    shippo_address_list
+    shippo_address_validate
+    shippo_address_create
+    shippo_carrier_account
+    shippo_carrier_account_list
+    shippo_carrier_account_create
+    shippo_carrier_account_update
+    shippo_customs_declaration
+    shippo_customs_declaration_list
+    shippo_customs_declaration_create
+    shippo_customs_item
+    shippo_customs_item_list
+    shippo_customs_item_create
+    shippo_manifest
+    shippo_manifest_list
+    shippo_manifest_create
+    shippo_parcel
+    shippo_parcel_list
+    shippo_parcel_create
+    shippo_rate
+    shippo_rate_list
+    shippo_refund
+    shippo_refund_list
+    shippo_refund_create
+    shippo_shipment
+    shippo_shipment_list
+    shippo_shipment_create
+    shippo_shipment_rates
+    shippo_return_shipment_create
+    shippo_transaction
+    shippo_transaction_list
+    shippo_transaction_create
 );
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
 
