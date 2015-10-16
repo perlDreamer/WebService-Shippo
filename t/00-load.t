@@ -27,7 +27,7 @@ use_ok( 'WebService::Shippo' );
 #diag Shippo::CarrierAccount->all()->to_json;
 #diag Shippo::CarrierAccount->get( '25e8c3acf42b46c5833a53d4378db320' )
 #    ->to_json;
-
-my $addresses = WebService::Shippo::Address->all;
-diag(Dumper($addresses->results));
+#
+#my $addresses = WebService::Shippo::Address->all;
+#diag(Dumper($addresses->results));
 done_testing;
