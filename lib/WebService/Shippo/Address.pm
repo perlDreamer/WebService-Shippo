@@ -3,6 +3,7 @@ use warnings;
 use MRO::Compat 'c3';
 
 package WebService::Shippo::Address;
+require WebService::Shippo::Request;
 use base ( 'WebService::Shippo::Creator',
            'WebService::Shippo::Fetcher',
            'WebService::Shippo::Lister',
@@ -10,6 +11,14 @@ use base ( 'WebService::Shippo::Creator',
 );
 
 sub api_resource {'addresses'}
+
+sub validate
+{
+    my ( $self, $id, $params ) = @_;
+    my $response
+        = Shippo::Request->get( $self->url( "$id/validate" ), $params );
+    return $self->construct_from( $response );
+}
 
 BEGIN {
     no warnings 'once';

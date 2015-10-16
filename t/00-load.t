@@ -43,6 +43,7 @@ use_ok( 'WebService::Shippo' );
 ##    }
 ##)->to_json;
 diag( Dumper( Shippo::Address->all ) );
+diag( Dumper( Shippo::Address->validate('4237fe09eba4493db8b31ff495d75a20') ) );
 #diag Shippo::CarrierAccount->all()->to_json;
 #diag Shippo::CarrierAccount->get( '25e8c3acf42b46c5833a53d4378db320' )
 #    ->to_json;
