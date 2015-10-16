@@ -2,8 +2,8 @@ use strict;
 use warnings;
 
 package WebService::Shippo;
-# ABSTRACT: Shippo Perl API wrapper
-our $VERSION = '0.0.1';
+# ABSTRACT: A Shippo Perl API wrapper
+our $VERSION = '0.0.2';
 require WebService::Shippo::Config;
 require WebService::Shippo::Request;
 require WebService::Shippo::Entities;
