@@ -10,6 +10,9 @@ out a decent test suite from my crappy developer tests.
 Will begin to look over the API docs some more to see what improvements, if
 any, should be made to this wrapper.
 
+Still need to implement 'rates' action for Shipments, and make the 
+ReturnShipments work.
+
 ##Oct 15, 2015
 
 Very rough, very early progress. Expecting to have a draft out in a couple of
