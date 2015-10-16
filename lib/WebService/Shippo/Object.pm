@@ -7,6 +7,7 @@ require WebService::Shippo::ListObject;
 use Carp         ( 'croak' );
 use JSON::XS     ();
 use Scalar::Util ( 'blessed', 'reftype' );
+use overload ( fallback => 1, '""' => 'to_string' );
 
 sub class
 {
@@ -106,6 +107,12 @@ sub refresh_from
     {
         my ( $self ) = @_;
         return { %{$self} };
+    }
+    
+    sub to_string
+    {
+        my ( $self ) = @_;
+        return $json->encode( $self );
     }
 }
 
