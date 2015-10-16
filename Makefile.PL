@@ -7,7 +7,7 @@ use 5.008008;
 use ExtUtils::MakeMaker;
 
 my %WriteMakefileArgs = (
-  "ABSTRACT" => "Shippo Perl API wrapper",
+  "ABSTRACT" => "A Shippo Perl API wrapper",
   "AUTHOR" => "Iain Campbell <cpanic\@cpan.org>",
   "CONFIGURE_REQUIRES" => {
     "ExtUtils::MakeMaker" => 0
@@ -18,7 +18,9 @@ my %WriteMakefileArgs = (
   "NAME" => "WebService::Shippo",
   "PREREQ_PM" => {
     "JSON::XS" => 0,
+    "LWP" => 0,
     "MRO::Compat" => 0,
+    "URI::Encode" => 0,
     "YAML::XS" => 0,
     "namespace::clean" => 0
   },
@@ -26,7 +28,7 @@ my %WriteMakefileArgs = (
     "Data::Dumper::Concise" => 0,
     "Test::Deep" => 0
   },
-  "VERSION" => "0.0.1",
+  "VERSION" => "0.0.2",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -36,8 +38,10 @@ my %WriteMakefileArgs = (
 my %FallbackPrereqs = (
   "Data::Dumper::Concise" => 0,
   "JSON::XS" => 0,
+  "LWP" => 0,
   "MRO::Compat" => 0,
   "Test::Deep" => 0,
+  "URI::Encode" => 0,
   "YAML::XS" => 0,
   "namespace::clean" => 0
 );

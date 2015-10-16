@@ -1,6 +1,8 @@
 Revision history for WebService-Shippo
  
 {{$NEXT}}
+
+0.0.2     2015-10-16 01:07:52+01:00 Europe/London
     - API appears functional. Cruddy developer tests will now be built-out
       into something more useful and robust. Naturally, documentation is
       going to be forthcoming, too.
