@@ -2,7 +2,6 @@ use strict;
 use warnings;
 
 package WebService::Shippo::Config;
-require WebService::Shippo::Resource;
 require WebService::Shippo::Request;
 use Cwd;
 use Carp          ( 'croak' );
