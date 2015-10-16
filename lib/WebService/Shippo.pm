@@ -46,20 +46,6 @@ our @EXPORT_OK = qw(
 );
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
 
-BEGIN {
-    no warnings 'once';
-    # There are some useful mutators defined elsewhere that I'd like to
-    # make available (alias) via the root namespace.
-    *config            = *WebService::Shippo::Config::config;
-    *api_private_token = *WebService::Shippo::Resource::api_private_token;
-    *api_public_token  = *WebService::Shippo::Resource::api_public_token;
-    *api_key           = *WebService::Shippo::Resource::api_key;
-    *headers           = *WebService::Shippo::Request::headers;
-    # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
-    # namespace is just cruel; allow the use of "Shippo", too.
-    *Shippo:: = *WebService::Shippo::;
-}
-
 sub shippo_address
 {
     return Shippo::Address->get( @_ );
@@ -225,6 +211,20 @@ sub shippo_transaction_list
 sub shippo_transaction_create
 {
     return Shippo::Transaction->create( @_ );
+}
+
+BEGIN {
+    no warnings 'once';
+    # There are some useful mutators defined elsewhere that I'd like to
+    # make available (alias) via the root namespace.
+    *config            = *WebService::Shippo::Config::config;
+    *api_private_token = *WebService::Shippo::Resource::api_private_token;
+    *api_public_token  = *WebService::Shippo::Resource::api_public_token;
+    *api_key           = *WebService::Shippo::Resource::api_key;
+    *headers           = *WebService::Shippo::Request::headers;
+    # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
+    # namespace is just cruel; allow the use of "Shippo", too.
+    *Shippo:: = *WebService::Shippo::;
 }
 
 sub import
