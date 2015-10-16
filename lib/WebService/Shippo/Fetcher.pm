@@ -12,4 +12,9 @@ sub get
     return $invocant->construct_from( $response );
 }
 
+BEGIN {
+    no warnings 'once';
+    *retrieve = *get;
+}
+
 1;

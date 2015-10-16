@@ -11,6 +11,12 @@ sub item_count
     return $self->{count};
 }
 
+sub page_size
+{
+    my ( $self ) = @_;
+    return scalar( @{ $self->{results} } );
+}
+
 sub next_page
 {
     my ( $self ) = @_;
