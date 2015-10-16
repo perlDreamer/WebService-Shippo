@@ -80,14 +80,15 @@ sub load_config_file
     return bless( {}, $class )
         unless $config_yaml;
     # Parse the YAML content; use an empty config if that yields nothing.
-    my $config = YAML::XS::Load( $config_yaml ) || {};
-    my $default_token = $config->{default_token} || 'private_token';
+    my $config        = YAML::XS::Load( $config_yaml ) || {};
+    my $default_token = $config->{default_token}       || 'private_token';
     my $api_key       = $config->{$default_token};
     Shippo::Resource->api_private_token( $config->{private_token} );
     Shippo::Resource->api_public_token( $config->{public_token} );
-    Shippo::Resource->api_key( $api_key );
-    Shippo::Request->headers->{Authorization} = "ShippoToken $api_key"
-        if $api_key;
+    if ( $api_key ) {
+        Shippo::Resource->api_key( $api_key );
+        Shippo::Request->headers->{Authorization} = "ShippoToken $api_key";
+    }
     return bless( $config, $class );
 }
 
