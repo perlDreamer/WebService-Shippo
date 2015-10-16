@@ -229,7 +229,6 @@ sub import
     # Configure Shippo client on import
     Shippo::Config->config;
     # The API key is overridden with the envornment's value if defined.
-print STDERR "+++ $ENV{SHIPPO_TOKEN}\n";
     Shippo::Resource->api_key( $ENV{SHIPPO_TOKEN} )
         if $ENV{SHIPPO_TOKEN};
     # Pass call frame to Exporter's import for it's processing

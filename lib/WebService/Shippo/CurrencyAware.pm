@@ -7,7 +7,7 @@ use Locale::Codes::Currency;
 use namespace::clean;
 
 {
-    my @codes = all_currency_codes;
+    my @codes = all_currency_codes();
     my %codes = map { $_ => code2currency( $_ ) || '' } @codes;
 
     sub validate_currency

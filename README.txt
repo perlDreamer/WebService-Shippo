@@ -2,7 +2,7 @@ NAME
     WebService::Shippo - A Shippo API Perl Wrapper (coming soon)
 
 VERSION
-    version 0.0.2
+    version 0.0.3
 
 SYNOPIS
         # TO FOLLOW
