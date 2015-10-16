@@ -5,7 +5,6 @@ use MRO::Compat 'c3';
 package WebService::Shippo::Rate;
 use base ( 'WebService::Shippo::Fetcher',
            'WebService::Shippo::Lister',
-           'WebService::Shippo::CurrencyAware',
            'WebService::Shippo::Resource',
 );
 
