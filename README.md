@@ -10,7 +10,7 @@ Don't have an account? Sign up at https://goshippo.com/
 
 ### Version
 
-0.0.3 Built 2015-10-16
+v0.0.3 (Built 2015-10-16)
 
 ### Requirements
 
