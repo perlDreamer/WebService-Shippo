@@ -132,7 +132,15 @@ sub AUTOLOAD
     *$sym = set_subname(
         $sym => sub {
             my ( $self, $new_value ) = @_;
-            return $self->{$method} unless @_ > 1;
+            unless ( @_ > 1 ) {
+                if ( wantarray && ref( $self->{$method} ) ) {
+                    return %{ $self->{$method} }
+                        if reftype( $self->{$method} ) eq 'HASH';
+                    return @{ $self->{$method} }
+                        if reftype( $self->{$method} ) eq 'ARRAY';
+                }
+                return $self->{$method};
+            }
             $self->{$method} = $new_value;
             return $self;
         }
