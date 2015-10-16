@@ -14,6 +14,18 @@ Perl 5.8.8 minimum.
 
 Build tests have been conducted successfully on all later versions of Perl.
 
+### Dependencies
+
+* `File::HomeDir`
+* `JSON::XS`
+* `LWP`
+* `MRO::Compat`
+* `Path::Class`
+* `URI::Encode`
+* `YAML::XS`
+
+The Shippo Perl client depends on the seven modules listed above.
+
 ### Installation
 
 The Shippo Perl API Client is distributed using CPAN and may be installed just like any other Perl module. If you have never installed a Perl module before then I recommend using `cpanminus` because it's super easy!
@@ -39,18 +51,6 @@ sudo -s cpanm WebService::Shippo
 
 cpanm WebService::Shippo
 ```
-### Dependencies
-
-* `File::HomeDir`
-* `JSON::XS`
-* `LWP`
-* `MRO::Compat`
-* `Path::Class`
-* `URI::Encode`
-* `YAML::XS`
-
-The Shippo Perl client depends on the seven modules listed above.
-
 ### Using the Shippo Perl API Client
 
 ```perl
@@ -105,8 +105,19 @@ Success with Address 1 : {
    "zip" : "60517"
 }
 ```
-
 ### Full API documentation
 
 * For API documentation, go to https://goshippo.com/docs/ 
 * For API support, contact support@goshippo.com with any questions.
+
+### COPYRIGHT
+
+The Shippo Perl API Client module.<br/>
+Copyright &copy; 2015 Iain Campbell. All rights reserved.
+
+You may distribute this software under the terms of either the GNU General Public License or the Artistic License, as specified in the Perl README file.
+
+### SUPPORT / WARRANTY
+
+The Shippo Perl API Client is free Open Source software; _it comes without warranty of any kind._
+
