@@ -3,11 +3,13 @@ use warnings;
 use MRO::Compat 'c3';
 
 package WebService::Shippo::Object;
-require WebService::Shippo::ListObject;
 use Carp         ( 'croak' );
 use JSON::XS     ();
 use Scalar::Util ( 'blessed', 'reftype' );
-use overload ( fallback => 1, '""' => 'to_string' );
+use Sub::Util    ( 'set_subname' );
+use overload     ( fallback => 1, '""' => 'to_string' );
+
+our $AUTOLOAD;
 
 sub class
 {
@@ -33,8 +35,8 @@ sub rebless
     my $class = $self->class;
     $new_class = ref( $new_class ) || $new_class;
     no strict 'refs';
-    push @{"$new_class\::ISA"}, __PACKAGE__
-        unless $new_class->isa( __PACKAGE__ );
+    push @{"$new_class\::ISA"}, $class
+        unless $new_class->isa( $class );
     bless $self, $new_class;
     return $self;
 }
@@ -55,12 +57,15 @@ sub rebless
             # a list of things. Ensure that WebService::Shippo::<Thing>List
             # is a WebService::Shippo::Object.
             if ( exists( $self->{count} ) && exists( $self->{results} ) ) {
+                my $class = $self->class;
                 for my $thing ( @{ $self->{results} } ) {
                     # Correctly bless the members of the list
-                    bless $thing, $self->class;
+                    bless $thing, $class;
                 }
-                my $class = $self->class;
+                # Make $self a WebService::Shippo::ListObject
                 bless $self, 'WebService::Shippo::ListObject';
+                # Now make $self a WebService::Shippo::<Type>List, making
+                # that class a subclass of WebService::Shippo::ListObject.
                 $self->rebless( $class . 'List' );
             }
             return $self;
@@ -108,12 +113,31 @@ sub refresh_from
         my ( $self ) = @_;
         return { %{$self} };
     }
-    
+
     sub to_string
     {
         my ( $self ) = @_;
         return $json->encode( $self );
     }
+}
+
+sub AUTOLOAD
+{
+    my ( $invocant, @args ) = @_;
+    my $class = ref( $invocant ) || $invocant;
+    ( my $method = $AUTOLOAD ) =~ s{^.*\::}{};
+    return if $method eq 'DESTROY';
+    no strict 'refs';
+    my $sym = "$class\::$method";
+    *$sym = set_subname(
+        $sym => sub {
+            my ( $self, $new_value ) = @_;
+            return $self->{$method} unless @_ > 1;
+            $self->{$method} = $new_value;
+            return $self;
+        }
+    );
+    goto &$sym;
 }
 
 1;
