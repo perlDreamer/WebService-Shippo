@@ -14,10 +14,10 @@ sub api_resource {'addresses'}
 
 sub validate
 {
-    my ( $self, $id, $params ) = @_;
-    my $response
-        = Shippo::Request->get( $self->url( "$id/validate" ), $params );
-    return $self->construct_from( $response );
+    my ( $invocant, $id, $params ) = @_;
+    my $url = $invocant->url( "$id/validate" );
+    my $response = Shippo::Request->get( $url, $params );
+    return $invocant->construct_from( $response );
 }
 
 BEGIN {

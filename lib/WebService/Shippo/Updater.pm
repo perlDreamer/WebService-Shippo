@@ -7,9 +7,9 @@ require WebService::Shippo::Request;
 
 sub update
 {
-    my ( $self, $id, $params ) = @_;
-    my $response = Shippo::Request->put( $self->url( $id ), $params );
-    return $self->construct_from( $response );
+    my ( $invocant, $id, $params ) = @_;
+    my $response = Shippo::Request->put( $invocant->url( $id ), $params );
+    return $invocant->construct_from( $response );
 }
 
 1;
