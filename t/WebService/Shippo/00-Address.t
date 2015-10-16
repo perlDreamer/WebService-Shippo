@@ -80,7 +80,7 @@ my $tests = [
               'page'    => 1
             }
         );
-        is( scalar( @{ $list->results } ), $page_size, __TEST__ );
+        is( $list->page_size, $page_size, __TEST__ );
     },
 ];
 
