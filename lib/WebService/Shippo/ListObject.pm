@@ -11,6 +11,50 @@ sub count
     return $self->{count};
 }
 
+sub next
+{
+    my ( $self ) = @_;
+    return unless defined( $self->{next} );
+    my $response = WebService::Shippo::Request->get( $self->{next} );
+    return $self->construct_from( $response );
+}
+
+sub plus_next_pages
+{
+    my ( $self ) = @_;
+    return $self unless defined( $self->{next} );
+    my $current = $self;
+    while ( defined( $current->{next} ) ) {
+        my $r = WebService::Shippo::Request->get( $current->{next} );
+        $current = $self->construct_from( $r );
+        push @{ $self->{results} }, @{ $current->{results} };
+    }
+    undef $self->{next};
+    return $self;
+}
+
+sub previous
+{
+    my ( $self ) = @_;
+    return unless defined( $self->{previous} );
+    my $response = WebService::Shippo::Request->get( $self->{previous} );
+    return $self->construct_from( $response );
+}
+
+sub plus_previous_pages
+{
+    my ( $self ) = @_;
+    return $self unless defined( $self->{previous} );
+    my $current = $self;
+    while ( defined( $current->{previous} ) ) {
+        my $r = WebService::Shippo::Request->get( $current->{previous} );
+        $current = $self->construct_from( $r );
+        unshift @{ $self->{results} }, @{ $current->{results} };
+    }
+    undef $self->{previous};
+    return $self;
+}
+
 sub items
 {
     my ( $self ) = @_;
