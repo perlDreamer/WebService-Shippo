@@ -5,13 +5,13 @@ use MRO::Compat 'c3';
 package WebService::Shippo::ListObject;
 use base ( 'WebService::Shippo::Object' );
 
-sub count
+sub item_count
 {
     my ( $self ) = @_;
     return $self->{count};
 }
 
-sub next
+sub next_page
 {
     my ( $self ) = @_;
     return unless defined( $self->{next} );
@@ -33,7 +33,7 @@ sub plus_next_pages
     return $self;
 }
 
-sub previous
+sub previous_page
 {
     my ( $self ) = @_;
     return unless defined( $self->{previous} );
