@@ -16,7 +16,7 @@ sub validate
 {
     my ( $invocant, $id, $params ) = @_;
     my $url = $invocant->url( "$id/validate" );
-    my $response = Shippo::Request->get( $url, $params );
+    my $response = WebService::Shippo::Request->get( $url, $params );
     return $invocant->construct_from( $response );
 }
 

@@ -22,9 +22,9 @@ my %WriteMakefileArgs = (
     "LWP" => 0,
     "MRO::Compat" => 0,
     "Path::Class" => 0,
+    "Sub::Util" => 0,
     "URI::Encode" => 0,
-    "YAML::XS" => 0,
-    "namespace::clean" => 0
+    "YAML::XS" => 0
   },
   "TEST_REQUIRES" => {
     "Data::Dumper::Concise" => 0,
@@ -32,7 +32,7 @@ my %WriteMakefileArgs = (
   },
   "VERSION" => "0.0.3",
   "test" => {
-    "TESTS" => "t/*.t"
+    "TESTS" => "t/*.t t/WebService/Shippo/*.t"
   }
 );
 
@@ -44,10 +44,10 @@ my %FallbackPrereqs = (
   "LWP" => 0,
   "MRO::Compat" => 0,
   "Path::Class" => 0,
+  "Sub::Util" => 0,
   "Test::Deep" => 0,
   "URI::Encode" => 0,
-  "YAML::XS" => 0,
-  "namespace::clean" => 0
+  "YAML::XS" => 0
 );
 
 
