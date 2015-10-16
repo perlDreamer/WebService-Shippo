@@ -32,6 +32,11 @@ my $tests = [
         my $address = get_default_address();
         is( $address->object_state, 'VALID', __TEST__ );
     },
+    testValidateAddress => sub {
+        my $address   = get_default_address();
+        my $validated = Shippo::Address->validate( $address->object_id );
+        is( $validated->object_state, 'VALID', __TEST__ );
+    },
     testInvalidCreate => sub {
         my $address = Shippo::Address->create(
             { 'street1'   => 'Greene Rd.',
