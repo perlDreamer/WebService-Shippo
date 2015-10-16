@@ -112,6 +112,10 @@ Success with Address 1 : {
 * For API documentation, go to https://goshippo.com/docs/ 
 * For API support, contact support@goshippo.com with any questions.
 
+### ACKNOWLEDGEMENTS
+
+Thanks to Ali Saheli and the wonderful folks at Shippo for assistance rendered.
+
 ### COPYRIGHT
 
 The Shippo Perl API Client module.<br/>
