@@ -42,8 +42,8 @@ use_ok( 'WebService::Shippo' );
 ##      metadata       => 'Customer ID 123456',
 ##    }
 ##)->to_json;
-diag( Dumper( Shippo::Address->all ) );
-diag( Dumper( Shippo::Address->validate('4237fe09eba4493db8b31ff495d75a20') ) );
+#diag( Dumper( Shippo::Address->all ) );
+#diag( Dumper( Shippo::Address->validate('4237fe09eba4493db8b31ff495d75a20') ) );
 #diag Shippo::CarrierAccount->all()->to_json;
 #diag Shippo::CarrierAccount->get( '25e8c3acf42b46c5833a53d4378db320' )
 #    ->to_json;
@@ -51,6 +51,6 @@ diag( Dumper( Shippo::Address->validate('4237fe09eba4493db8b31ff495d75a20') ) );
 #    '25e8c3acf42b46c5833a53d4378db320',
 #    { test => 1 }
 #)->to_json;
-diag( Shippo::Request->user_agent->agent );
-diag( Dumper( scalar Shippo::Request->headers ) );
+#diag( Shippo::Request->user_agent->agent );
+#diag( Dumper( scalar Shippo::Request->headers ) );
 done_testing;
