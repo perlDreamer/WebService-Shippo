@@ -3,7 +3,7 @@ use warnings;
 
 package WebService::Shippo;
 # ABSTRACT: A Shippo Perl API wrapper
-our $VERSION = '0.0.2';
+our $VERSION = '0.0.3';
 require WebService::Shippo::Config;
 require WebService::Shippo::Request;
 require WebService::Shippo::Entities;
