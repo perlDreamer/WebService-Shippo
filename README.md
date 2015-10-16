@@ -23,10 +23,11 @@ _**The Shippo Perl API Client is functional but is in a pre-release stage of its
 * `LWP`
 * `MRO::Compat`
 * `Path::Class`
+* `Sub::Util`
 * `URI::Encode`
 * `YAML::XS`
 
-The Shippo Perl client depends on the seven modules listed above.
+The Shippo Perl client depends on the eight non-core modules listed above.
 
 ### Installation
 
