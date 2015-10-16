@@ -57,6 +57,8 @@ The Shippo Perl client depends on the seven modules listed above.
 use strict;
 use WebService::Shippo;
 
+# Following statement not necessary if SHIPPO_TOKEN is set in
+# your process environment.
 Shippo->api_key(PRIVATE-AUTH-TOKEN);
 
 my $address1 = Shippo::Address->create({
