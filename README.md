@@ -57,7 +57,7 @@ cpanm WebService::Shippo
 
 Testing is standard operating procedure when installing Perl modules as test suites must normally complete successfully before a distribution is installed.
 
-Just be aware that if you attempt to install this distribution, without first taking steps to configure authentication for the Shippo API, then the testing phase of installation will be skipped and will only fail if there are more fundamental problems with your Perl environment. In all likelihood, the distribution will install without running its tests.
+Just be aware that if you attempt to install this distribution without first taking steps to configure authentication for the Shippo API, then the testing phase of installation will be skipped and will only fail if there are more fundamental problems with your Perl environment. In all likelihood, the distribution will install without running its tests.
 
 You probably ought to run the tests.
 
