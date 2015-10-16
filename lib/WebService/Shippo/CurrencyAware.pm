@@ -3,10 +3,10 @@ use warnings;
 use MRO::Compat 'c3';
 
 package WebService::Shippo::CurrencyAware;
-use Locale::Codes::Currency;
+use Locale::Currency;
 
 {
-    my @codes = Locale::Codes::Currency::all_currency_codes();
+    my @codes = all_currency_codes();
     my %codes = map { $_ => code2currency( $_ ) || '' } @codes;
 
     sub validate_currency
