@@ -1,16 +1,12 @@
 [![Language](https://img.shields.io/badge/perl-v5.8%20to%205.22-blue.svg)](https://img.shields.io/badge/perl-v5.8%20to%205.22-blue.svg) [![Build Status](https://travis-ci.org/cpanic/WebService-Shippo.svg?branch=master)](https://travis-ci.org/cpanic/WebService-Shippo) [![Coverage Status](https://coveralls.io/repos/cpanic/WebService-Shippo/badge.svg?branch=master&service=github)](https://coveralls.io/github/cpanic/WebService-Shippo?branch=master)
 
-## Shippo Perl API Client
+## Shippo Perl API Client, v0.0.3
 
 Shippo is a shipping API that connects you with multiple shipping 
 providers (such as USPS, UPS, and Fedex) through one interface, and offers 
 you great discounts on shipping rates.
 
 Don't have an account? Sign up at https://goshippo.com/
-
-### Version
-
-v0.0.3 (Built 2015-10-16)
 
 ### Requirements
 
@@ -27,11 +23,10 @@ _**The Shippo Perl API Client is functional but is in a pre-release stage of its
 * `LWP`
 * `MRO::Compat`
 * `Path::Class`
-* `Sub::Util`
 * `URI::Encode`
 * `YAML::XS`
 
-The Shippo Perl client depends on the eight non-core modules listed above.
+The Shippo Perl client depends on the seven modules listed above.
 
 ### Installation
 
@@ -58,6 +53,23 @@ sudo -s cpanm WebService::Shippo
 
 cpanm WebService::Shippo
 ```
+### Testing
+
+Testing is standard operating procedure when installing Perl modules as test suites must normally complete successfully before a distribution is installed.
+
+Just be aware that if you attempt to install this distribution, without first taking steps to configure authentication for the Shippo API, then the testing phase of installation will be skipped and will only fail if there are more fundamental problems with your Perl environment. In all likelihood, the distribution will install without running its tests.
+
+You probably ought to run the tests.
+
+Before installing the distribution, you should be in possession of a set of Shippo Auth Tokens. You can get these by registering (https://goshippo.com/register). Once you have a pair of tokens,
+simply define the SHIPPO_TOKEN environment variable using the _Private Auth Token_ as the value. For example:
+
+```shell
+export SHIPPO_TOKEN="1a2b3c4d5e6ff7e8d9c0b1a21a2b3c4d5e6ff7e8"
+```
+
+Now install the module and the tests should run.
+
 ### Using the Shippo Perl API Client
 
 ```perl

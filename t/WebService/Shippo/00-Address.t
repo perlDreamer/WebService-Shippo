@@ -95,6 +95,10 @@ my $tests = [
     },
 ];
 
-Testing->run( $tests );
+SKIP: {
+    skip '(no Shippo API key defined)', 1 
+        unless Shippo->api_key;
+    Testing->run( $tests );
+}
 
 done_testing();
