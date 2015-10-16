@@ -2,6 +2,9 @@ use strict;
 use warnings;
 
 package Testing;
+use Data::Dumper::Concise;
+use Test::More;
+use Test::Deep;
 use base ( 'Exporter' );
 
 our @EXPORT    = ( '__TEST__' );

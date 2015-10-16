@@ -4,8 +4,6 @@ use FindBin;
 use lib "$FindBin::Bin/../../lib";
 use Testing;
 use Test::More;
-use Test::Deep;
-use Data::Dumper::Concise;
 
 use_ok( 'WebService::Shippo' );
 
