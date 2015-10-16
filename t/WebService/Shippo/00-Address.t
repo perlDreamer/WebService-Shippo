@@ -30,12 +30,14 @@ sub get_default_address
 my $tests = [
     testValidCreate => sub {
         my $address = get_default_address();
-        is( $address->object_state, 'VALID', __TEST__ );
+        is( $address->object_source, 'FULLY_ENTERED', __TEST__ );
+        is( $address->object_state,  'VALID',         __TEST__ );
     },
     testValidateAddress => sub {
         my $address   = get_default_address();
         my $validated = Shippo::Address->validate( $address->object_id );
-        is( $validated->object_state, 'VALID', __TEST__ );
+        is( $validated->object_source, 'VALIDATOR', __TEST__ );
+        is( $validated->object_state,  'VALID',     __TEST__ );
     },
     testInvalidCreate => sub {
         my $address = Shippo::Address->create(
@@ -85,7 +87,11 @@ my $tests = [
               'page'    => 1
             }
         );
-        is( $list->page_size, $page_size, __TEST__ );
+        my $next  = $list->next_page;
+        my $first = $next->previous_page;
+        is( $list->page_size,  $page_size, __TEST__ );
+        is( $next->page_size,  $page_size, __TEST__ );
+        is( $first->page_size, $page_size, __TEST__ );
     },
 ];
 
