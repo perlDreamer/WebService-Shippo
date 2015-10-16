@@ -4,7 +4,6 @@ use MRO::Compat 'c3';
 
 package WebService::Shippo::CurrencyAware;
 use Locale::Codes::Currency;
-use namespace::clean;
 
 {
     my @codes = all_currency_codes();
