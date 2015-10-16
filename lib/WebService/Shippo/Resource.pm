@@ -127,4 +127,11 @@ sub url
     return $url;
 }
 
+BEGIN {
+    no warnings 'once';
+    # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
+    # namespace is just cruel; allow the use of "Shippo", too.
+    *Shippo::Resource:: = *WebService::Shippo::Resource::;
+}
+
 1;
