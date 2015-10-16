@@ -3,6 +3,7 @@ use warnings;
 use MRO::Compat 'c3';
 
 package WebService::Shippo::Resource;
+require WebService::Shippo::Request;
 use Carp        ( 'croak' );
 use URI::Encode ( 'uri_encode' );
 use namespace::clean;
@@ -44,6 +45,7 @@ use constant DEFAULT_API_BASE_PATH => 'v1';
         my ( $class, $new_value ) = @_;
         return $value unless @_ > 1;
         $value = $new_value;
+        Shippo::Request->headers->{Authorization} = "ShippoToken $value";
         return $class;
     }
 }
@@ -121,7 +123,7 @@ sub url
         if $path;
     $url .= '/' . $resource
         if $resource;
-    $url .= '/' . uri_encode($id)
+    $url .= '/' . uri_encode( $id )
         if @_ > 1 && $id;
     $url .= '/';
     return $url;

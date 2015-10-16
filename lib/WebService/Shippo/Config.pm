@@ -85,10 +85,8 @@ sub load_config_file
     my $api_key       = $config->{$default_token};
     Shippo::Resource->api_private_token( $config->{private_token} );
     Shippo::Resource->api_public_token( $config->{public_token} );
-    if ( $api_key ) {
-        Shippo::Resource->api_key( $api_key );
-        Shippo::Request->headers->{Authorization} = "ShippoToken $api_key";
-    }
+    Shippo::Resource->api_key( $api_key )
+        if $api_key;
     return bless( $config, $class );
 }
 
