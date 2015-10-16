@@ -3,6 +3,7 @@ use warnings;
 use MRO::Compat 'c3';
 
 package WebService::Shippo::Object;
+require WebService::Shippo::ContainerObject;
 use Carp         ( 'croak' );
 use JSON::XS     ();
 use Scalar::Util ( 'blessed', 'reftype' );
@@ -58,7 +59,9 @@ sub rebless
                     # Correctly bless the members of the list
                     bless $thing, $self->class;
                 }
-                $self->rebless( $self->class . 'List' );
+                my $class = $self->class;
+                bless $self, 'WebService::Shippo::ContainerObject';
+                $self->rebless( $class . 'List' );
             }
             return $self;
         }
