@@ -53,4 +53,9 @@ use_ok( 'WebService::Shippo' );
 #)->to_json;
 #diag( Shippo::Request->user_agent->agent );
 #diag( Dumper( scalar Shippo::Request->headers ) );
+
+diag( Dumper( [@WebService::Shippo::Config::SEARCH_PATH] ) );
+diag( Dumper( WebService::Shippo::Config->config_file ) );
+diag( Dumper( WebService::Shippo::Config->config ) );
+diag( Dumper( WebService::Shippo->api_key ) );
 done_testing;
