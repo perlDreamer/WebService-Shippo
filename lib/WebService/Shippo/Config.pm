@@ -42,30 +42,22 @@ sub parse_config_file
     my ( $class ) = @_;
     $class = ref( $class ) || $class;
     my $config_file = $class->config_file;
-    unless ( -e $config_file ) {
-        print STDERR << "EOF";
-Oops!
-
-Your configuration file not found. Without it, your API requests may not be
-authorized if you haven't used "Shippo->api_key(...)" to set your Shippo
-API key.
-
-    $config_file
-
-You should create the file mentioned above. It's a YAML file that should look
-something like this.
-
----
-private_token: <YOUR PRIVATE API AUTHENTICATION TOKEN>
-public_token: <YOUR PUBLISHABLE API AUTHENTICATION TOKEN>
-EOF
-        return {};
-    }
+    # Return empty config if no Config.yml exists
+    return bless( {}, $class )
+        unless -e $config_file;
+    # Fetch the config content. By default, this should be defined in a
+    # file called Config.yml, located in the same folder as the Config.pm
+    # module.
     open my $fh, '<:encoding(UTF-8)', $config_file
         or croak "Can't open file '$config_file': $!";
     my $config_yaml = do { local $/ = <$fh> };
     close $fh;
-    return bless( YAML::XS::Load( $config_yaml ), $class );
+    # Return empty config if no YAML content was found
+    return bless( {}, $class )
+        unless $config_yaml;
+    # Parse the YAML content; use an empty config if that yields nothing.
+    my $self = YAML::XS::Load( $config_yaml ) || {};
+    return bless( $self, $class );
 }
 
 BEGIN {
