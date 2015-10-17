@@ -46,172 +46,41 @@ our @EXPORT_OK = qw(
 );
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
 
-sub shippo_address
-{
-    return Shippo::Address->get( @_ );
-}
-
-sub shippo_address_list
-{
-    return Shippo::Address->all( @_ );
-}
-
-sub shippo_address_validate
-{
-    return Shippo::Address->validate( @_ );
-}
-
-sub shippo_address_create
-{
-    return Shippo::Address->create( @_ );
-}
-
-sub shippo_carrier_account
-{
-    return Shippo::CarrierAccount->get( @_ );
-}
-
-sub shippo_carrier_account_list
-{
-    return Shippo::CarrierAccount->all( @_ );
-}
-
-sub shippo_carrier_account_create
-{
-    return Shippo::CarrierAccount->create( @_ );
-}
-
-sub shippo_carrier_account_update
-{
-    return Shippo::CarrierAccount->update( @_ );
-}
-
-sub shippo_customs_declaration
-{
-    return Shippo::CustomsDeclaration->get( @_ );
-}
-
-sub shippo_customs_declaration_list
-{
-    return Shippo::CustomsDeclaration->all( @_ );
-}
-
-sub shippo_customs_declaration_create
-{
-    return Shippo::CustomsDeclaration->create( @_ );
-}
-
-sub shippo_customs_item
-{
-    return Shippo::CustomsItem->get( @_ );
-}
-
-sub shippo_customs_item_list
-{
-    return Shippo::CustomsItem->all( @_ );
-}
-
-sub shippo_customs_item_create
-{
-    return Shippo::CustomsItem->create( @_ );
-}
-
-sub shippo_manifest
-{
-    return Shippo::Manifest->get( @_ );
-}
-
-sub shippo_manifest_list
-{
-    return Shippo::Manifest->all( @_ );
-}
-
-sub shippo_manifest_create
-{
-    return Shippo::Manifest->create( @_ );
-}
-
-sub shippo_parcel
-{
-    return Shippo::Parcel->get( @_ );
-}
-
-sub shippo_parcel_list
-{
-    return Shippo::Parcel->all( @_ );
-}
-
-sub shippo_parcel_create
-{
-    return Shippo::Parcel->create( @_ );
-}
-
-sub shippo_rate
-{
-    return Shippo::Rate->get( @_ );
-}
-
-sub shippo_rate_list
-{
-    return Shippo::Rate->all( @_ );
-}
-
-sub shippo_refund
-{
-    return Shippo::Refund->get( @_ );
-}
-
-sub shippo_refund_list
-{
-    return Shippo::Refund->all( @_ );
-}
-
-sub shippo_refund_create
-{
-    return Shippo::Refund->create( @_ );
-}
-
-sub shippo_shipment
-{
-    return Shippo::Shipment->get( @_ );
-}
-
-sub shippo_shipment_list
-{
-    return Shippo::Shipment->all( @_ );
-}
-
-sub shippo_shipment_create
-{
-    return Shippo::Shipment->create( @_ );
-}
-
-sub shippo_shipment_rates
-{
-    # Still need to implement this
-    return Shippo::Shipment->rates( @_ );
-}
-
-sub shippo_return_shipment_create
-{
-    # Still need to implement this
-    return Shippo::ReturnShipment->create( @_ );
-}
-
-sub shippo_transaction
-{
-    return Shippo::Transaction->get( @_ );
-}
-
-sub shippo_transaction_list
-{
-    return Shippo::Transaction->all( @_ );
-}
-
-sub shippo_transaction_create
-{
-    return Shippo::Transaction->create( @_ );
-}
+#<<< Don't Perl Tidy this
+sub shippo_address                    { Shippo::Address->get( @_ ) }
+sub shippo_address_list               { Shippo::Address->all( @_ ) }
+sub shippo_address_validate           { Shippo::Address->validate( @_ ) }
+sub shippo_address_create             { Shippo::Address->create( @_ ) }
+sub shippo_carrier_account            { Shippo::CarrierAccount->get( @_ ) }
+sub shippo_carrier_account_list       { Shippo::CarrierAccount->all( @_ ) }
+sub shippo_carrier_account_create     { Shippo::CarrierAccount->create( @_ ) }
+sub shippo_carrier_account_update     { Shippo::CarrierAccount->update( @_ ) }
+sub shippo_customs_declaration        { Shippo::CustomsDeclaration->get( @_ ) }
+sub shippo_customs_declaration_list   { Shippo::CustomsDeclaration->all( @_ ) }
+sub shippo_customs_declaration_create { Shippo::CustomsDeclaration->create( @_ ) }
+sub shippo_customs_item               { Shippo::CustomsItem->get( @_ ) }
+sub shippo_customs_item_list          { Shippo::CustomsItem->all( @_ ) }
+sub shippo_customs_item_create        { Shippo::CustomsItem->create( @_ ) }
+sub shippo_manifest                   { Shippo::Manifest->get( @_ ) }
+sub shippo_manifest_list              { Shippo::Manifest->all( @_ ) }
+sub shippo_manifest_create            { Shippo::Manifest->create( @_ ) }
+sub shippo_parcel                     { Shippo::Parcel->get( @_ ) }
+sub shippo_parcel_list                { Shippo::Parcel->all( @_ ) }
+sub shippo_parcel_create              { Shippo::Parcel->create( @_ ) }
+sub shippo_rate                       { Shippo::Rate->get( @_ ) }
+sub shippo_rate_list                  { Shippo::Rate->all( @_ ) }
+sub shippo_refund                     { Shippo::Refund->get( @_ ) }
+sub shippo_refund_list                { Shippo::Refund->all( @_ ) }
+sub shippo_refund_create              { Shippo::Refund->create( @_ ) }
+sub shippo_shipment                   { Shippo::Shipment->get( @_ ) }
+sub shippo_shipment_list              { Shippo::Shipment->all( @_ ) }
+sub shippo_shipment_create            { Shippo::Shipment->create( @_ ) }
+sub shippo_shipment_rates             { Shippo::Shipment->rates( @_ ) }
+sub shippo_return_shipment_create     { Shippo::ReturnShipment->create( @_ ) }
+sub shippo_transaction                { Shippo::Transaction->get( @_ ) }
+sub shippo_transaction_list           { Shippo::Transaction->all( @_ ) }
+sub shippo_transaction_create         { Shippo::Transaction->create( @_ ) }
+#>>>
 
 BEGIN {
     no warnings 'once';
