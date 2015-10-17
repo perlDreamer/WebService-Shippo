@@ -55,6 +55,8 @@ sub query_string
 sub get
 {
     my ( $invocant, $url, $params ) = @_;
+    $params = {}
+        unless defined $params;
     $url .= $invocant->query_string( $params );
     my $response = user_agent->get( $url, headers );
     return $response;
@@ -66,6 +68,8 @@ sub get
     sub put
     {
         my ( $invocant, $url, $params ) = @_;
+        $params = {}
+            unless defined $params;
         my $payload = $json->encode( {%$params} );
         my $response = user_agent->put( $url, headers, Content => $payload );
         return $response;
@@ -78,6 +82,8 @@ sub get
     sub post
     {
         my ( $invocant, $url, $params ) = @_;
+        $params = {}
+            unless defined $params;
         my $payload = $json->encode( {%$params} );
         my $response = user_agent->post( $url, headers, Content => $payload );
         return $response;
