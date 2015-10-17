@@ -12,7 +12,9 @@ Don't have an account? Sign up at https://goshippo.com/
 
 v0.0.4 (built 2015-10-16)
 
-_**The Shippo Perl API Client is functional but is in a pre-release stage of its development. There are still tests and documentation to be written, and those tasks are currently under way.**_
+_**The Shippo Perl API Client is functional but is in a pre-release stage
+of its development. There are still tests and documentation to be written,
+and those tasks are currently under way.**_
 
 ### Requirements
 
@@ -52,8 +54,8 @@ You should probably run those tests.
 Before installing the distribution, you should be in possession of a set
 of Shippo API Authentication Tokens. You can get these by registering for
 an account (https://goshippo.com/register). Once you have your tokens,
-simply define the `SHIPPO_TOKEN` environment variable using the _Private
-Auth Token_ as the value. 
+simply define the `SHIPPO_TOKEN` environment variable using the **Private
+Auth Token** as the value. 
 
 For example:
 ```shell
@@ -80,7 +82,8 @@ sudo -s 'curl -L cpanmin.us | perl - WebService::Shippo'
 curl -L cpanmin.us | perl - WebService::Shippo
 ```
 
-If you **have** used `cpanminus` before then one of the following commands will do the job:
+If you **have** used `cpanminus` before then one of the following commands
+will do the job:
 
 ```shell
 sudo -s cpanm WebService::Shippo
