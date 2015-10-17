@@ -27,10 +27,12 @@ Build tests have been conducted successfully on all later versions of Perl.
 * `LWP`
 * `MRO::Compat`
 * `Path::Class`
+* `Sub::Util`
 * `URI::Encode`
 * `YAML::XS`
 
-The Shippo Perl client depends on the seven modules listed above.
+The Shippo API Perl Client depends on the eight non-core modules listed 
+above.
 
 ### Testing
 
