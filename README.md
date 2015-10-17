@@ -44,7 +44,7 @@ Be aware that, if you attempt to install this distribution without
 first taking steps to configure Shippo API authentication, the testing
 phase of installation will be _skipped_ rather than fail. It may still fail
 if there are more fundamental problems with your Perl environment, but in
-all likelihood, the distribution will install without running all of its
+all likelihood the installation will complete without running all of its
 tests.
 
 You probably ought to run those tests.
