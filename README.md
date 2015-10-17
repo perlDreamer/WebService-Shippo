@@ -1,6 +1,6 @@
 [![Language](https://img.shields.io/badge/perl-v5.8%20to%205.22-blue.svg)](https://img.shields.io/badge/perl-v5.8%20to%205.22-blue.svg) [![Build Status](https://travis-ci.org/cpanic/WebService-Shippo.svg?branch=master)](https://travis-ci.org/cpanic/WebService-Shippo) [![Coverage Status](https://coveralls.io/repos/cpanic/WebService-Shippo/badge.svg?branch=master&service=github)](https://coveralls.io/github/cpanic/WebService-Shippo?branch=master)
 
-## Shippo Perl API Client
+## Shippo API Perl Client
 
 Shippo is a shipping API that connects you with multiple shipping 
 providers (such as USPS, UPS, and Fedex) through one interface, and offers 
@@ -66,7 +66,7 @@ Now, if you install the module, the tests should run.
 
 ### Installation
 
-The Shippo Perl API Client is distributed using CPAN and may be installed
+The Shippo API Perl Client is distributed using CPAN and may be installed
 just like any other Perl module. If you have never installed a Perl module
 before then I recommend using `cpanminus` because it's super easy!
 
@@ -100,7 +100,7 @@ Clone this repository only if you need to make changes. The distribution is
 managed using `Dist::Zilla`, which will have dependency requirements of
 its own.
 
-### Using the Shippo Perl API Client
+### Using the Shippo API Perl Client
 
 ```perl
 use strict;
@@ -166,7 +166,7 @@ rendered.
 
 ### COPYRIGHT
 
-The Shippo Perl API Client module.<br/>
+The Shippo API Perl Client module.<br/>
 Copyright &copy; 2015 Iain Campbell. All rights reserved.
 
 You may distribute this software under the terms of either the GNU General
@@ -175,6 +175,6 @@ file.
 
 ### SUPPORT / WARRANTY
 
-The Shippo Perl API Client is free Open Source software; _it comes without
+The Shippo API Perl Client is free Open Source software; _it comes without
 warranty of any kind._
 
