@@ -11,11 +11,16 @@ use base ( 'WebService::Shippo::Creator',
 
 sub api_resource {'parcels'}
 
+package    # Hide from PAUSE
+    WebService::Shippo::RateList;
+use base ( 'WebService::Shippo::ObjectList' );
+
 BEGIN {
     no warnings 'once';
     # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
     # namespace is just cruel; allow the use of "Shippo", too.
-    *Shippo::Parcel:: = *WebService::Shippo::Parcel::;
+    *Shippo::Parcel::     = *WebService::Shippo::Parcel::;
+    *Shippo::ParcelList:: = *WebService::Shippo::ParcelList::;
 }
 
 1;

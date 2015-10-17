@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use MRO::Compat 'c3';
 
-package WebService::Shippo::ListObject;
+package WebService::Shippo::ObjectList;
 use base ( 'WebService::Shippo::Object' );
 
 sub item_count
@@ -81,6 +81,19 @@ sub item_at_index
 {
     my ( $self, $index ) = @_;
     return $self->{results}[$index];
+}
+
+sub item_class
+{
+    my ( $invocant ) = @_;
+    ( my $class_name = ( ref( $invocant ) || $invocant ) ) =~ s/List$//;
+    return $class_name;
+}
+
+sub list_class
+{
+   my ( $invocant ) = @_;
+   return ref( $invocant ) || $invocant;
 }
 
 1;

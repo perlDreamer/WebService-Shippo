@@ -19,4 +19,10 @@ sub all_pages
     return $invocant->construct_from( $response )->plus_next_pages;
 }
 
+sub list_class
+{
+    my ( $invocant ) = @_;
+    return ( ref( $invocant ) || $invocant ) . 'List';
+}
+
 1;

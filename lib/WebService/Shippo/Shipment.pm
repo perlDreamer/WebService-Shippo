@@ -30,11 +30,16 @@ sub rates
     return $invocant->construct_from( $response );
 }
 
+package    # Hide from PAUSE
+    WebService::Shippo::ShipmentList;
+use base ( 'WebService::Shippo::ObjectList' );
+
 BEGIN {
     no warnings 'once';
     # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
     # namespace is just cruel; allow the use of "Shippo", too.
-    *Shippo::Shipment:: = *WebService::Shippo::Shipment::;
+    *Shippo::Shipment::     = *WebService::Shippo::Shipment::;
+    *Shippo::ShipmentList:: = *WebService::Shippo::ShipmentList::;
 }
 
 1;

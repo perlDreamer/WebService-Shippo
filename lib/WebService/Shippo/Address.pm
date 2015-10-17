@@ -20,11 +20,16 @@ sub validate
     return $invocant->construct_from( $response );
 }
 
+package    # Hide from PAUSE
+    WebService::Shippo::AddressList;
+use base ( 'WebService::Shippo::ObjectList' );
+
 BEGIN {
     no warnings 'once';
     # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
     # namespace is just cruel; allow the use of "Shippo", too.
-    *Shippo::Address:: = *WebService::Shippo::Address::;
+    *Shippo::Address::     = *WebService::Shippo::Address::;
+    *Shippo::AddressList:: = *WebService::Shippo::AddressList::;
 }
 
 1;

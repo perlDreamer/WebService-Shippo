@@ -4,7 +4,6 @@ use warnings;
 package WebService::Shippo::Entities;
 require WebService::Shippo::Object;
 require WebService::Shippo::Resource;
-require WebService::Shippo::ListObject;
 require WebService::Shippo::Address;
 require WebService::Shippo::CarrierAccount;
 require WebService::Shippo::CustomsDeclaration;
