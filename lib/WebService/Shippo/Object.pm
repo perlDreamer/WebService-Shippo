@@ -11,6 +11,7 @@ use Sub::Util    ( 'set_subname' );
 use overload     ( fallback => 1, '""' => 'to_string' );
 
 our $AUTOLOAD;
+our $PRETTY;
 
 sub class
 {
@@ -75,39 +76,45 @@ sub refresh_from
 }
 
 {
-    my $json = JSON::XS->new->utf8->pretty->canonical->convert_blessed;
-
-    # Serializes the object to a JSON string
-    sub to_json
-    {
-        my ( $self ) = @_;
-        return $json->encode( $self );
-    }
+    my $json = JSON::XS->new->utf8->canonical->convert_blessed;
 
     # Required by JSON::XS because we use the convert_blessed encoding
     # modifier to allow blessed references (aka Perl object instances)
     # to be serialized. Returns a scalar value that can be serialized
     # as JSON (essentially an unblessed shallow copy of the original
     # object).
-    sub TO_JSON
+    sub TO_JSON { return { %{ $_[0] } } }
+
+    # Serializes the object to a JSON string
+    sub to_json
     {
         my ( $self ) = @_;
-        return { %{$self} };
+        $json->pretty
+            if $PRETTY;
+        return $json->encode( $self );
     }
 
+    # Also, serializes the object to a JSON string. This method will be
+    # called whenever the object is treated as a string, courtesy of the
+    # overload at the top of this module.
     sub to_string
     {
         my ( $self ) = @_;
+        $json->pretty
+            if $PRETTY;
         return $json->encode( $self );
     }
 }
 
+# Just in time creation of mutators for orphaned method calls, to facilitate
+# access to object attributes of the same name.
 sub AUTOLOAD
 {
     my ( $invocant, @args ) = @_;
     my $class = ref( $invocant ) || $invocant;
     ( my $method = $AUTOLOAD ) =~ s{^.*\::}{};
-    return if $method eq 'DESTROY';
+    return
+        if $method eq 'DESTROY';
     no strict 'refs';
     my $sym = "$class\::$method";
     *$sym = set_subname(

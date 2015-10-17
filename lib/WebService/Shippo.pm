@@ -218,6 +218,7 @@ BEGIN {
     # There are some useful mutators defined elsewhere that I'd like to
     # make available (alias) via the root namespace.
     *api_key = *WebService::Shippo::Resource::api_key;
+    *PRETTY  = *WebService::Shippo::Object::PRETTY;
     # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
     # namespace is just cruel; allow the use of "Shippo", too.
     *Shippo:: = *WebService::Shippo::;
