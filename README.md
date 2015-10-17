@@ -66,7 +66,7 @@ Just be aware that if you attempt to install this distribution without first tak
 You probably ought to run the tests.
 
 Before installing the distribution, you should be in possession of a set of Shippo Auth Tokens. You can get these by registering (https://goshippo.com/register). Once you have a pair of tokens,
-simply define the SHIPPO_TOKEN environment variable using the _Private Auth Token_ as the value. For example:
+simply define the `SHIPPO_TOKEN` environment variable using the _Private Auth Token_ as the value. For example:
 
 ```shell
 export SHIPPO_TOKEN="1a2b3c4d5e6ff7e8d9c0b1a21a2b3c4d5e6ff7e8"
