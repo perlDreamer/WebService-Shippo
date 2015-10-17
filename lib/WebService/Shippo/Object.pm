@@ -3,6 +3,7 @@ use warnings;
 use MRO::Compat 'c3';
 
 package WebService::Shippo::Object;
+require WebService::Shippo::ObjectList;
 use Carp         ( 'croak' );
 use JSON::XS     ();
 use Scalar::Util ( 'blessed', 'reftype' );
@@ -28,19 +29,6 @@ sub new
     return $self;
 }
 
-sub rebless
-{
-    my ( $self, $new_class ) = @_;
-    return $self unless ref( $self );
-    my $class = $self->class;
-    $new_class = ref( $new_class ) || $new_class;
-    no strict 'refs';
-    push @{"$new_class\::ISA"}, $class
-        unless $new_class->isa( $class );
-    bless $self, $new_class;
-    return $self;
-}
-
 {
     my $json = JSON::XS->new->utf8;
 
@@ -53,20 +41,13 @@ sub rebless
         if ( $ref_type eq 'HASH' ) {
             my $self = $invocant->new( $response->{object_id} );
             $self->refresh_from( $response );
-            # Rebless as WebService::Shippo::<Thing>List if the response is
-            # a list of things. Ensure that WebService::Shippo::<Thing>List
-            # is a WebService::Shippo::Object.
             if ( exists( $self->{count} ) && exists( $self->{results} ) ) {
-                my $class = $self->class;
+                my $item_class = $self->class;
+                my $list_class = $self->list_class;
                 for my $thing ( @{ $self->{results} } ) {
-                    # Correctly bless the members of the list
-                    bless $thing, $class;
+                    bless $thing, $item_class;
                 }
-                # Make $self a WebService::Shippo::ListObject
-                bless $self, 'WebService::Shippo::ListObject';
-                # Now make $self a WebService::Shippo::<Type>List, making
-                # that class a subclass of WebService::Shippo::ListObject.
-                $self->rebless( $class . 'List' );
+                bless $self, $list_class;
             }
             return $self;
         }
