@@ -166,7 +166,7 @@ rendered.
 
 ### COPYRIGHT
 
-The Shippo API Perl Client module.<br/>
+The Shippo API Perl Client.<br/>
 Copyright &copy; 2015 Iain Campbell. All rights reserved.
 
 You may distribute this software under the terms of either the GNU General
