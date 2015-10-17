@@ -12,13 +12,25 @@ Don't have an account? Sign up at https://goshippo.com/
 
 v0.0.4 (built 2015-10-16)
 
+_**The Shippo Perl API Client is functional but is in a pre-release stage of its development. There are still tests and documentation to be written, and those tasks are currently under way.**_
+
 ### Requirements
 
 Perl 5.8.8 minimum. 
 
 Build tests have been conducted successfully on all later versions of Perl.
 
-_**The Shippo Perl API Client is functional but is in a pre-release stage of its development. There are still tests and documentation to be written, and those tasks are currently under way.**_
+#### Dependencies
+
+* `File::HomeDir`
+* `JSON::XS`
+* `LWP`
+* `MRO::Compat`
+* `Path::Class`
+* `URI::Encode`
+* `YAML::XS`
+
+The Shippo Perl client depends on the seven modules listed above.
 
 ### Testing
 
@@ -37,18 +49,6 @@ export SHIPPO_TOKEN="1a2b3c4d5e6ff7e8d9c0b1a21a2b3c4d5e6ff7e8"
 ```
 
 Now, if you install the module, the tests should run.
-
-### Dependencies
-
-* `File::HomeDir`
-* `JSON::XS`
-* `LWP`
-* `MRO::Compat`
-* `Path::Class`
-* `URI::Encode`
-* `YAML::XS`
-
-The Shippo Perl client depends on the seven modules listed above.
 
 ### Installation
 
