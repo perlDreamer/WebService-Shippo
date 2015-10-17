@@ -11,7 +11,11 @@ our @EXPORT    = ( '__TEST__' );
 our @EXPORT_OK = ();
 our $__TEST__;
 
-sub __TEST__ { $__TEST__ . ' ' . join( '', @_ ) }
+sub __TEST__ 
+{ 
+    return $__TEST__ unless @_;
+    return $__TEST__ . ': ' . join( '', @_ );
+}
 
 sub run
 {
