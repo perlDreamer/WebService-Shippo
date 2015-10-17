@@ -14,6 +14,7 @@ sub fetch
 
 BEGIN {
     no warnings 'once';
+    # Allow the use of "retrieve" as an alias for "fetch"
     *retrieve = *fetch;
 }
 
