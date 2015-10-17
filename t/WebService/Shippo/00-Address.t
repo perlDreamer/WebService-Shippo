@@ -66,9 +66,9 @@ my $tests = [
             = eval { Shippo::Address->retrieve( 'Invalid value is invalid' ) };
         like( $@, qr/404 NOT FOUND/i, __TEST__ );
     },
-    testGet => sub {
+    testFetch => sub {
         my $address          = get_default_address();
-        my $retrieve_address = Shippo::Address->get( $address->object_id );
+        my $retrieve_address = Shippo::Address->fetch( $address->object_id );
         is( $retrieve_address->object_id, $address->object_id, __TEST__ );
     },
     testListAll => sub {

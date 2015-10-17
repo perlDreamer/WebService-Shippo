@@ -5,7 +5,7 @@ use MRO::Compat 'c3';
 package WebService::Shippo::Fetcher;
 require WebService::Shippo::Request;
 
-sub get
+sub fetch
 {
     my ( $invocant, $id, $params ) = @_;
     my $response = Shippo::Request->get( $invocant->url( $id ), $params );
@@ -14,7 +14,7 @@ sub get
 
 BEGIN {
     no warnings 'once';
-    *retrieve = *get;
+    *retrieve = *fetch;
 }
 
 1;
