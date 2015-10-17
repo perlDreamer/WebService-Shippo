@@ -36,14 +36,24 @@ above.
 
 ### Testing
 
-Testing is standard operating procedure when installing Perl modules as test suites must normally complete successfully before a distribution is installed.
+Testing is standard operating procedure when installing Perl modules, since
+test suites must normally complete successfully before a distribution can
+be installed.
 
-Just be aware that if you attempt to install this distribution without first taking steps to configure authentication for the Shippo API, then the testing phase of installation will be skipped and will only fail if there are more fundamental problems with your Perl environment. In all likelihood, the distribution will install without running its tests.
+Be aware that, if you attempt to install this distribution without
+first taking steps to configure Shippo API authentication, the testing
+phase of installation will be _skipped_ rather than fail. It may still fail
+if there are more fundamental problems with your Perl environment, but in
+all likelihood, the distribution will install without running all of its
+tests.
 
-You probably ought to run the tests.
+You probably ought to run those tests.
 
-Before installing the distribution, you should be in possession of a set of Shippo Auth Tokens. You can get these by registering (https://goshippo.com/register). Once you have a pair of tokens,
-simply define the `SHIPPO_TOKEN` environment variable using the _Private Auth Token_ as the value. 
+Before installing the distribution, you should be in possession of a set
+of Shippo API Authentication Tokens. You can get these by registering for
+an account (https://goshippo.com/register). Once you have your tokens,
+simply define the `SHIPPO_TOKEN` environment variable using the _Private
+Auth Token_ as the value. 
 
 For example:
 ```shell
