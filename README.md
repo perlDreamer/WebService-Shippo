@@ -47,7 +47,7 @@ if there are more fundamental problems with your Perl environment, but in
 all likelihood the installation will complete without running all of its
 tests.
 
-You probably ought to run those tests.
+You should probably run those tests.
 
 Before installing the distribution, you should be in possession of a set
 of Shippo API Authentication Tokens. You can get these by registering for
