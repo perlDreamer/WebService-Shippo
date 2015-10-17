@@ -53,7 +53,7 @@ You should probably run those tests.
 
 Before installing the distribution, you should be in possession of a set
 of Shippo API Authentication Tokens. You can get these by registering for
-an account; go to https://goshippo.com/register. Once you have your tokens,
+an account&mdash;go to https://goshippo.com/register. Once you have your tokens,
 simply define the `SHIPPO_TOKEN` environment variable using the **Private
 Auth Token** as the value. 
 
