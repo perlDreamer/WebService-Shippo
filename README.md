@@ -96,6 +96,9 @@ cpanm WebService::Shippo
 
 ##### Installating from GitHub
 
+Clone this repository only if you want to make changes. The distribution is 
+managed using `Dist::Zilla`.
+
 ### Using the Shippo Perl API Client
 
 ```perl
