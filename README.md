@@ -64,9 +64,12 @@ Now, if you install the module, the tests should run.
 
 ### Installation
 
-The Shippo Perl API Client is distributed using CPAN and may be installed just like any other Perl module. If you have never installed a Perl module before then I recommend using `cpanminus` because it's super easy!
+The Shippo Perl API Client is distributed using CPAN and may be installed
+just like any other Perl module. If you have never installed a Perl module
+before then I recommend using `cpanminus` because it's super easy!
 
-If you have never used `cpanminus` before then you can install this package by running one of the following commands:
+If you have never used `cpanminus` before then you can install this package
+by running one of the following commands:
 
 ```shell
 sudo -s 'curl -L cpanmin.us | perl - WebService::Shippo'
@@ -148,16 +151,20 @@ Success with Address 1 : {
 
 ### ACKNOWLEDGEMENTS
 
-Thanks to Ali Saheli and the wonderful folks at Shippo for assistance rendered.
+Thanks to Ali Saheli and the wonderful folks at Shippo for assistance
+rendered.
 
 ### COPYRIGHT
 
 The Shippo Perl API Client module.<br/>
 Copyright &copy; 2015 Iain Campbell. All rights reserved.
 
-You may distribute this software under the terms of either the GNU General Public License or the Artistic License, as specified in the Perl README file.
+You may distribute this software under the terms of either the GNU General
+Public License or the Artistic License, as specified in the Perl README
+file.
 
 ### SUPPORT / WARRANTY
 
-The Shippo Perl API Client is free Open Source software; _it comes without warranty of any kind._
+The Shippo Perl API Client is free Open Source software; _it comes without
+warranty of any kind._
 
