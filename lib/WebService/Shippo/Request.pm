@@ -52,18 +52,20 @@ sub query_string
     return '?' . join( ';', @pairs );
 }
 
-sub get
 {
-    my ( $invocant, $url, $params ) = @_;
-    $params = {}
-        unless defined $params;
-    $url .= $invocant->query_string( $params );
-    my $response = user_agent->get( $url, headers );
-    return $response;
-}
+    my $json          = JSON::XS->new->utf8;
+    my $last_response = undef;
 
-{
-    my $json = JSON::XS->new->utf8;
+    sub get
+    {
+        my ( $invocant, $url, $params ) = @_;
+        $params = {}
+            unless defined $params;
+        $url .= $invocant->query_string( $params );
+        my $response = user_agent->get( $url, headers );
+        $_ = $last_response = $response;
+        return $response;
+    }
 
     sub put
     {
@@ -72,12 +74,9 @@ sub get
             unless defined $params;
         my $payload = $json->encode( {%$params} );
         my $response = user_agent->put( $url, headers, Content => $payload );
+        $_ = $last_response = $response;
         return $response;
     }
-}
-
-{
-    my $json = JSON::XS->new->utf8;
 
     sub post
     {
@@ -86,7 +85,12 @@ sub get
             unless defined $params;
         my $payload = $json->encode( {%$params} );
         my $response = user_agent->post( $url, headers, Content => $payload );
+        $_ = $last_response = $response;
         return $response;
+    }
+    
+    sub response {
+        return $last_response;
     }
 }
 
