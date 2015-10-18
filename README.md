@@ -24,6 +24,7 @@ Build tests have been conducted successfully on all later versions of Perl.
 
 ##### Dependencies
 
+* `Clone`
 * `File::HomeDir`
 * `JSON::XS`
 * `LWP`
@@ -33,7 +34,7 @@ Build tests have been conducted successfully on all later versions of Perl.
 * `URI::Encode`
 * `YAML::XS`
 
-The Shippo API Perl Client depends on the eight non-core modules listed 
+The Shippo API Perl Client depends on the nine non-core modules listed 
 above.
 
 ### Testing
