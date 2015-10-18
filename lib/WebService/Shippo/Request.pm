@@ -4,6 +4,7 @@ use warnings;
 package WebService::Shippo::Request;
 use JSON::XS    ();
 use LWP         ();
+use Clone       ( 'clone' );
 use URI::Encode ( 'uri_encode' );
 
 {
@@ -63,7 +64,7 @@ sub query_string
             unless defined $params;
         $url .= $invocant->query_string( $params );
         my $response = user_agent->get( $url, headers );
-        $_ = $last_response = $response;
+        $_ = $last_response = clone( $response );
         return $response;
     }
 
@@ -74,7 +75,7 @@ sub query_string
             unless defined $params;
         my $payload = $json->encode( {%$params} );
         my $response = user_agent->put( $url, headers, Content => $payload );
-        $_ = $last_response = $response;
+        $_ = $last_response = clone( $response );
         return $response;
     }
 
@@ -85,11 +86,12 @@ sub query_string
             unless defined $params;
         my $payload = $json->encode( {%$params} );
         my $response = user_agent->post( $url, headers, Content => $payload );
-        $_ = $last_response = $response;
+        $_ = $last_response = clone( $response );
         return $response;
     }
-    
-    sub response {
+
+    sub response
+    {
         return $last_response;
     }
 }
