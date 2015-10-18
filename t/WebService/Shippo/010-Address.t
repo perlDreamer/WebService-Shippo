@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use FindBin;
 use lib "$FindBin::Bin/../../lib";
-use Testing;
+use TestHarness;
 use Test::More;
 
 use_ok( 'WebService::Shippo' );
@@ -30,14 +30,16 @@ sub get_default_address
 my $tests = [
     testValidCreate => sub {
         my $address = get_default_address();
-        is( $address->object_source, 'FULLY_ENTERED', __TEST__ );
         is( $address->object_state,  'VALID',         __TEST__ );
+        is( $address->object_source, 'FULLY_ENTERED', __TEST__ );
     },
     testValidateAddress => sub {
         my $address   = get_default_address();
+diag $address;
         my $validated = Shippo::Address->validate( $address->object_id );
-        is( $validated->object_source, 'VALIDATOR', __TEST__ );
+diag $validated;
         is( $validated->object_state,  'VALID',     __TEST__ );
+        is( $validated->object_source, 'VALIDATOR', __TEST__ );
     },
     testInvalidCreate => sub {
         my $address = Shippo::Address->create(
@@ -98,7 +100,7 @@ my $tests = [
 SKIP: {
     skip '(no Shippo API key defined)', 1 
         unless Shippo->api_key;
-    Testing->run_tests( $tests );
+    run_tests( $tests );
 }
 
 done_testing();
