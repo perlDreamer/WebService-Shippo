@@ -49,8 +49,18 @@ sub run_tests
     local $__TEST__;
     while ( @tests ) {
         $__TEST__ = shift @tests;
-        my $code = shift @tests;
-        $code->();
+        my $test = shift @tests;
+        if ( ref( $test ) eq 'HASH' ) {
+            $test->{setup}->()
+                if $test->{setup};
+            $test->{test}->()
+                if $test->{test};
+            $test->{teardown}->()
+                if $test->{teardown};
+        }
+        else {
+            $test->();
+        }
     }
     return;
 }
