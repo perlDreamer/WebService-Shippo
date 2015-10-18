@@ -35,9 +35,7 @@ my $tests = [
     },
     testValidateAddress => sub {
         my $address   = get_default_address();
-diag $address;
         my $validated = Shippo::Address->validate( $address->object_id );
-diag $validated;
         is( $validated->object_state,  'VALID',     __TEST__ );
         is( $validated->object_source, 'VALIDATOR', __TEST__ );
     },
