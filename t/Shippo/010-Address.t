@@ -62,10 +62,14 @@ my $tests = [
         is( $retrieve_address->object_id, $address->object_id, __TEST__ );
     },
     testInvalidRetrieve => sub {
+        my $exception;
         my $address = get_default_address();
-        my $retrieve_address
-            = eval { Shippo::Address->retrieve( 'Invalid value is invalid' ) };
-        like( $@, qr/404 NOT FOUND/i, __TEST__ );
+        my $retrieve_address = try { 
+            Shippo::Address->retrieve( 'Invalid value is invalid' ) 
+        } catch {
+            $exception = $_;
+        };
+        like( $exception, qr/404 NOT FOUND/i, __TEST__ );
     },
     testFetch => sub {
         my $address          = get_default_address();
@@ -92,14 +96,14 @@ my $tests = [
         my $first = $next->previous_page;
         is( $list->page_size,  $page_size, __TEST__ );
         is( $next->page_size,  $page_size, __TEST__ );
-        is( $first->page_size, $page_size, __TEST__ );
+        is( $first->page_size, $page_size, __TEST__);
     },
 ];
 
 SKIP: {
     skip '(no Shippo API key defined)', 1 
         unless Shippo->api_key;
-    run_tests( $tests );
+    TestHarness->run_tests( $tests );
 }
 
 done_testing();
