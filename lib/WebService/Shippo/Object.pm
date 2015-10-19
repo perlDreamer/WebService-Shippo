@@ -30,7 +30,7 @@ sub new
 }
 
 {
-    my $json = JSON::XS->new->utf8;
+    my $json = JSON::XS->new->utf8->convert_blessed->allow_blessed;;
 
     sub construct_from
     {
@@ -86,7 +86,7 @@ sub refresh_from
 }
 
 {
-    my $json = JSON::XS->new->utf8->canonical->convert_blessed;
+    my $json = JSON::XS->new->utf8->canonical->convert_blessed->allow_blessed;
 
     # Note to non-Perl hackers:
     # Not having to unpack "@_" array gives slight speed boost, since it
