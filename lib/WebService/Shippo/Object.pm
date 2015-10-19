@@ -124,6 +124,12 @@ sub refresh_from
     }
 }
 
+sub id 
+{
+    my ($self) = @_;
+    return $self->{object_id};
+}
+
 # Just in time creation of mutators for orphaned method calls, to facilitate
 # access to object attributes of the same name.
 sub AUTOLOAD
