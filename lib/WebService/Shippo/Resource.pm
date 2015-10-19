@@ -7,9 +7,9 @@ require WebService::Shippo::Request;
 use Carp        ( 'croak' );
 use URI::Encode ( 'uri_encode' );
 use base        ( 'WebService::Shippo::Object' );
-use constant DEFAULT_API_SCHEME    => 'https';
-use constant DEFAULT_API_HOST      => 'api.goshippo.com';
-use constant DEFAULT_API_PORT      => '443';
+use constant DEFAULT_API_SCHEME  => 'https';
+use constant DEFAULT_API_HOST    => 'api.goshippo.com';
+use constant DEFAULT_API_PORT    => '443';
 use constant DEFAULT_API_VERSION => 'v1';
 
 {
@@ -44,7 +44,8 @@ use constant DEFAULT_API_VERSION => 'v1';
         my ( $class, $new_value ) = @_;
         return $value unless @_ > 1;
         $value = $new_value;
-        Shippo::Request->headers->{Authorization} = "ShippoToken $value";
+        Shippo::Request->headers->{Authorization} = "ShippoToken $value"
+            if $value;
         return $class;
     }
 }
