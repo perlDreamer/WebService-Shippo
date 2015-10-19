@@ -125,11 +125,6 @@ use constant DEFAULT_API_BASE_PATH => 'v1';
     }
 }
 
-sub api_resource
-{
-    croak 'Method not implemented in abstract base class';
-}
-
 sub url
 {
     my ( $class, $id ) = @_;
@@ -140,6 +135,11 @@ sub url
     $url .= uri_encode( $id ) . '/'
         if @_ > 1 && $id;
     return $url;
+}
+
+sub api_resource
+{
+    croak 'Method not implemented in abstract base class';
 }
 
 BEGIN {
