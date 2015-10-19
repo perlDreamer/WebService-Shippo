@@ -17,20 +17,22 @@ sub api_resource {'carrier_accounts'}    # why not "carrier/accounts", which
 
 sub active
 {
-    my ( $self, $bool ) = @_;
-    return boolean( $self->{active} ) unless @_ > 1;
-    my $update
-        = __PACKAGE__->update( $self->{object_id}, active => boolean( $bool ) );
-    return $self->refresh_from( $update );
+    my ( $invocant, $bool ) = @_;
+    return boolean( $invocant->{active} ) unless @_ > 1;
+    my $object_id = $invocant->{object_id}
+        or return $invocant;
+    my $upd = __PACKAGE__->update( $object_id, active => boolean( $bool ) );
+    return $invocant->refresh_from( $upd );
 }
 
 sub production
 {
-    my ( $self, $bool ) = @_;
-    return boolean( !$self->{test} ) unless @_ > 1;
-    my $update
-        = __PACKAGE__->update( $self->{object_id}, test => boolean( !$bool ) );
-    return $self->refresh_from( $update );
+    my ( $invocant, $bool ) = @_;
+    return boolean( !$invocant->{test} ) unless @_ > 1;
+    my $object_id = $invocant->{object_id}
+        or return $invocant;
+    my $upd = __PACKAGE__->update( $object_id, test => boolean( !$bool ) );
+    return $invocant->refresh_from( $upd );
 }
 
 package    # Hide from PAUSE
