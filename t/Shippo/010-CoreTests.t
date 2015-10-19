@@ -24,6 +24,31 @@ my @objects_under_test = (
             },
         ],
     },
+    'CarrierAccount' => {
+        create_default_item => \&default_carrier_account,
+        class               => 'Shippo::CarrierAccount',
+        object_is_valid     => sub {
+            my ( $object ) = @_;
+            return $object->carrier eq 'fedex';
+        },
+        more_tests => [
+            testUpdate => sub {
+                my $carrier_account = stash->{item};
+                my $updated_account = Shippo::CarrierAccount->update(
+                    $carrier_account->object_id,
+                    active => false );
+                is( $updated_account->active, false, __TEST__ );
+                $updated_account->active( true );
+                is( $updated_account->active, true, __TEST__ );
+                $updated_account->active( false );
+                is( $updated_account->active, false, __TEST__ );
+                $updated_account->production( true );
+                is( $updated_account->production, true, __TEST__ );
+                $updated_account->production( false );
+                is( $updated_account->production, false, __TEST__ );
+            },
+        ],
+    },
     'CustomsItem' => {
         create_default_item => \&default_customs_item,
         class               => 'Shippo::CustomsItem',
@@ -131,6 +156,18 @@ sub default_address
                              phone          => '123 353 2345',
                              email          => 'jmercouris@iit.com',
                              metadata       => 'Customer ID 234;234'
+    );
+}
+
+sub default_carrier_account
+{
+    my ( $account_id ) = @_;
+    $account_id = rand() unless $account_id;
+    Shippo::CarrierAccount->create( carrier    => 'fedex',
+                                    account_id => $account_id,
+                                    active     => true,
+                                    test       => true,
+                                    parameters => { meter => '1234' },
     );
 }
 
