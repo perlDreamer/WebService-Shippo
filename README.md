@@ -24,21 +24,35 @@ Build tests have been conducted successfully on all later versions of Perl.
 
 ##### Dependencies
 
-| Implementation | Testing                 |
-| :------------- : :---------------------- |
-| `Clone`        | `Data::Dumper::Concise` |
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Implementation</th>
+<th style="text-align:left">Testing</th>
+</tr>
+</thead>
+<tbody>
+<tr style="vertical-align:top">
+<td>
+<tt>Clone</tt><br/>
+<tt>File::HomeDir</tt><br/>
+<tt>JSON::XS</tt><br/>
+<tt>LWP</tt><br/>
+<tt>MRO::Compat</tt><br/>
+<tt>Path::Class</tt><br/>
+<tt>Sub::Util</tt><br/>
+<tt>URI::Encode</tt><br/>
+<tt>YAML::XS</tt><br/>
+</td>
+<td>
+<tt>Data::Dumper::Concise</tt><br/>
+<tt>Try::Tiny</tt>
+</td>
+</tr>
+</tbody>
+</table>
 
-* `File::HomeDir`
-* `JSON::XS`
-* `LWP`
-* `MRO::Compat`
-* `Path::Class`
-* `Sub::Util`
-* `URI::Encode`
-* `YAML::XS`
-
-The Shippo API Perl Client depends on the nine non-core modules listed 
-above.
+The Shippo API Perl Client depends on the non-core modules listed in the table above.
 
 ### Testing
 
