@@ -44,11 +44,10 @@ sub new
             $self->refresh_from( $response );
             if ( exists( $self->{count} ) && exists( $self->{results} ) ) {
                 my $item_class = $self->class;
-                my $list_class = $self->list_class;
                 for my $thing ( @{ $self->{results} } ) {
                     bless $thing, $item_class;
                 }
-                bless $self, $list_class;
+                bless $self, $self->list_class;
             }
             return $self;
         }
