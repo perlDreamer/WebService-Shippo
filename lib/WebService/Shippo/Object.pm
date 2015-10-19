@@ -149,10 +149,10 @@ sub u_time
     return exists( $self->{object_updated} ) ? $self->{object_updated} : undef;
 }
 
-sub state
+sub status
 {
     my ( $self ) = @_;
-    return exists( $self->{object_state} ) ? $self->{object_state} : undef;
+    return exists( $self->{object_status} ) ? $self->{object_status} : undef;
 }
 
 sub is_valid
