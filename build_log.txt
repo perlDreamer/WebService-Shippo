@@ -1,4 +1,4 @@
-Using worker: worker-linux-docker-4a4ceab3.prod.travis-ci.org:travis-linux-3
+Using worker: worker-linux-docker-5b8127a2.prod.travis-ci.org:travis-linux-1
 
 Build system information
 Build language: perl
@@ -65,14 +65,14 @@ OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
 
 $ git clone --depth=50 --branch=master https://github.com/cpanic/WebService-Shippo.git cpanic/WebService-Shippo
 Cloning into 'cpanic/WebService-Shippo'...
-remote: Counting objects: 319, done.
-remote: Compressing objects: 100% (230/230), done.
-remote: Total 319 (delta 160), reused 210 (delta 54), pack-reused 0
-Receiving objects: 100% (319/319), 55.33 KiB | 0 bytes/s, done.
-Resolving deltas: 100% (160/160), done.
+remote: Counting objects: 314, done.
+remote: Compressing objects: 100% (234/234), done.
+remote: Total 314 (delta 159), reused 200 (delta 47), pack-reused 0
+Receiving objects: 100% (314/314), 56.42 KiB | 0 bytes/s, done.
+Resolving deltas: 100% (159/159), done.
 Checking connectivity... done.
 $ cd cpanic/WebService-Shippo
-$ git checkout -qf 0c682eaab00df485c4d55000647b1539c69580b4
+$ git checkout -qf 6b54cd4503b0b6b801d5d826e57ab55f172f1147
 
 This job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.
 If you require sudo, add 'sudo: required' to your .travis.yml
@@ -119,7 +119,7 @@ perl version 5.018002 (/home/travis/perl5/perlbrew/perls/5.18/bin/perl)
     PERLBREW_ROOT=/home/travis/perl5/perlbrew
     PERLBREW_VERSION=0.73
   @INC:
-    FatPacked::23138088=HASH(0x1610f28)
+    FatPacked::36699944=HASH(0x22fff28)
     /home/travis/perl5/perlbrew/perls/5.18/lib/site_perl/5.18.2/x86_64-linux
     /home/travis/perl5/perlbrew/perls/5.18/lib/site_perl/5.18.2
     /home/travis/perl5/perlbrew/perls/5.18/lib/5.18.2/x86_64-linux
@@ -198,9 +198,9 @@ Characteristics of this binary (from libperl):
     .
 $ export RELEASE_TESTING=1 AUTOMATED_TESTING=1 AUTHOR_TESTING=1 HARNESS_OPTIONS=c HARNESS_TIMER=1
 $ cpanm --quiet --notest Devel::Cover::Report::Coveralls
-Successfully installed YAML-1.15
-Successfully installed HTTP-Tiny-0.056 (upgraded from 0.025)
 Successfully installed Devel-Cover-1.21
+Successfully installed HTTP-Tiny-0.056 (upgraded from 0.025)
+Successfully installed YAML-1.15
 Successfully installed Devel-Cover-Report-Coveralls-0.11
 4 distributions installed
 $ cpanm --quiet --notest --skip-satisfied --installdeps .
@@ -208,23 +208,23 @@ Successfully installed common-sense-3.74
 Successfully installed Types-Serialiser-1.0
 Successfully installed JSON-XS-3.01
 Successfully installed boolean-0.45
-Successfully installed URI-Encode-v1.0.1
 Successfully installed Data-Dumper-Concise-2.022
 Successfully installed YAML-LibYAML-0.59
+Successfully installed URI-Encode-v1.0.1
 7 distributions installed
 $ PERL5OPT='-MDevel::Cover=+ignore,/usr,\.t$,/prove$,TestHarness\.pm$,-coverage,statement,branch,condition,path,subroutine' prove -lrvm t
-[22:46:44] t/Shippo/000-Authentication.t .. 
+[23:04:27] t/Shippo/000-Authentication.t .. 
 ok 1 - use WebService::Shippo;
 ok 2 - testInvalidCredentials
 1..2
-ok      917 ms ( 0.00 usr  0.00 sys +  0.87 cusr  0.02 csys =  0.89 CPU)
-[22:46:45] t/Shippo/005-Error.t ........... 
+ok     1124 ms ( 0.00 usr  0.00 sys +  1.05 cusr  0.05 csys =  1.10 CPU)
+[23:04:28] t/Shippo/005-Error.t ........... 
 ok 1 - use WebService::Shippo;
 ok 2 - testBadResource
 ok 3 - testBadResource
 1..3
-ok     1003 ms ( 0.00 usr  0.00 sys +  0.95 cusr  0.05 csys =  1.00 CPU)
-[22:46:46] t/Shippo/010-CoreTests.t ....... 
+ok      874 ms ( 0.00 usr  0.00 sys +  0.82 cusr  0.03 csys =  0.85 CPU)
+[23:04:29] t/Shippo/010-CoreTests.t ....... 
 ok 1 - use WebService::Shippo;
 ok 2 - Address.testValidCreate
 ok 3 - Address.testValidCreate
@@ -232,66 +232,65 @@ ok 4 - Address.testInvalidCreate
 ok 5 - Address.testListAll
 ok 6 - Address.testListAll
 ok 7 - Address.testListPageSize
-ok 8 - Address.testListPageSize
-ok 9 - Address.testListPageSize
-ok 10 - Address.testFetch
-ok 11 - Address.testFetch
-ok 12 - Address.testInvalidFetch
-ok 13 - Address.testValidateAddress
-ok 14 - CarrierAccount.testValidCreate
-ok 15 - CarrierAccount.testValidCreate
-ok 16 - CarrierAccount.testInvalidCreate
-ok 17 - CarrierAccount.testListAll
-ok 18 - CarrierAccount.testListAll
-ok 19 - CarrierAccount.testListPageSize
-ok 20 - CarrierAccount.testListPageSize
-ok 21 - CarrierAccount.testListPageSize
-ok 22 - CarrierAccount.testFetch
-ok 23 - CarrierAccount.testFetch
-ok 24 - CarrierAccount.testInvalidFetch
+ok 8 - Address.testFetch
+ok 9 - Address.testFetch
+ok 10 - Address.testInvalidFetch
+ok 11 - Address.testValidateAddress
+ok 12 - CarrierAccount.testValidCreate
+ok 13 - CarrierAccount.testValidCreate
+ok 14 - CarrierAccount.testInvalidCreate
+ok 15 - CarrierAccount.testListAll
+ok 16 - CarrierAccount.testListAll
+ok 17 - CarrierAccount.testListPageSize
+ok 18 - CarrierAccount.testFetch
+ok 19 - CarrierAccount.testFetch
+ok 20 - CarrierAccount.testInvalidFetch
+ok 21 - CarrierAccount.testUpdate
+ok 22 - CarrierAccount.testUpdate
+ok 23 - CarrierAccount.testUpdate
+ok 24 - CarrierAccount.testUpdate
 ok 25 - CarrierAccount.testUpdate
-ok 26 - CarrierAccount.testUpdate
-ok 27 - CarrierAccount.testUpdate
-ok 28 - CarrierAccount.testUpdate
-ok 29 - CarrierAccount.testUpdate
-ok 30 - CustomsItem.testValidCreate
-ok 31 - CustomsItem.testValidCreate
-ok 32 - CustomsItem.testInvalidCreate
-ok 33 - CustomsItem.testListAll
-ok 34 - CustomsItem.testListAll
-ok 35 - CustomsItem.testListPageSize
-ok 36 - CustomsItem.testListPageSize
-ok 37 - CustomsItem.testListPageSize
-ok 38 - CustomsItem.testFetch
-ok 39 - CustomsItem.testFetch
-ok 40 - CustomsItem.testInvalidFetch
-ok 41 - Manifest.testValidCreate
-ok 42 - Manifest.testValidCreate
-ok 43 - Manifest.testInvalidCreate
-ok 44 - Manifest.testListAll
-ok 45 - Manifest.testListAll
-ok 46 - Manifest.testListPageSize
-ok 47 - Manifest.testListPageSize
-ok 48 - Manifest.testListPageSize
-ok 49 - Manifest.testFetch
+ok 26 - CustomsItem.testValidCreate
+ok 27 - CustomsItem.testValidCreate
+ok 28 - CustomsItem.testInvalidCreate
+ok 29 - CustomsItem.testListAll
+ok 30 - CustomsItem.testListAll
+ok 31 - CustomsItem.testListPageSize
+ok 32 - CustomsItem.testFetch
+ok 33 - CustomsItem.testFetch
+ok 34 - CustomsItem.testInvalidFetch
+ok 35 - CustomsDeclaration.testValidCreate
+ok 36 - CustomsDeclaration.testValidCreate
+ok 37 - CustomsDeclaration.testInvalidCreate
+ok 38 - CustomsDeclaration.testListAll
+ok 39 - CustomsDeclaration.testListAll
+ok 40 - CustomsDeclaration.testListPageSize
+ok 41 - CustomsDeclaration.testFetch
+ok 42 - CustomsDeclaration.testFetch
+ok 43 - CustomsDeclaration.testInvalidFetch
+ok 44 - Manifest.testValidCreate
+ok 45 - Manifest.testValidCreate
+ok 46 - Manifest.testInvalidCreate
+ok 47 - Manifest.testListAll
+ok 48 - Manifest.testListAll
+ok 49 - Manifest.testListPageSize
 ok 50 - Manifest.testFetch
-ok 51 - Manifest.testInvalidFetch
-ok 52 - Parcel.testValidCreate
+ok 51 - Manifest.testFetch
+ok 52 - Manifest.testInvalidFetch
 ok 53 - Parcel.testValidCreate
-ok 54 - Parcel.testInvalidCreate
-ok 55 - Parcel.testListAll
+ok 54 - Parcel.testValidCreate
+ok 55 - Parcel.testInvalidCreate
 ok 56 - Parcel.testListAll
-ok 57 - Parcel.testListPageSize
+ok 57 - Parcel.testListAll
 ok 58 - Parcel.testListPageSize
-ok 59 - Parcel.testListPageSize
+ok 59 - Parcel.testFetch
 ok 60 - Parcel.testFetch
-ok 61 - Parcel.testFetch
-ok 62 - Parcel.testInvalidFetch
-1..62
-ok     6426 ms ( 0.01 usr  0.01 sys +  2.31 cusr  0.07 csys =  2.40 CPU)
-[22:46:53]
+ok 61 - Parcel.testInvalidFetch
+1..61
+ok     5193 ms ( 0.02 usr  0.00 sys +  1.94 cusr  0.09 csys =  2.05 CPU)
+[23:04:34]
 All tests successful.
-Files=3, Tests=67,  9 wallclock secs ( 0.05 usr  0.01 sys +  4.13 cusr  0.14 csys =  4.33 CPU)
+Files=3, Tests=66,  7 wallclock secs ( 0.06 usr  0.01 sys +  3.81 cusr  0.17 csys =  4.05 CPU)
 Result: PASS
 
 The command "PERL5OPT='-MDevel::Cover=+ignore,/usr,\.t$,/prove$,TestHarness\.pm$,-coverage,statement,branch,condition,path,subroutine' prove -lrvm t" exited with 0.
@@ -308,14 +307,14 @@ lib/WebService/Shippo/CarrierAccount.pm     100.0   75.0    n/a  100.0   96.2
 lib/WebService/Shippo/Config.pm              63.1   31.2   20.0   92.3   57.2
 lib/WebService/Shippo/Creator.pm            100.0    n/a    n/a  100.0  100.0
 lib/WebService/Shippo/CurrencyAware.pm       70.5    0.0    n/a   80.0   61.5
-...WebService/Shippo/CustomsDeclaration.pm   95.2    n/a    n/a   87.5   93.1
+...WebService/Shippo/CustomsDeclaration.pm  100.0    n/a    n/a  100.0  100.0
 lib/WebService/Shippo/CustomsItem.pm        100.0    n/a    n/a  100.0  100.0
 lib/WebService/Shippo/Entities.pm           100.0    n/a    n/a  100.0  100.0
 lib/WebService/Shippo/Fetcher.pm            100.0    n/a    n/a  100.0  100.0
 lib/WebService/Shippo/Lister.pm              82.3    n/a   33.3   83.3   76.9
 lib/WebService/Shippo/Manifest.pm           100.0    n/a    n/a  100.0  100.0
-lib/WebService/Shippo/Object.pm              76.4   41.3   50.0   87.1   68.4
-lib/WebService/Shippo/ObjectList.pm          40.9   16.6   11.1   53.3   37.1
+lib/WebService/Shippo/Object.pm              76.4   41.3   50.0   88.1   68.8
+lib/WebService/Shippo/ObjectList.pm          24.5    0.0    0.0   33.3   20.6
 lib/WebService/Shippo/Parcel.pm             100.0    n/a    n/a  100.0  100.0
 lib/WebService/Shippo/Rate.pm                95.2    n/a    n/a   87.5   93.1
 lib/WebService/Shippo/Refund.pm              95.2    n/a    n/a   87.5   93.1
@@ -325,10 +324,10 @@ lib/WebService/Shippo/ReturnShipment.pm      95.2    n/a    n/a   87.5   93.1
 lib/WebService/Shippo/Shipment.pm            69.7    0.0    0.0   80.0   63.2
 lib/WebService/Shippo/Transaction.pm         95.2    n/a    n/a   87.5   93.1
 lib/WebService/Shippo/Updater.pm            100.0    n/a    n/a  100.0  100.0
-Total                                        79.6   48.6   27.8   77.8   73.0
+Total                                        78.5   47.3   26.2   77.3   71.9
 ------------------------------------------ ------ ------ ------ ------ ------
 
 
-register: https://coveralls.io/jobs/9092564
+register: https://coveralls.io/jobs/9092970
 
 Done. Your build exited with 0.
