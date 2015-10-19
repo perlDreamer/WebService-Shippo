@@ -131,6 +131,30 @@ sub id
     return exists( $self->{object_id} ) ? $self->{object_id} : undef;
 }
 
+sub owner
+{
+    my ( $self ) = @_;
+    return exists( $self->{object_owner} ) ? $self->{object_owner} : undef;
+}
+
+sub c_time
+{
+    my ( $self ) = @_;
+    return exists( $self->{object_created} ) ? $self->{object_created} : undef;
+}
+
+sub u_time
+{
+    my ( $self ) = @_;
+    return exists( $self->{object_updated} ) ? $self->{object_updated} : undef;
+}
+
+sub state
+{
+    my ( $self ) = @_;
+    return exists( $self->{object_state} ) ? $self->{object_state} : undef;
+}
+
 sub is_valid
 {
     my ( $self ) = @_;
