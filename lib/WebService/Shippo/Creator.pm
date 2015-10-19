@@ -7,8 +7,8 @@ require WebService::Shippo::Request;
 
 sub create
 {
-    my ( $invocant, $params ) = @_;
-    my $response = Shippo::Request->post( $invocant->url, $params );
+    my ( $invocant, @params ) = @_;
+    my $response = Shippo::Request->post( $invocant->url, @params );
     return $invocant->construct_from( $response );
 }
 
