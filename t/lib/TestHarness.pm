@@ -4,6 +4,7 @@ use warnings;
 package TestHarness;
 use Carp ( 'croak' );
 use Data::Dumper::Concise;
+use Test::More;
 use Try::Tiny;
 use boolean ':all';
 use base ( 'Exporter' );
@@ -74,11 +75,8 @@ sub __STASH__
 #
 sub run_tests
 {
-    my ( $invocant, @tests, $root_name, $stash ) = @_;
-    @tests = @{ $tests[0] }
-        if ref( $tests[0] ) && ref( $tests[0] ) eq 'ARRAY';
-    croak 'Unexpected ' . ref( $tests[0] ) . ' reference'
-        if ref( $tests[0] );
+    my ( $invocant, $tests, $root_name, $stash ) = @_;
+    my @tests = @{ $tests };
     croak 'Odd number of elements in test array'
         if @tests % 2;
     local $__STASH__ = $stash ? {%$stash} : {};
@@ -90,13 +88,13 @@ sub run_tests
         if ( ref( $test ) eq 'HASH' ) {
             $test->{setup}->()
                 if $test->{setup};
-            run_tests( $test->{tests}, $__TEST__, $__STASH__ )
+            $invocant->run_tests( $test->{tests}, $__TEST__, $__STASH__ )
                 if $test->{tests};
             $test->{teardown}->()
                 if $test->{teardown};
         }
         elsif ( ref( $test ) eq 'ARRAY' ) {
-            run_tests( $test, $__TEST__, $__STASH__ );
+            $invocant->run_tests( $test, $__TEST__, $__STASH__ );
         }
         else {
             $test->();
