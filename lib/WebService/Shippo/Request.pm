@@ -54,44 +54,57 @@ sub query_string
 }
 
 {
-    my $json          = JSON::XS->new->utf8;
+    my $json          = JSON::XS->new->utf8->convert_blessed->allow_blessed;
     my $last_response = undef;
+
+    sub handle_failed_request
+    {
+        my ( $invocant ) = @_;
+        confess $last_response->status_line . "\n" . $last_response->content
+            . "\n\tFailed request";
+    }
 
     sub get
     {
-        my ( $invocant, $url, $params ) = @_;
-        $params = {}
-            unless defined $params;
+        my ( $invocant, $url, @params ) = @_;
+        @params = ({})
+            unless @params;
+        my $params = ref( $params[0] ) ? $params[0] : {@params};
         $url .= $invocant->query_string( $params );
         my $response = user_agent->get( $url, headers );
-        $_ = $last_response = clone( $response );
-        confess $response->status_line
+        $last_response = clone( $response );
+        unless ( $response->is_success ) {
+
+        }
+        $invocant->handle_failed_request
             unless $response->is_success;
         return $response;
     }
 
     sub put
     {
-        my ( $invocant, $url, $params ) = @_;
-        $params = {}
-            unless defined $params;
-        my $payload = $json->encode( {%$params} );
+        my ( $invocant, $url, @params ) = @_;
+        @params = ({})
+            unless @params;
+        my $params = ref( $params[0] ) ? $params[0] : {@params};
+        my $payload = $json->encode( $params );
         my $response = user_agent->put( $url, headers, Content => $payload );
-        $_ = $last_response = clone( $response );
-        confess $response->status_line
+        $last_response = clone( $response );
+        $invocant->handle_failed_request
             unless $response->is_success;
         return $response;
     }
 
     sub post
     {
-        my ( $invocant, $url, $params ) = @_;
-        $params = {}
-            unless defined $params;
-        my $payload = $json->encode( {%$params} );
+        my ( $invocant, $url, @params ) = @_;
+        @params = ({})
+            unless @params;
+        my $params = ref( $params[0] ) ? $params[0] : {@params};
+        my $payload = $json->encode( $params );
         my $response = user_agent->post( $url, headers, Content => $payload );
-        $_ = $last_response = clone( $response );
-        confess $response->status_line
+        $last_response = clone( $response );
+        $invocant->handle_failed_request
             unless $response->is_success;
         return $response;
     }
