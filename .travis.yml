@@ -11,6 +11,6 @@ install:
 - cpanm --quiet --notest Devel::Cover::Report::Coveralls
 - cpanm --quiet --notest --skip-satisfied --installdeps .
 script: 
-- PERL5OPT='-MDevel::Cover=+ignore,/usr,\.t$,/prove$,-coverage,statement,branch,condition,path,subroutine' prove -lrvm t
+- PERL5OPT='-MDevel::Cover=+ignore,/usr,\.t$,/prove$,TestHarness\.pm$,-coverage,statement,branch,condition,path,subroutine' prove -lrvm t
 after_success:
 - cover -report coveralls

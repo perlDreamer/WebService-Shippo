@@ -8,8 +8,13 @@ use Test::More;
 use_ok( 'WebService::Shippo' );
 
 my $tests = [
-    testListAll => sub {
-        ok( 1, __TEST__ );
+    testListAll => {
+        setup => sub {
+            my $list = Shippo::CarrierAccount->all;
+            diag( $list->to_string );
+            ok( defined( $list->{count} ),   __TEST__ );
+            ok( defined( $list->{results} ), __TEST__ );
+        },
     },
 ];
 

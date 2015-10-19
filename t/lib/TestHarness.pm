@@ -6,8 +6,14 @@ use Carp ( 'croak' );
 use Data::Dumper::Concise;
 use base ( 'Exporter' );
 
-our @EXPORT = ( '__TEST__', 'run_tests', 'Dumper' );
-our $__TEST__ = undef;
+our @EXPORT    = ( '__TEST__', '__STASH__', 'run_tests', 'Dumper', 'dump' );
+our $__TEST__  = undef;
+our $__STASH__ = undef;
+
+sub dump
+{
+    Test::More::diag( Dumper( @_ ) );
+}
 
 # __TEST__ (LIST_OF_COMMENTS)
 # Arguments:
@@ -27,6 +33,18 @@ sub __TEST__
     return $__TEST__ . ': ' . join( '', @_ );
 }
 
+sub __STASH__
+{
+    return $__STASH__ unless @_;
+    return $__STASH__->{ $_[0] } unless @_ > 1;
+    while ( @_ ) {
+        my $key   = shift;
+        my $value = shift;
+        $__STASH__->{$key} = $value;
+    }
+    return $__STASH__;
+}
+
 # run_tests (LIST_OF_TESTS)
 # Arguments:
 #   LIST_OF_TESTS - optional tests, passed as an array (or array ref) of
@@ -39,24 +57,28 @@ sub __TEST__
 #
 sub run_tests
 {
-    my ( @tests ) = @_;
+    my ( @tests, $root_name ) = @_;
     @tests = @{ $tests[0] }
         if ref( $tests[0] ) && ref( $tests[0] ) =~ /^ARRAY$/;
     croak 'Unexpected ' . ref( $tests[0] ) . ' reference'
         if ref( $tests[0] );
     croak 'Odd number of elements in test array'
         if @tests % 2;
-    local $__TEST__;
     while ( @tests ) {
-        $__TEST__ = shift @tests;
+        local $__STASH__ = {};
+        local $__TEST__ = $root_name ? $root_name . '.' : '';
+        $__TEST__ .= shift @tests;
         my $test = shift @tests;
         if ( ref( $test ) eq 'HASH' ) {
             $test->{setup}->()
                 if $test->{setup};
-            $test->{test}->()
-                if $test->{test};
+            run_tests( $test->{tests}, $__TEST__ )
+                if $test->{tests};
             $test->{teardown}->()
                 if $test->{teardown};
+        }
+        elsif ( ref( $test ) eq 'ARRAY' ) {
+            run_tests( $test, $__TEST__ );
         }
         else {
             $test->();
