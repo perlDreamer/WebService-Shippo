@@ -60,11 +60,6 @@ use constant DEFAULT_API_VERSION => 'v1';
         $value = ( $new_value || DEFAULT_API_SCHEME );
         return $class;
     }
-
-    BEGIN {
-        no warnings 'once';
-        *api_protocol = *api_scheme;
-    }
 }
 
 {
@@ -149,7 +144,8 @@ BEGIN {
     # namespace is just cruel; allow the use of "Shippo", too.
     *Shippo::Resource:: = *WebService::Shippo::Resource::;
     # Other aliases
-    *class_url = *url;
+    *class_url    = *url;
+    *api_protocol = *api_scheme;
 }
 
 1;
