@@ -9,10 +9,10 @@ use_ok( 'WebService::Shippo' );
 
 my $tests = [
     testValidCreate => sub {
-        stash->{item} = get_default_item();
-        my $customs_item = stash->{item};
-        ok( defined( $customs_item ), __TEST__ );
-        ok( $customs_item->is_valid,  __TEST__ );
+        stash->{item} = get_default_parcel();
+        my $item = stash->{item};
+        ok( defined( $item ), __TEST__ );
+        ok( $item->is_valid,  __TEST__ );
     },
     testInvalidCreate => sub {
         my $e;
@@ -50,7 +50,7 @@ my $tests = [
     },
 ];
 
-sub get_default_item
+sub get_default_parcel
 {
     return Shippo::Parcel->create( length        => '5',
                                    width         => '5',

@@ -9,7 +9,7 @@ use_ok( 'WebService::Shippo' );
 
 my $tests = [
     testValidCreate => sub {
-        stash->{item} = get_default_item();
+        stash->{item} = get_default_customs_item();
         my $customs_item = stash->{item};
         ok( defined( $customs_item ), __TEST__ );
         ok( $customs_item->is_valid,  __TEST__ );
@@ -50,7 +50,7 @@ my $tests = [
     },
 ];
 
-sub get_default_item
+sub get_default_customs_item
 {
     return Shippo::CustomsItem->create( description    => 'T-Shirt',
                                         quantity       => '2',
