@@ -34,6 +34,7 @@ Build tests have been conducted successfully on all later versions of Perl.
 <tbody>
 <tr>
 <td valign="top">
+<tt>boolean</tt><br/>
 <tt>Clone</tt><br/>
 <tt>File::HomeDir</tt><br/>
 <tt>JSON::XS</tt><br/>
