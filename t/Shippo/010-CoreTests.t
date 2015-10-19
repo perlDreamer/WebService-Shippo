@@ -57,6 +57,14 @@ my @objects_under_test = (
             return $object->is_valid;
         },
     },
+    'CustomsDeclaration' => {
+        create_default_item => \&default_customs_declaration,
+        class               => 'Shippo::CustomsDeclaration',
+        object_is_valid     => sub {
+            my ( $object ) = @_;
+            return $object->is_valid;
+        },
+    },
     'Manifest' => {
         create_default_item => \&default_manifest,
         class               => 'Shippo::Manifest',
@@ -113,11 +121,7 @@ while ( @objects_under_test ) {
                   'page'    => 1
                 }
             );
-            my $next  = $list->next_page;
-            my $first = $next->previous_page;
-            is( $list->page_size,  $page_size, __TEST__ );
-            is( $next->page_size,  $page_size, __TEST__ );
-            is( $first->page_size, $page_size, __TEST__ );
+            is( $list->page_size, $page_size, __TEST__ );
         },
         testFetch => sub {
             my $object = stash->{list}{results}[0];
@@ -195,6 +199,30 @@ sub default_customs_item
                                  tariff_number  => '',
                                  origin_country => 'US',
                                  metadata       => 'Order ID #123123'
+    );
+}
+
+sub default_customs_declaration
+{
+    my $customs_item = default_customs_item();
+    Shippo::CustomsDeclaration->create(
+                                 exporter_reference   => '',
+                                 importer_reference   => '',
+                                 contents_type        => 'MERCHANDISE',
+                                 contents_explanation => 'T-Shirt purchase',
+                                 invoice              => '#123123',
+                                 license              => '',
+                                 certificate          => '',
+                                 notes                => '',
+                                 eel_pfc              => 'NOEEI_30_37_a',
+                                 aes_itn              => '',
+                                 non_delivery_option  => 'ABANDON',
+                                 certify              => 'true',
+                                 certify_signer       => 'Laura Behrens Wu',
+                                 disclaimer           => '',
+                                 incoterm             => '',
+                                 items                => [ $customs_item->object_id ],
+                                 metadata             => 'Order ID #123123'
     );
 }
 
