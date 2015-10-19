@@ -5,6 +5,7 @@ package TestHarness;
 use Carp ( 'croak' );
 use Data::Dumper::Concise;
 use Try::Tiny;
+use boolean ':all';
 use base ( 'Exporter' );
 
 #<<<
@@ -12,12 +13,14 @@ our @EXPORT = ( qw/
     __TEST__ 
     __STASH__ 
     stash 
-    run_tests 
     Dumper 
     dump 
     try 
     catch
     finally
+    true
+    false
+    boolean
 / );
 #>>>
 
@@ -71,7 +74,7 @@ sub __STASH__
 #
 sub run_tests
 {
-    my ( @tests, $root_name, $stash ) = @_;
+    my ( $invocant, @tests, $root_name, $stash ) = @_;
     @tests = @{ $tests[0] }
         if ref( $tests[0] ) && ref( $tests[0] ) =~ /^ARRAY$/;
     croak 'Unexpected ' . ref( $tests[0] ) . ' reference'
@@ -99,7 +102,7 @@ sub run_tests
             $test->();
         }
     }
-    return;
+    return $invocant;
 }
 
 BEGIN {
