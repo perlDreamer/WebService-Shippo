@@ -4,9 +4,23 @@ use warnings;
 package TestHarness;
 use Carp ( 'croak' );
 use Data::Dumper::Concise;
+use Try::Tiny;
 use base ( 'Exporter' );
 
-our @EXPORT    = ( qw/__TEST__ __STASH__ stash run_tests Dumper dump/ );
+#<<<
+our @EXPORT = ( qw/
+    __TEST__ 
+    __STASH__ 
+    stash 
+    run_tests 
+    Dumper 
+    dump 
+    try 
+    catch
+    finally
+/ );
+#>>>
+
 our $__TEST__  = undef;
 our $__STASH__ = undef;
 
@@ -68,7 +82,7 @@ sub run_tests
     local $__TEST__;
     while ( @tests ) {
         my $test_name = shift @tests;
-        my $test = shift @tests;
+        my $test      = shift @tests;
         $__TEST__ = $root_name ? "$root_name.$test_name" : $test_name;
         if ( ref( $test ) eq 'HASH' ) {
             $test->{setup}->()
