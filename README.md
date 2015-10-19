@@ -27,13 +27,13 @@ Build tests have been conducted successfully on all later versions of Perl.
 <table>
 <thead>
 <tr>
-<th style="text-align:left">Implementation</th>
-<th style="text-align:left">Testing</th>
+<th align="left">Implementation</th>
+<th align="left">Testing</th>
 </tr>
 </thead>
 <tbody>
-<tr style="vertical-align:top">
-<td style="vertical-align:top">
+<tr>
+<td valign="top">
 <tt>Clone</tt><br/>
 <tt>File::HomeDir</tt><br/>
 <tt>JSON::XS</tt><br/>
@@ -44,7 +44,7 @@ Build tests have been conducted successfully on all later versions of Perl.
 <tt>URI::Encode</tt><br/>
 <tt>YAML::XS</tt><br/>
 </td>
-<td style="vertical-align:top">
+<td valign="top">
 <tt>Data::Dumper::Concise</tt><br/>
 <tt>Try::Tiny</tt>
 </td>
