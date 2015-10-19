@@ -2,6 +2,7 @@ use strict;
 use warnings;
 
 package WebService::Shippo::Request;
+use Carp        ( 'confess' );
 use JSON::XS    ();
 use LWP         ();
 use Clone       ( 'clone' );
@@ -64,6 +65,8 @@ sub query_string
         $url .= $invocant->query_string( $params );
         my $response = user_agent->get( $url, headers );
         $_ = $last_response = clone( $response );
+        confess $response->status_line
+            unless $response->is_success;
         return $response;
     }
 
@@ -75,6 +78,8 @@ sub query_string
         my $payload = $json->encode( {%$params} );
         my $response = user_agent->put( $url, headers, Content => $payload );
         $_ = $last_response = clone( $response );
+        confess $response->status_line
+            unless $response->is_success;
         return $response;
     }
 
@@ -86,6 +91,8 @@ sub query_string
         my $payload = $json->encode( {%$params} );
         my $response = user_agent->post( $url, headers, Content => $payload );
         $_ = $last_response = clone( $response );
+        confess $response->status_line
+            unless $response->is_success;
         return $response;
     }
 
