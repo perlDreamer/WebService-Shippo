@@ -78,20 +78,29 @@ sub refresh_from
 {
     my $json = JSON::XS->new->utf8->canonical->convert_blessed;
 
+    # Note to non-Perl hackers: 
+    # Not having to unpack "@_" array gives slight speed boost, since it 
+    # is possible that we might be creating many JSON strings in rapid 
+    # succession. That weird looking "$_[0]" in the "TO_JSON", "to_json",
+    # and "to_string" methods is the first element of the "@_" array, i.e. 
+    # the first argument passed to the method (the object itself).
+    # 
     # Required by JSON::XS because we use the convert_blessed encoding
     # modifier to allow blessed references (aka Perl object instances)
     # to be serialized. Returns a scalar value that can be serialized
     # as JSON (essentially an unblessed shallow copy of the original
     # object).
-    sub TO_JSON { return { %{ $_[0] } } }
+    #
+    sub TO_JSON { 
+        return { %{ $_[0] } };
+    }
 
-    # Serializes the object to a JSON string
+    # Serializes the object to a JSON string.
     sub to_json
     {
-        my ( $self ) = @_;
         $json->pretty
             if $PRETTY;
-        return $json->encode( $self );
+        return $json->encode( $_[0] );
     }
 
     # Also, serializes the object to a JSON string. This method will be
@@ -99,10 +108,9 @@ sub refresh_from
     # overload at the top of this module.
     sub to_string
     {
-        my ( $self ) = @_;
         $json->pretty
             if $PRETTY;
-        return $json->encode( $self );
+        return $json->encode( $_[0] );
     }
 }
 
