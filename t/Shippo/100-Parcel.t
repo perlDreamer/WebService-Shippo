@@ -17,7 +17,7 @@ my $tests = [
     testInvalidCreate => sub {
         my $e;
         try {
-            Shippo::CustomsItem->create( invalid_data => 'invalid' );
+            Shippo::Parcel->create( invalid_data => 'invalid' );
         }
         catch {
             $e = $_;
@@ -25,7 +25,7 @@ my $tests = [
         like( $e, qr/400 BAD REQUEST/i, __TEST__ );
     },
     testListAll => sub {
-        stash->{list} = Shippo::CustomsItem->all( results => 3, page => 1 );
+        stash->{list} = Shippo::Parcel->all( results => 3, page => 1 );
         my $list = stash->{list};
         ok( defined( $list->count ),   __TEST__ );
         ok( defined( $list->results ), __TEST__ );
@@ -34,14 +34,14 @@ my $tests = [
         my $object = stash->{list}{results}[0];
         my $id     = $object->{object_id};
         ok( defined( $id ), __TEST__ );
-        my $customs_item = Shippo::CustomsItem->fetch( $id );
+        my $customs_item = Shippo::Parcel->fetch( $id );
         is_deeply( $object, $customs_item, __TEST__ );
     },
     testInvalidFetch => sub {
         my $id = 'Invalid Object Identifier';
         my $exception;
         try {
-            Shippo::CustomsItem->fetch( $id );
+            Shippo::Parcel->fetch( $id );
         }
         catch {
             $exception = $_;
@@ -52,15 +52,14 @@ my $tests = [
 
 sub get_default_item
 {
-    return Shippo::CustomsItem->create( description    => 'T-Shirt',
-                                        quantity       => '2',
-                                        net_weight     => '400',
-                                        mass_unit      => 'g',
-                                        value_amount   => '20',
-                                        value_currency => 'USD',
-                                        tariff_number  => '',
-                                        origin_country => 'US',
-                                        metadata       => 'Order ID #123123'
+    return Shippo::Parcel->create( length        => '5',
+                                   width         => '5',
+                                   height        => '5',
+                                   distance_unit => 'cm',
+                                   weight        => '2',
+                                   mass_unit     => 'lb',
+                                   template      => '',
+                                   metadata      => 'Customer ID 123456'
     );
 }
 
