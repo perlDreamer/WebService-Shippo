@@ -89,6 +89,7 @@ BEGIN {
     *api_key  = *WebService::Shippo::Resource::api_key;
     *PRETTY   = *WebService::Shippo::Object::PRETTY;
     *response = *WebService::Shippo::Request::response;
+    *Response = *WebService::Shippo::Request::response;
          # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
          # namespace is just cruel; allow the use of "Shippo", too.
     *Shippo:: = *WebService::Shippo::;
