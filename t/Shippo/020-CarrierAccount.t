@@ -27,7 +27,12 @@ my $tests = [
     testInvalidFetch => sub {
         my $id = 'Invalid Object Identifier';
         my $exception;
-        try { Shippo::CarrierAccount->fetch( $id ) } catch { $exception = $_ };
+        try {
+            Shippo::CarrierAccount->fetch( $id );
+        }
+        catch {
+            $exception = $_;
+        };
         like( $exception, qr/404 NOT FOUND/i, __TEST__ );
     },
     testCreate => sub {
@@ -58,14 +63,11 @@ sub create_test_account
 {
     my ( $account_id ) = @_;
     $account_id = rand() unless $account_id;
-    return Shippo::CarrierAccount->create(
-        {  carrier    => 'fedex',
-           account_id => $account_id,
-           active     => true,
-           test       => true,
-           parameters => { meter => '1234',
-           },
-        }
+    return Shippo::CarrierAccount->create( carrier    => 'fedex',
+                                           account_id => $account_id,
+                                           active     => true,
+                                           test       => true,
+                                           parameters => { meter => '1234' },
     );
 }
 
