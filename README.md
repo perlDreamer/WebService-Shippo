@@ -3,14 +3,13 @@
 ## Shippo API Perl Client
 
 Shippo is a shipping API that connects you with multiple shipping 
-providers (such as USPS, UPS, and Fedex) through one interface, and offers 
-you great discounts on shipping rates.
+providers (such as USPS, UPS, and Fedex) through one interface, and offers you great discounts on shipping rates.
 
 Don't have an account? Sign up at https://goshippo.com/
 
 ### Version
 
-v0.0.5 (built 2015-10-19)
+v0.0.6 built 2015-10-19.
 
 _This Shippo API Perl Client is functional but is in a pre-release stage
 of its development. There are still tests and documentation to be written,
@@ -85,9 +84,11 @@ Now, if you install the module, the tests should run.
 
 ### Installation
 
-The Shippo API Perl Client is distributed using CPAN and may be installed
-just like any other Perl module. If you have never installed a Perl module
-before then I recommend using `cpanminus` because it's super easy!
+The Shippo API Perl Client is distributed on CPAN:
+
+* http://search.cpan.org/dist/WebService-Shippo/lib/WebService/Shippo.pm
+
+It is installed like the majority of Perl modules. If you have never installed a Perl module before then I recommend using `cpanminus` because it's super easy!
 
 If you have never used `cpanminus` before then you can install this package
 by running one of the following commands:

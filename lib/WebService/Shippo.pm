@@ -3,7 +3,7 @@ use warnings;
 
 package WebService::Shippo;
 # ABSTRACT: A Shippo Perl API wrapper
-our $VERSION = '0.0.5';
+our $VERSION = '0.0.6';
 require WebService::Shippo::Entities;
 require WebService::Shippo::Request;
 require WebService::Shippo::Config;
@@ -117,16 +117,96 @@ sub import
 
 WebService::Shippo - A Shippo API Perl Wrapper (coming soon)
 
+=head1 UNDER CONSTRUCTION
+
+B<This is a work in progress.>
+
+The project was minted on 14 October 2015 and is undergoing change on an
+almost daily basis. While it B<is> fairly stable, there are more tests to
+be written and, without a doubt, more bugs to be squashed. And, as you can
+see, documentation is rather thin on the ground; that, too, is coming.
+
 =head1 SYNOPIS
 
-    # TO FOLLOW
+    use strict;
+    use WebService::Shippo;
+    
+    # Following statement is not necessary if SHIPPO_TOKEN is set in
+    # your process environment.
+    Shippo->api_key(PRIVATE-AUTH-TOKEN);
+    
+    my $address1 = Shippo::Address->create({
+        object_purpose => 'PURCHASE',
+        name           => 'John Smith',
+        street1        => '6512 Greene Rd.',
+        street2        => '',
+        company        => 'Initech',
+        phone          => '+1 234 346 7333',
+        city           => 'Woodridge',
+        state          => 'IL',
+        zip            => '60517',
+        country        => 'US',
+        email          => 'user@gmail.com',
+        metadata       => 'Customer ID 123456'
+    });
+    
+    print 'Success with Address 1 : ', $address
+    
+    # All being well, you should see something like the following output:
+    
+    Success with Address 1 : {
+       "city" : "Woodridge",
+       "company" : "Initech",
+       "country" : "US",
+       "email" : "user@gmail.com",
+       "ip" : null,
+       "is_residential" : null,
+       "messages" : [],
+       "metadata" : "Customer ID 123456",
+       "name" : "John Smith",
+       "object_created" : "2015-10-16T16:14:16.296Z",
+       "object_id" : "475bb05d72b74a08a1d44b40ac85d635",
+       "object_owner" : "******@*********.***",
+       "object_purpose" : "PURCHASE",
+       "object_source" : "FULLY_ENTERED",
+       "object_state" : "VALID",
+       "object_updated" : "2015-10-16T16:14:16.296Z",
+       "phone" : "0012343467333",
+       "state" : "IL",
+       "street1" : "6512 Greene Rd.",
+       "street2" : "",
+       "street_no" : "",
+       "zip" : "60517"
+    }
     
 =head1 DESCRIPTION
 
-Will provide a Shippo API client implementation for Perl.
+Shippo is a shipping API that connects you with multiple shipping providers
+(such as USPS, UPS, and Fedex) through one interface, and offers you great
+discounts on shipping rates.
 
-This is a work in progress and is being actively developed with regular 
-updates as work progresses.
+Don't have an account? Sign up at L<https://goshippo.com/>
+
+=head2 Full API Documentation
+
+=over 2
+
+=item * For API documentation, go to L<https://goshippo.com/docs/>
+
+=item * For API support, contact L<mailto:support@goshippo.com> with any 
+questions.
+
+=back
+
+=head1 REPOSITORY
+
+=over 2
+
+=item * L<https://github.com/cpanic/WebService-Shippo>
+
+=item * L<http://search.cpan.org/dist/WebService-Shippo/lib/WebService/Shippo.pm>
+
+=back
 
 =head1 AUTHOR
 
@@ -134,9 +214,11 @@ Iain Campbell <cpanic@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012-2015 by Iain Campbell.
+This software is copyright (c) 2015 by Iain Campbell.
 
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
+You may distribute this software under the terms of either the GNU General
+Public License or the Artistic License, as specified in the Perl README
+file.
+
 
 =cut
