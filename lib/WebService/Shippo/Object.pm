@@ -39,16 +39,16 @@ sub new
         return $ref_type
             unless defined $ref_type;
         if ( $ref_type eq 'HASH' ) {
-            my $self = $invocant->new( $response->{object_id} );
-            $self->refresh_from( $response );
-            if ( exists( $self->{count} ) && exists( $self->{results} ) ) {
-                my $item_class = $self->class;
-                for my $thing ( @{ $self->{results} } ) {
+            my $invocant = $invocant->new( $response->{object_id} );
+            $invocant->refresh_from( $response );
+            if ( exists( $invocant->{count} ) && exists( $invocant->{results} ) ) {
+                my $item_class = $invocant->class;
+                for my $thing ( @{ $invocant->{results} } ) {
                     bless $thing, $item_class;
                 }
-                bless $self, $self->list_class;
+                bless $invocant, $invocant->list_class;
             }
-            return $self;
+            return $invocant;
         }
         elsif ( $ref_type eq 'ARRAY' ) {
             return [ map { $invocant->construct_from( $_ ) } @$response ];
@@ -80,9 +80,9 @@ sub new
 
 sub refresh_from
 {
-    my ( $self, $hash ) = @_;
-    @{$self}{ keys %$hash } = values %$hash;
-    return $self;
+    my ( $invocant, $hash ) = @_;
+    @{$invocant}{ keys %$hash } = values %$hash;
+    return $invocant;
 }
 
 {
@@ -127,40 +127,51 @@ sub refresh_from
 
 sub id
 {
-    my ( $self ) = @_;
-    return exists( $self->{object_id} ) ? $self->{object_id} : undef;
+    my ( $invocant ) = @_;
+    return undef unless exists $invocant->{object_id};
+    return $invocant->{object_id};
 }
 
 sub owner
 {
-    my ( $self ) = @_;
-    return exists( $self->{object_owner} ) ? $self->{object_owner} : undef;
+    my ( $invocant ) = @_;
+    return undef unless exists $invocant->{object_owner};
+    return $invocant->{object_owner};
 }
 
 sub c_time
 {
-    my ( $self ) = @_;
-    return exists( $self->{object_created} ) ? $self->{object_created} : undef;
+    my ( $invocant ) = @_;
+    return undef unless exists $invocant->{object_created};
+    return $invocant->{object_created};
 }
 
 sub u_time
 {
-    my ( $self ) = @_;
-    return exists( $self->{object_updated} ) ? $self->{object_updated} : undef;
+    my ( $invocant ) = @_;
+    return undef unless exists $invocant->{object_updated};
+    return $invocant->{object_updated};
 }
 
 sub status
 {
-    my ( $self ) = @_;
-    return exists( $self->{object_status} ) ? $self->{object_status} : undef;
+    my ( $invocant ) = @_;
+    return undef unless exists $invocant->{object_status};
+    return $invocant->{object_status};
+}
+
+sub state
+{
+    my ( $invocant ) = @_;
+    return undef unless exists $invocant->{object_state};
+    return $invocant->{object_state};
 }
 
 sub is_valid
 {
-    my ( $self ) = @_;
-    return undef
-        unless exists $self->{object_state};
-    return $self->{object_state} && $self->{object_state} eq 'VALID';
+    my ( $invocant ) = @_;
+    return undef unless exists $invocant->{object_state};
+    return $invocant->{object_state} && $invocant->{object_state} eq 'VALID';
 }
 
 # Just in time creation of mutators for orphaned method calls, to facilitate
@@ -176,18 +187,18 @@ sub AUTOLOAD
     my $sym = "$class\::$method";
     *$sym = set_subname(
         $sym => sub {
-            my ( $self, $new_value ) = @_;
+            my ( $invocant, $new_value ) = @_;
             unless ( @_ > 1 ) {
-                if ( wantarray && ref( $self->{$method} ) ) {
-                    return %{ $self->{$method} }
-                        if reftype( $self->{$method} ) eq 'HASH';
-                    return @{ $self->{$method} }
-                        if reftype( $self->{$method} ) eq 'ARRAY';
+                if ( wantarray && ref( $invocant->{$method} ) ) {
+                    return %{ $invocant->{$method} }
+                        if reftype( $invocant->{$method} ) eq 'HASH';
+                    return @{ $invocant->{$method} }
+                        if reftype( $invocant->{$method} ) eq 'ARRAY';
                 }
-                return $self->{$method};
+                return $invocant->{$method};
             }
-            $self->{$method} = $new_value;
-            return $self;
+            $invocant->{$method} = $new_value;
+            return $invocant;
         }
     );
     goto &$sym;
