@@ -34,8 +34,6 @@ use URI::Encode ( 'uri_encode' );
         }
         return $class;
     }
-
-    __PACKAGE__->user_agent( LWP::UserAgent->new );
 }
 
 sub query_string
@@ -103,5 +101,8 @@ BEGIN {
     # namespace is just cruel; allow the use of "Shippo", too.
     *Shippo::Request:: = *WebService::Shippo::Request::;
 }
+
+# Init the user_agent attribute, and all that entails...
+__PACKAGE__->user_agent( LWP::UserAgent->new );
 
 1;
