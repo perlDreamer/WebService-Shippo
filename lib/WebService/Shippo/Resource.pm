@@ -10,7 +10,7 @@ use base        ( 'WebService::Shippo::Object' );
 use constant DEFAULT_API_SCHEME    => 'https';
 use constant DEFAULT_API_HOST      => 'api.goshippo.com';
 use constant DEFAULT_API_PORT      => '443';
-use constant DEFAULT_API_BASE_PATH => 'v1';
+use constant DEFAULT_API_VERSION => 'v1';
 
 {
     my $value = undef;
@@ -91,13 +91,13 @@ use constant DEFAULT_API_BASE_PATH => 'v1';
 }
 
 {
-    my $value = DEFAULT_API_BASE_PATH;
+    my $value = DEFAULT_API_VERSION;
 
     sub api_base_path
     {
         my ( $class, $new_value ) = @_;
         return $value unless @_ > 1;
-        ( $value = $new_value || DEFAULT_API_BASE_PATH ) =~ s{(^\/*|\/*$)}{};
+        ( $value = $new_value || DEFAULT_API_VERSION ) =~ s{(^\/*|\/*$)}{};
         return $class;
     }
 }
@@ -120,7 +120,7 @@ use constant DEFAULT_API_BASE_PATH => 'v1';
                 if $path;
         }
         return $value unless @_ > 1;
-        ( $value = $new_value || DEFAULT_API_BASE_PATH ) =~ s{(^\/*|\/*$)}{};
+        ( $value = $new_value || DEFAULT_API_VERSION ) =~ s{(^\/*|\/*$)}{};
         return $class;
     }
 }

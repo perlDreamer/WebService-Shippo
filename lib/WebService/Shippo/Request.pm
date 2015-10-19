@@ -24,7 +24,8 @@ use URI::Encode ( 'uri_encode' );
         return $value unless @_ > 1;
         $value = $new_value;
         if ( $value->can( 'agent' ) ) {
-            my $prod = 'Shippo/' . WebService::Shippo::Resource->DEFAULT_API_BASE_PATH;
+            my $prod = 'Shippo/';
+            $prod .= WebService::Shippo::Resource->DEFAULT_API_VERSION;
             $prod .= " WebService\::Shippo/$WebService::Shippo::VERSION";
             $prod .= ' ' . $value->_agent
                 if $value->can( '_agent' );
