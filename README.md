@@ -24,7 +24,10 @@ Build tests have been conducted successfully on all later versions of Perl.
 
 ##### Dependencies
 
-* `Clone`
+| Implementation | Testing                 |
+| :------------- : :---------------------- |
+| `Clone`        | `Data::Dumper::Concise` |
+
 * `File::HomeDir`
 * `JSON::XS`
 * `LWP`
