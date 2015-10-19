@@ -104,18 +104,20 @@ use constant DEFAULT_API_VERSION => 'v1';
     sub api_endpoint
     {
         my ( $class, $new_value ) = @_;
-        unless ( $value ) {
-            my $scheme = api_scheme();
-            my $port   = api_port();
-            my $path   = api_base_path;
-            $value = $scheme . '://' . api_host();
-            $value .= ':' . $port
-                unless $port && $port eq '443' && $scheme eq 'https';
-            $value .= '/';
-            $value .= $path . '/'
-                if $path;
+        unless ( @_ > 1 ) {
+            unless ( $value ) {
+                my $scheme = api_scheme();
+                my $port   = api_port();
+                my $path   = api_base_path;
+                $value = $scheme . '://' . api_host();
+                $value .= ':' . $port
+                    unless $port && $port eq '443' && $scheme eq 'https';
+                $value .= '/';
+                $value .= $path . '/'
+                    if $path;
+            }
+            return $value;
         }
-        return $value unless @_ > 1;
         ( $value = $new_value || DEFAULT_API_VERSION ) =~ s{(^\/*|\/*$)}{};
         return $class;
     }
