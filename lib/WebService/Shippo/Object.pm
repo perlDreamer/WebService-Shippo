@@ -30,7 +30,7 @@ sub new
 }
 
 {
-    my $json = JSON::XS->new->utf8->convert_blessed->allow_blessed;;
+    my $json = JSON::XS->new->utf8->convert_blessed->allow_blessed;
 
     sub construct_from
     {
@@ -129,6 +129,14 @@ sub id
 {
     my ( $self ) = @_;
     return exists( $self->{object_id} ) ? $self->{object_id} : undef;
+}
+
+sub is_valid
+{
+    my ( $self ) = @_;
+    return undef
+        unless exists $self->{object_state};
+    return $self->{object_state} && $self->{object_state} eq 'VALID';
 }
 
 # Just in time creation of mutators for orphaned method calls, to facilitate
