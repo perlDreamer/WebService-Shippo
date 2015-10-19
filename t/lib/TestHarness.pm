@@ -76,7 +76,7 @@ sub run_tests
 {
     my ( $invocant, @tests, $root_name, $stash ) = @_;
     @tests = @{ $tests[0] }
-        if ref( $tests[0] ) && ref( $tests[0] ) =~ /^ARRAY$/;
+        if ref( $tests[0] ) && ref( $tests[0] ) eq 'ARRAY';
     croak 'Unexpected ' . ref( $tests[0] ) . ' reference'
         if ref( $tests[0] );
     croak 'Odd number of elements in test array'
