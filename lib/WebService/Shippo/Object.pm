@@ -11,7 +11,6 @@ use Sub::Util    ( 'set_subname' );
 use overload     ( fallback => 1, '""' => 'to_string' );
 
 our $AUTOLOAD;
-our $PRETTY;
 
 sub class
 {
@@ -67,6 +66,18 @@ sub new
     }
 }
 
+{
+    my $value = 0;
+
+    sub PRETTY
+    {
+        my ( $class, $new_value ) = @_;
+        return $value unless @_ > 1;
+        $value = $new_value;
+        return $class;
+    }
+}
+
 sub refresh_from
 {
     my ( $self, $hash ) = @_;
@@ -98,7 +109,7 @@ sub refresh_from
     sub to_json
     {
         $json->pretty
-            if $PRETTY;
+            if PRETTY;
         return $json->encode( $_[0] );
     }
 
@@ -108,7 +119,7 @@ sub refresh_from
     sub to_string
     {
         $json->pretty
-            if $PRETTY;
+            if PRETTY;
         return $json->encode( $_[0] );
     }
 }
