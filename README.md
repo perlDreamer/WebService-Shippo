@@ -10,7 +10,7 @@ Don't have an account? Sign up at https://goshippo.com/
 
 ### Version
 
-v0.0.4 (built 2015-10-16)
+v0.0.5 (built 2015-10-19)
 
 _This Shippo API Perl Client is functional but is in a pre-release stage
 of its development. There are still tests and documentation to be written,
