@@ -8,6 +8,22 @@ use Test::More;
 use_ok( 'WebService::Shippo' );
 
 my @objects_under_test = (
+    'Address' => {
+        create_default_item => \&default_address,
+        class               => 'Shippo::Address',
+        object_is_valid     => sub {
+            my ( $object ) = @_;
+            return $object->is_valid;
+        },
+        more_tests => [
+            testValidateAddress => sub {
+                my $address   = stash->{item};
+                my $object_id = $address->object_id;
+                my $validated = Shippo::Address->validate( $object_id );
+                is( $validated->state, 'VALID', __TEST__ );
+            },
+        ],
+    },
     'CustomsItem' => {
         create_default_item => \&default_customs_item,
         class               => 'Shippo::CustomsItem',
@@ -41,12 +57,13 @@ while ( @objects_under_test ) {
     my $config          = shift @objects_under_test;
     my $class           = $config->{class};
     my $object_is_valid = $config->{object_is_valid};
+    my $other_tests     = $config->{more_tests};
     push @tests, $test_group => [
         testValidCreate => sub {
             stash->{item} = $config->{create_default_item}->();
             my $item = stash->{item};
-            ok( defined( $item ), __TEST__ );
-            ok( $object_is_valid->($item),  __TEST__ );
+            ok( defined( $item ),            __TEST__ );
+            ok( $object_is_valid->( $item ), __TEST__ );
         },
         testInvalidCreate => sub {
             my $e;
@@ -63,6 +80,19 @@ while ( @objects_under_test ) {
             my $list = stash->{list};
             ok( defined( $list->count ),   __TEST__ );
             ok( defined( $list->results ), __TEST__ );
+        },
+        testListPageSize => sub {
+            my $page_size = 1;
+            my $list = $class->all(
+                { 'results' => $page_size,
+                  'page'    => 1
+                }
+            );
+            my $next  = $list->next_page;
+            my $first = $next->previous_page;
+            is( $list->page_size,  $page_size, __TEST__ );
+            is( $next->page_size,  $page_size, __TEST__ );
+            is( $first->page_size, $page_size, __TEST__ );
         },
         testFetch => sub {
             my $object = stash->{list}{results}[0];
@@ -82,6 +112,7 @@ while ( @objects_under_test ) {
             };
             like( $exception, qr/404 NOT FOUND/i, __TEST__ );
         },
+        $other_tests ? @$other_tests : (),
     ];
 } ## end while ( @objects_under_test)
 
