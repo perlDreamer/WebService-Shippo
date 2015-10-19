@@ -17,6 +17,7 @@ my %WriteMakefileArgs = (
   "MIN_PERL_VERSION" => "5.008008",
   "NAME" => "WebService::Shippo",
   "PREREQ_PM" => {
+    "Clone" => 0,
     "File::HomeDir" => 0,
     "JSON::XS" => 0,
     "LWP" => 0,
@@ -28,16 +29,17 @@ my %WriteMakefileArgs = (
   },
   "TEST_REQUIRES" => {
     "Data::Dumper::Concise" => 0,
-    "Test::Deep" => 0
+    "Try::Tiny" => 0
   },
   "VERSION" => "0.0.4",
   "test" => {
-    "TESTS" => "t/*.t t/WebService/Shippo/*.t"
+    "TESTS" => "t/*.t t/Shippo/*.t"
   }
 );
 
 
 my %FallbackPrereqs = (
+  "Clone" => 0,
   "Data::Dumper::Concise" => 0,
   "File::HomeDir" => 0,
   "JSON::XS" => 0,
@@ -45,7 +47,7 @@ my %FallbackPrereqs = (
   "MRO::Compat" => 0,
   "Path::Class" => 0,
   "Sub::Util" => 0,
-  "Test::Deep" => 0,
+  "Try::Tiny" => 0,
   "URI::Encode" => 0,
   "YAML::XS" => 0
 );
