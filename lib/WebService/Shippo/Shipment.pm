@@ -15,7 +15,7 @@ sub api_resource {'shipments'}
 
 sub rates
 {
-    my ( $invocant, $id, $currency, $params ) = @_;
+    my ( $invocant, $id, $currency, @params ) = @_;
     if ( $currency ) {
         my $validated = $invocant->validate_currency( $currency );
         croak "Invalid currency code ($currency)"
@@ -26,7 +26,7 @@ sub rates
         $currency ||= 'USD';
     }
     my $url = $invocant->url( "$id/rates/$currency" );
-    my $response = Shippo::Request->get( $url, $params );
+    my $response = Shippo::Request->get( $url, @params );
     return $invocant->construct_from( $response );
 }
 
