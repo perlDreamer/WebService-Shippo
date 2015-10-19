@@ -12,7 +12,7 @@ use base ( 'WebService::Shippo::Creator',
 sub api_resource {'parcels'}
 
 package    # Hide from PAUSE
-    WebService::Shippo::RateList;
+    WebService::Shippo::ParcelList;
 use base ( 'WebService::Shippo::ObjectList' );
 
 BEGIN {
