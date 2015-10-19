@@ -6,7 +6,7 @@ package WebService::Shippo::Resource;
 require WebService::Shippo::Request;
 use Carp        ( 'croak' );
 use URI::Encode ( 'uri_encode' );
-use base ( 'WebService::Shippo::Object' );
+use base        ( 'WebService::Shippo::Object' );
 use constant DEFAULT_API_SCHEME    => 'https';
 use constant DEFAULT_API_HOST      => 'api.goshippo.com';
 use constant DEFAULT_API_PORT      => '443';
@@ -102,6 +102,29 @@ use constant DEFAULT_API_BASE_PATH => 'v1';
     }
 }
 
+{
+    my $value = undef;
+
+    sub api_endpoint
+    {
+        my ( $class, $new_value ) = @_;
+        unless ( $value ) {
+            my $scheme = api_scheme();
+            my $port   = api_port();
+            my $path   = api_base_path;
+            $value = $scheme . '://' . api_host();
+            $value .= ':' . $port
+                unless $port && $port eq '443' && $scheme eq 'https';
+            $value .= '/';
+            $value .= $path . '/'
+                if $path;
+        }
+        return $value unless @_ > 1;
+        ( $value = $new_value || DEFAULT_API_BASE_PATH ) =~ s{(^\/*|\/*$)}{};
+        return $class;
+    }
+}
+
 sub api_resource
 {
     croak 'Method not implemented in abstract base class';
@@ -110,21 +133,12 @@ sub api_resource
 sub url
 {
     my ( $class, $id ) = @_;
-    my $scheme   = $class->api_scheme;
-    my $port     = $class->api_port;
-    my $path     = $class->api_base_path;
     my $resource = $class->api_resource;
-    my $url      = $scheme . '://';
-    $url .= $class->api_host;
-    $url .= ':' . $port
-        unless $port && $port eq '443' && $scheme eq 'https';
-    $url .= '/' . $path
-        if $path;
-    $url .= '/' . $resource
+    my $url      = $class->api_endpoint;
+    $url .= $resource . '/'
         if $resource;
-    $url .= '/' . uri_encode( $id )
+    $url .= uri_encode( $id ) . '/'
         if @_ > 1 && $id;
-    $url .= '/';
     return $url;
 }
 
