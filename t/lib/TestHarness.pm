@@ -10,7 +10,9 @@ use boolean ':all';
 use base ( 'Exporter' );
 
 #<<<
-our @EXPORT = ( qw/
+our @EXPORT = ( 
+    @Test::More::EXPORT,
+    qw/
     __TEST__ 
     __STASH__ 
     stash 
