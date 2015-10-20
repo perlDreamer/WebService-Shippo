@@ -139,11 +139,9 @@ see, documentation is rather thin on the ground; that, too, is coming.
     use strict;
     use WebService::Shippo;
     
-    # Following statement is not necessary if SHIPPO_TOKEN is set in
-    # your process environment.
     Shippo->api_key(PRIVATE-AUTH-TOKEN);
     
-    my $address1 = Shippo::Address->create({
+    my $address = Shippo::Address->create({
         object_purpose => 'PURCHASE',
         name           => 'John Smith',
         street1        => '6512 Greene Rd.',
