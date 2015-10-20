@@ -33,15 +33,17 @@ sub dump
     Test::More::diag( Dumper( @_ ) );
 }
 
-# __TEST__ (LIST_OF_COMMENTS)
-# Arguments:
-#   LIST_OF_COMMENTS - optional comments, passed as an array.
-# Returns:
-#   SCALAR - the name of the test being executed, along with any comments.
-#
-# The run_tests method localises a copy of $__TEST__ and it is in that
-# context that the value of $__TEST__ is obtained by the currently running
-# test.
+# * __TEST__ 
+#   Return Value:
+#       STRING - the name of the test currently being executed.
+# * __TEST__ (LIST)
+#   Parameters:
+#       LIST - optional list of comments that will appear after the name of
+#           the test currently being executed.
+#   Return Value:
+#       STRING - the name of the test currently being executed, together
+#           with the comments passed. A colon (:) separates the test's name
+#           from the comments.
 #
 sub __TEST__
 {
@@ -51,6 +53,26 @@ sub __TEST__
     return $__TEST__ . ': ' . join( '', @_ );
 }
 
+# * __STASH__ 
+#   Return Value:
+#       HASHREF - the structure used by the test as a medium for sharing
+#           data with other tests in the same test sequence.
+# * __STASH__ (KEY-NAME)
+#   Parameters:
+#       KEY-NAME - the name of the key for which the value is sought.
+#   Return Value:
+#       SCALAR - the value associated with the key name.
+# * __STASH__ (KEY-VALUES)
+#   Parameters:
+#       KEY-VALUES - a list of key/value pairs that should be set in the
+#           stash.
+#   Return Value:
+#       HASHREF - the structure used by the test as a medium for sharing
+#           data with other tests in the same test sequence.
+#
+# A place to share data among tests in the same sequence. The "__STASH__" 
+# symbol also has an alias called "stash".
+#
 sub __STASH__
 {
     return $__STASH__ unless @_;
@@ -63,37 +85,38 @@ sub __STASH__
     return $__STASH__;
 }
 
-# run_tests (LIST_OF_TESTS)
-# Arguments:
-#   LIST_OF_TESTS - optional tests, passed as an array (or array ref) of
-#       key/value pairs. The key being the test's name; the value being
-#       a code reference (the test's definition).
-# Returns:
-#   Nothing.
+# * INVOCANT->run_tests (TESTS)
+# * INVOCANT->run_tests (TESTS, PARENT-NAME, PARENT-STASH)
+#   Arguments:
+#       TESTS - reference to a array (the test sequence) defined as a list
+#           of key/value pairs for which the key is a test's name and the
+#           value is a code reference (a test) or an array (another test
+#           sequence). Due to their sequential nature test sequences are
+#           expressed as arrays instead of hashes. 
+#       PARENT-NAME - the name of the test that defined this test sequence,
+#           usually set by "run_tests" on a recursive call for nested test
+#           sequences and combined with the current test's name.
+#       PARENT-STASH - the stash used by the test that defined this test
+#           sequence, usually set by "run_tests" on a recursive call for
+#           nested test sequences and comined with the current test's stash.
+#   Return Value:
+#       INVOCANT - the same entity used to invoke the method.
 #
-# Carries out the ordered execution of a test sequence.
+# Executes a sequence of tests.
 #
 sub run_tests
 {
-    my ( $invocant, $tests, $root_name, $stash ) = @_;
+    my ( $invocant, $tests, $parent_name, $parent_stash ) = @_;
     my @tests = @{ $tests };
     croak 'Odd number of elements in test array'
         if @tests % 2;
-    local $__STASH__ = $stash ? {%$stash} : {};
+    local $__STASH__ = $parent_stash ? {%$parent_stash} : {};
     local $__TEST__;
     while ( @tests ) {
         my $test_name = shift @tests;
         my $test      = shift @tests;
-        $__TEST__ = $root_name ? "$root_name.$test_name" : $test_name;
-        if ( ref( $test ) eq 'HASH' ) {
-            $test->{setup}->()
-                if $test->{setup};
-            $invocant->run_tests( $test->{tests}, $__TEST__, $__STASH__ )
-                if $test->{tests};
-            $test->{teardown}->()
-                if $test->{teardown};
-        }
-        elsif ( ref( $test ) eq 'ARRAY' ) {
+        $__TEST__ = $parent_name ? "$parent_name.$test_name" : $test_name;
+        if ( ref( $test ) eq 'ARRAY' ) {
             $invocant->run_tests( $test, $__TEST__, $__STASH__ );
         }
         else {
