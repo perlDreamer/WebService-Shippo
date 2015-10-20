@@ -96,8 +96,17 @@ my @objects_under_test = (
             my ( $object ) = @_;
             return $object->is_valid;
         },
+        skip => ['testFetch'],
         more_tests => [
+            testFetch => sub {
+                my $object = stash->{list}{results}[0];
+                my $id     = $object->{object_id};
+                ok( defined( $id ), __TEST__ );
+                my $item = Shippo::Shipment->fetch( $id );
+                is( $object->id, $item->id, __TEST__ );
+            },
             testRates => sub {
+                stash->{item}->get_shipment_rates( stash->{item}->id );
                 stash->{item}->rates(
                     callback {
                         my ( $rate ) = @_;
@@ -298,7 +307,7 @@ sub default_rate
         $rates = $shipment->get_shipping_rates( $shipment->id, 'usd' );
     }
     catch {
-        diag($_);
+        diag( $_ );
     };
     SKIP: {
         skip '(failed asynchronous operation; perhaps test again later)', 1
