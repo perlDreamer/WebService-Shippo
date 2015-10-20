@@ -83,7 +83,7 @@ my @objects_under_test = (
     'Rate' => {
         create_default_item => \&default_rate,
         class               => 'Shippo::Rate',
-        skip => [ 'testInvalidCreate', 'testFetch', 'testInvalidFetch' ],
+        skip            => [ 'testInvalidCreate', 'testFetch', 'testInvalidFetch' ],
         object_is_valid => sub {
             my ( $object ) = @_;
             return defined $object;
@@ -292,20 +292,13 @@ sub default_shipment
 
 sub default_rate
 {
-    my $shipment    = default_shipment();
-    my $max_retries = 30;
-    my $retries     = 0;
-    my $rates;
-    while ( !$rates ) {
-        try {
-            $rates = $shipment->get_shipping_rates( $shipment->id, 'usd' );
-        }
-        catch {
-            diag( $_ );
-            sleep 1;
-        };
+    my $shipment = default_shipment();
+    my $rates = $shipment->get_shipping_rates( $shipment->id, 'usd' );
+    SKIP: {
+        skip '(failed asynchronous operation; perhaps test again later)', 1
+            unless $rates;
+        ok( $rates, 'default_rate' );
     }
-    ok( $rates, 'default_rate' );
     return $rates;
 }
 
