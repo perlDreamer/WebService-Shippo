@@ -39,6 +39,7 @@ Build tests have been conducted successfully on all later versions of Perl.
 <tt>JSON::XS</tt><br/>
 <tt>LWP</tt><br/>
 <tt>MRO::Compat</tt><br/>
+<tt>Params::Callbacks</tt><br/>
 <tt>Path::Class</tt><br/>
 <tt>Sub::Util</tt><br/>
 <tt>URI::Encode</tt><br/>
