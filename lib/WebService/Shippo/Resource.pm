@@ -154,18 +154,25 @@ sub owner
     return $invocant->{object_owner};
 }
 
-sub c_time
+sub created
 {
     my ( $invocant ) = @_;
     return undef unless exists $invocant->{object_created};
     return $invocant->{object_created};
 }
 
-sub u_time
+sub is_valid
 {
     my ( $invocant ) = @_;
-    return undef unless exists $invocant->{object_updated};
-    return $invocant->{object_updated};
+    return undef unless exists $invocant->{object_state};
+    return $invocant->{object_state} && $invocant->{object_state} eq 'VALID';
+}
+
+sub purpose
+{
+    my ( $invocant ) = @_;
+    return undef unless exists $invocant->{object_purpose};
+    return $invocant->{object_purpose};
 }
 
 sub status
@@ -182,11 +189,11 @@ sub state
     return $invocant->{object_state};
 }
 
-sub is_valid
+sub updated
 {
     my ( $invocant ) = @_;
-    return undef unless exists $invocant->{object_state};
-    return $invocant->{object_state} && $invocant->{object_state} eq 'VALID';
+    return undef unless exists $invocant->{object_updated};
+    return $invocant->{object_updated};
 }
 
 BEGIN {
