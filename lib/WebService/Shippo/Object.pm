@@ -3,12 +3,12 @@ use warnings;
 use MRO::Compat 'c3';
 
 package WebService::Shippo::Object;
-require WebService::Shippo::ObjectList;
-use Carp         ( 'croak' );
-use JSON::XS     ();
-use Scalar::Util ( 'blessed', 'reftype' );
-use Sub::Util    ( 'set_subname' );
-use overload     ( fallback => 1, '""' => 'to_string' );
+use Carp              ( 'croak' );
+use JSON::XS          ();
+use Params::Callbacks ( 'callbacks' );
+use Scalar::Util      ( 'blessed', 'reftype' );
+use Sub::Util         ( 'set_subname' );
+use overload          ( fallback => 1, '""' => 'to_string' );
 
 our $AUTOLOAD;
 
@@ -34,7 +34,7 @@ sub new
 
     sub construct_from
     {
-        my ( $invocant, $response ) = @_;
+        my ( $callbacks, $invocant, $response ) = &callbacks;
         my $ref_type = ref( $response );
         return $ref_type
             unless defined $ref_type;
@@ -43,22 +43,26 @@ sub new
             $invocant->refresh_from( $response );
             if ( exists( $invocant->{count} ) && exists( $invocant->{results} ) ) {
                 my $item_class = $invocant->class;
-                for my $thing ( @{ $invocant->{results} } ) {
-                    bless $thing, $item_class;
-                }
-                bless $invocant, $invocant->list_class;
+                $invocant->{results} = [
+                    map {
+                        $callbacks->smart_transform( bless( $_, $item_class ) )
+                    } @{ $invocant->{results} }
+                ];
+                return bless( $invocant, $invocant->list_class );
             }
-            return $invocant;
+            else {
+                return $callbacks->smart_transform( $invocant );
+            }
         }
-        elsif ( $ref_type eq 'ARRAY' ) {
-            return [ map { $invocant->construct_from( $_ ) } @$response ];
+        elsif ( $ref_type eq 'ARRAY' ) { # Hmmm, this may need removing!
+            return [ map { $invocant->construct_from( $_, $callbacks ) } @$response ];
         }
         elsif ( $response->isa( 'HTTP::Response' ) ) {
             croak $response->status_line
                 unless $response->is_success;
             my $content = $response->decoded_content;
             my $hash    = $json->decode( $content );
-            return $invocant->construct_from( $hash );
+            return $invocant->construct_from( $hash, $callbacks );
         }
         else {
             return $response;
@@ -123,55 +127,6 @@ sub refresh_from
             if PRETTY;
         return $json->encode( $_[0] );
     }
-}
-
-sub id
-{
-    my ( $invocant ) = @_;
-    return undef unless exists $invocant->{object_id};
-    return $invocant->{object_id};
-}
-
-sub owner
-{
-    my ( $invocant ) = @_;
-    return undef unless exists $invocant->{object_owner};
-    return $invocant->{object_owner};
-}
-
-sub c_time
-{
-    my ( $invocant ) = @_;
-    return undef unless exists $invocant->{object_created};
-    return $invocant->{object_created};
-}
-
-sub u_time
-{
-    my ( $invocant ) = @_;
-    return undef unless exists $invocant->{object_updated};
-    return $invocant->{object_updated};
-}
-
-sub status
-{
-    my ( $invocant ) = @_;
-    return undef unless exists $invocant->{object_status};
-    return $invocant->{object_status};
-}
-
-sub state
-{
-    my ( $invocant ) = @_;
-    return undef unless exists $invocant->{object_state};
-    return $invocant->{object_state};
-}
-
-sub is_valid
-{
-    my ( $invocant ) = @_;
-    return undef unless exists $invocant->{object_state};
-    return $invocant->{object_state} && $invocant->{object_state} eq 'VALID';
 }
 
 # Just in time creation of mutators for orphaned method calls, to facilitate
