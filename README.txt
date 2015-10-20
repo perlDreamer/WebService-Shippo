@@ -2,7 +2,9 @@ NAME
     WebService::Shippo - A Shippo API Perl Wrapper (coming soon)
 
 VERSION
-    version 0.0.6
+    0.0.7
+
+    Built 2015-10-20 (no more changes until 2015-10-23 - I'm out of town).
 
 UNDER CONSTRUCTION
     This is a work in progress.
