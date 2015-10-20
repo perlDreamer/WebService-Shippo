@@ -90,7 +90,7 @@ sub import
     # The API key is overridden with the envornment's value if defined.
     WebService::Shippo::Resource->api_key( $ENV{SHIPPO_TOKEN} )
         if $ENV{SHIPPO_TOKEN};
-    # Pass call frame to Exporter's import for it's processing
+    # Pass call frame to Exporter's import for further processing
     goto &Exporter::import;
 }
 
