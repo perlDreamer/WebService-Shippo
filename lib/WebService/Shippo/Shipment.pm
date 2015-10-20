@@ -33,9 +33,9 @@ sub rates
     }
     else {
         # If no object id is presented, we need to treat the invocant as a
-        # well-formed shipment with a valid rate_url or all bets are off!
+        # well-formed shipment with a valid rates_url or all bets are off!
         croak 'Expected an object id or a well-formed object with rate_url'
-            unless exists( $invocant->{rate_url} ) && $invocant->{rate_url};
+            unless exists( $invocant->{rates_url} ) && $invocant->{rates_url};
         $response = Shippo::Request->get( $invocant->{rates_url} );
     }
     return $invocant->construct_from( $response, $callbacks );
