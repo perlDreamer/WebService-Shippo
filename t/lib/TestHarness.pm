@@ -28,6 +28,14 @@ our @EXPORT = ( qw/
 our $__TEST__  = undef;
 our $__STASH__ = undef;
 
+# * dump ( LIST )
+#   Parameters:
+#       LIST - the list of items you want dumped.
+#   Return Value:
+#       STRING - Data::Dumper::Concise rendition of LIST.
+#
+# Dumps data in a human-readable format.
+#
 sub dump
 {
     Test::More::diag( Dumper( @_ ) );
@@ -38,8 +46,8 @@ sub dump
 #       STRING - the name of the test currently being executed.
 # * __TEST__ (LIST)
 #   Parameters:
-#       LIST - optional list of comments that will appear after the name of
-#           the test currently being executed.
+#       LIST - list of comments that will appear after the name of the test
+#           currently being executed.
 #   Return Value:
 #       STRING - the name of the test currently being executed, together
 #           with the comments passed. A colon (:) separates the test's name
