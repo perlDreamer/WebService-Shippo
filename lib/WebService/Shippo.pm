@@ -84,14 +84,14 @@ sub shippo_transaction_create         { Shippo::Transaction->create( @_ ) }
 
 BEGIN {
     no warnings 'once';
-    # There are some useful mutators defined elsewhere that I'd like to
+    # There are some useful symbols defined elsewhere that I'd like to
     # make available (alias) via the root namespace.
     *api_key  = *WebService::Shippo::Resource::api_key;
     *PRETTY   = *WebService::Shippo::Object::PRETTY;
     *response = *WebService::Shippo::Request::response;
     *Response = *WebService::Shippo::Request::response;
-         # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
-         # namespace is just cruel; allow the use of "Shippo", too.
+    # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
+    # namespace is just cruel; allow the use of "Shippo", too.
     *Shippo:: = *WebService::Shippo::;
 }
 
