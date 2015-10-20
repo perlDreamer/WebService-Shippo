@@ -8,6 +8,18 @@ use base ( 'WebService::Shippo::Fetcher',
            'WebService::Shippo::Resource',
 );
 
+{
+    my $value = 20;
+
+    sub TIMEOUT
+    {
+        my ( $class, $new_value ) = @_;
+        return $value unless @_ > 1;
+        $value = $new_value;
+        return $class;
+    }
+}
+
 sub api_resource {'rates'}
 
 package    # Hide from PAUSE
