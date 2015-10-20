@@ -51,6 +51,7 @@ BEGIN {
     # namespace is just cruel; allow the use of "Shippo", too.
     *Shippo::Shipment::     = *WebService::Shippo::Shipment::;
     *Shippo::ShipmentList:: = *WebService::Shippo::ShipmentList::;
+    *get_shipping_rates     = *rates;
 }
 
 1;
