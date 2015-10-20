@@ -293,7 +293,13 @@ sub default_shipment
 sub default_rate
 {
     my $shipment = default_shipment();
-    my $rates = $shipment->get_shipping_rates( $shipment->id, 'usd' );
+    my $rates;
+    try {
+        $rates = $shipment->get_shipping_rates( $shipment->id, 'usd' );
+    }
+    catch {
+        diag($_);
+    };
     SKIP: {
         skip '(failed asynchronous operation; perhaps test again later)', 1
             unless $rates;
