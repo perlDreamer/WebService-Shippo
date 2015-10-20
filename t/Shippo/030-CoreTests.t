@@ -80,8 +80,17 @@ my @objects_under_test = (
             return $object->is_valid;
         },
     },
+    'Rate' => {
+        create_default_item => \&default_rate,
+        class               => 'Shippo::Rate',
+        skip => [ 'testInvalidCreate', 'testFetch', 'testInvalidFetch' ],
+        object_is_valid => sub {
+            my ( $object ) = @_;
+            return defined $object;
+        },
+    },
     'Shipment' => {
-        create_default_item => \&default_outbound_shipment,
+        create_default_item => \&default_shipment,
         class               => 'Shippo::Shipment',
         object_is_valid     => sub {
             my ( $object ) = @_;
@@ -108,14 +117,17 @@ while ( @objects_under_test ) {
     my $class           = $config->{class};
     my $object_is_valid = $config->{object_is_valid};
     my $more_tests      = $config->{more_tests};
+    my @skip_tests      = @{ $config->{skip} } if $config->{skip};
     push @tests, $test_group => [
         testValidCreate => sub {
+            return if grep {/^testValidCreate$/} @skip_tests;
             stash->{item} = $config->{create_default_item}->();
             my $item = stash->{item};
             ok( defined( $item ),            __TEST__ );
             ok( $object_is_valid->( $item ), __TEST__ );
         },
         testInvalidCreate => sub {
+            return if grep {/^testInvalidCreate$/} @skip_tests;
             my $e;
             try {
                 $class->create( invalid_data => 'invalid' );
@@ -126,12 +138,14 @@ while ( @objects_under_test ) {
             like( $e, qr/400 BAD REQUEST/i, __TEST__ );
         },
         testListAll => sub {
+            return if grep {/^testListAll$/} @skip_tests;
             stash->{list} = $class->all( results => 3, page => 1 );
             my $list = stash->{list};
             ok( defined( $list->count ),   __TEST__ );
             ok( defined( $list->results ), __TEST__ );
         },
         testListPageSize => sub {
+            return if grep {/^testListPageSize$/} @skip_tests;
             my $page_size = 1;
             my $list = $class->all(
                 { 'results' => $page_size,
@@ -141,6 +155,7 @@ while ( @objects_under_test ) {
             is( $list->page_size, $page_size, __TEST__ );
         },
         testFetch => sub {
+            return if grep {/^testFetch$/} @skip_tests;
             my $object = stash->{list}{results}[0];
             my $id     = $object->{object_id};
             ok( defined( $id ), __TEST__ );
@@ -148,6 +163,7 @@ while ( @objects_under_test ) {
             is_deeply( $object, $item, __TEST__ );
         },
         testInvalidFetch => sub {
+            return if grep {/^testInvalidFetch$/} @skip_tests;
             my $id = 'Invalid Object Identifier';
             my $exception;
             try {
@@ -252,7 +268,7 @@ sub default_manifest
     );
 }
 
-sub default_outbound_shipment
+sub default_shipment
 {
     my $address_from = default_address();
     my $address_to   = default_address();
@@ -272,6 +288,25 @@ sub default_outbound_shipment
                             reference_2         => '',
                             metadata            => 'Customer ID 123456',
     );
+}
+
+sub default_rate
+{
+    my $shipment    = default_shipment();
+    my $max_retries = 30;
+    my $retries     = 0;
+    my $rates;
+    while ( !$rates ) {
+        try {
+            $rates = $shipment->get_shipping_rates( $shipment->id, 'usd' );
+        }
+        catch {
+            diag( $_ );
+            sleep 1;
+        };
+    }
+    ok( $rates, 'default_rate' );
+    return $rates;
 }
 
 SKIP: {
