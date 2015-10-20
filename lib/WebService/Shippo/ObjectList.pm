@@ -3,7 +3,8 @@ use warnings;
 use MRO::Compat 'c3';
 
 package WebService::Shippo::ObjectList;
-use base ( 'WebService::Shippo::Object' );
+use Params::Callbacks ( 'callbacks' );
+use base              ( 'WebService::Shippo::Object' );
 
 sub item_count
 {
@@ -19,20 +20,20 @@ sub page_size
 
 sub next_page
 {
-    my ( $self ) = @_;
-    return unless defined( $self->{next} );
+    my ( $callbacks, $self ) = &callbacks;
+    return unless defined $self->{next};
     my $response = WebService::Shippo::Request->get( $self->{next} );
-    return $self->construct_from( $response );
+    return $self->construct_from( $response, $callbacks );
 }
 
 sub plus_next_pages
 {
-    my ( $self ) = @_;
-    return $self unless defined( $self->{next} );
+    my ( $callbacks, $self ) = &callbacks;
+    return $self unless defined $self->{next};
     my $current = $self;
     while ( defined( $current->{next} ) ) {
         my $r = WebService::Shippo::Request->get( $current->{next} );
-        $current = $self->construct_from( $r );
+        $current = $self->construct_from( $r, $callbacks );
         push @{ $self->{results} }, @{ $current->{results} };
     }
     undef $self->{next};
@@ -41,20 +42,20 @@ sub plus_next_pages
 
 sub previous_page
 {
-    my ( $self ) = @_;
-    return unless defined( $self->{previous} );
+    my ( $callbacks, $self ) = &callbacks;
+    return unless defined $self->{previous};
     my $response = WebService::Shippo::Request->get( $self->{previous} );
-    return $self->construct_from( $response );
+    return $self->construct_from( $response, $callbacks );
 }
 
 sub plus_previous_pages
 {
-    my ( $self ) = @_;
-    return $self unless defined( $self->{previous} );
+    my ( $callbacks, $self ) = &callbacks;
+    return $self unless defined $self->{previous};
     my $current = $self;
     while ( defined( $current->{previous} ) ) {
         my $r = WebService::Shippo::Request->get( $current->{previous} );
-        $current = $self->construct_from( $r );
+        $current = $self->construct_from( $r, $callbacks );
         unshift @{ $self->{results} }, @{ $current->{results} };
     }
     undef $self->{previous};
@@ -63,24 +64,24 @@ sub plus_previous_pages
 
 sub items
 {
-    my ( $self ) = @_;
-    return @{ $self->{results} }
+    my ( $callbacks, $self ) = &callbacks;
+    return $callbacks->transform( @{ $self->{results} } )
         if wantarray;
-    return $self->{results};
+    return [ $callbacks->transform( @{ $self->{results} } ) ];
 }
 
 sub item
 {
-    my ( $self, $number ) = @_;
+    my ( $callbacks, $self, $position ) = &callbacks;
     return
-        unless $number > 0 && $number <= $self->{count};
-    return $self->{results}[ $number - 1 ];
+        unless $position > 0 && $position <= $self->{count};
+    return $callbacks->smart_transform( $self->{results}[ $position - 1 ] );
 }
 
 sub item_at_index
 {
-    my ( $self, $index ) = @_;
-    return $self->{results}[$index];
+    my ( $callbacks, $self, $index ) = &callbacks;
+    return $callbacks->smart_transform( $self->{results}[$index] );
 }
 
 sub item_class
@@ -92,8 +93,8 @@ sub item_class
 
 sub list_class
 {
-   my ( $invocant ) = @_;
-   return ref( $invocant ) || $invocant;
+    my ( $invocant ) = @_;
+    return ref( $invocant ) || $invocant;
 }
 
 1;
