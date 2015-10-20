@@ -42,12 +42,12 @@ Build tests have been conducted successfully on all later versions of Perl.
 <tt>Params::Callbacks</tt><br/>
 <tt>Path::Class</tt><br/>
 <tt>Sub::Util</tt><br/>
+<tt>Try::Tiny</tt><br/>
 <tt>URI::Encode</tt><br/>
 <tt>YAML::XS</tt><br/>
 </td>
 <td valign="top">
 <tt>Data::Dumper::Concise</tt><br/>
-<tt>Try::Tiny</tt>
 </td>
 </tr>
 </tbody>
