@@ -25,13 +25,13 @@ my %WriteMakefileArgs = (
     "Params::Callbacks" => 0,
     "Path::Class" => 0,
     "Sub::Util" => 0,
+    "Try::Tiny" => 0,
     "URI::Encode" => 0,
     "YAML::XS" => 0,
     "boolean" => 0
   },
   "TEST_REQUIRES" => {
-    "Data::Dumper::Concise" => 0,
-    "Try::Tiny" => 0
+    "Data::Dumper::Concise" => 0
   },
   "VERSION" => "0.0.6",
   "test" => {
