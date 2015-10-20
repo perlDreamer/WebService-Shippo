@@ -3,7 +3,7 @@ use warnings;
 use MRO::Compat 'c3';
 
 package WebService::Shippo::Shipment;
-use Carp ( 'croak' );
+use Carp              ( 'croak' );
 use Params::Callbacks ( 'callbacks' );
 use base ( 'WebService::Shippo::Creator',
            'WebService::Shippo::Fetcher',
@@ -17,17 +17,27 @@ sub api_resource {'shipments'}
 sub rates
 {
     my ( $callbacks, $invocant, $id, $currency, @params ) = &callbacks;
-    if ( $currency ) {
-        my $validated = $invocant->validate_currency( $currency );
-        croak "Invalid currency code ($currency)"
-            unless $validated;
-        $currency = $validated;
+    my $response;
+    if ( $id ) {
+        if ( $currency ) {
+            my $validated = $invocant->validate_currency( $currency );
+            croak "Invalid currency code ($currency)"
+                unless $validated;
+            $currency = $validated;
+        }
+        else {
+            $currency ||= 'USD';
+        }
+        my $url = $invocant->url( "$id/rates/$currency" );
+        $response = Shippo::Request->get( $url, @params );
     }
     else {
-        $currency ||= 'USD';
+        # If no object id is presented, we need to treat the invocant as a
+        # well-formed shipment with a valid rate_url or all bets are off!
+        croak 'Expected an object id or a well-formed object with rate_url'
+            unless exists( $invocant->{rate_url} ) && $invocant->{rate_url};
+        $response = Shippo::Request->get( $invocant->{rates_url} );
     }
-    my $url = $invocant->url( "$id/rates/$currency" );
-    my $response = Shippo::Request->get( $url, @params );
     return $invocant->construct_from( $response, $callbacks );
 }
 
