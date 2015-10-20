@@ -4,6 +4,7 @@ use MRO::Compat 'c3';
 
 package WebService::Shippo::Shipment;
 use Carp ( 'croak' );
+use Params::Callbacks ( 'callbacks' );
 use base ( 'WebService::Shippo::Creator',
            'WebService::Shippo::Fetcher',
            'WebService::Shippo::Lister',
@@ -15,7 +16,7 @@ sub api_resource {'shipments'}
 
 sub rates
 {
-    my ( $invocant, $id, $currency, @params ) = @_;
+    my ( $callbacks, $invocant, $id, $currency, @params ) = &callbacks;
     if ( $currency ) {
         my $validated = $invocant->validate_currency( $currency );
         croak "Invalid currency code ($currency)"
@@ -27,7 +28,7 @@ sub rates
     }
     my $url = $invocant->url( "$id/rates/$currency" );
     my $response = Shippo::Request->get( $url, @params );
-    return $invocant->construct_from( $response );
+    return $invocant->construct_from( $response, $callbacks );
 }
 
 package    # Hide from PAUSE

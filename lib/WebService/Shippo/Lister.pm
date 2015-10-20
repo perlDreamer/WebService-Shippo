@@ -4,19 +4,20 @@ use MRO::Compat 'c3';
 
 package WebService::Shippo::Lister;
 require WebService::Shippo::Request;
+use Params::Callbacks ( 'callbacks' );
 
 sub all
 {
-    my ( $invocant, @params ) = @_;
+    my ( $callbacks, $invocant, @params ) = &callbacks;
     my $response = WebService::Shippo::Request->get( $invocant->url, @params );
-    return $invocant->construct_from( $response );
+    return $invocant->construct_from( $response, $callbacks );
 }
 
 sub all_pages
 {
-    my ( $invocant, @params ) = @_;
+    my ( $callbacks, $invocant, @params ) = &callbacks;
     my $response = WebService::Shippo::Request->get( $invocant->url, @params );
-    return $invocant->construct_from( $response )->plus_next_pages;
+    return $invocant->construct_from( $response, $callbacks )->plus_next_pages;
 }
 
 sub list_class

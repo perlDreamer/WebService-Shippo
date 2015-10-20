@@ -4,12 +4,13 @@ use MRO::Compat 'c3';
 
 package WebService::Shippo::Fetcher;
 require WebService::Shippo::Request;
+use Params::Callbacks ( 'callbacks' );
 
 sub fetch
 {
-    my ( $invocant, $id, @params ) = @_;
+    my ( $callbacks, $invocant, $id, @params ) = &callbacks;
     my $response = Shippo::Request->get( $invocant->url( $id ), @params );
-    return $invocant->construct_from( $response );
+    return $invocant->construct_from( $response, $callbacks );
 }
 
 BEGIN {

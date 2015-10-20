@@ -4,6 +4,7 @@ use MRO::Compat 'c3';
 
 package WebService::Shippo::Address;
 require WebService::Shippo::Request;
+use Params::Callbacks ( 'callbacks' );
 use base ( 'WebService::Shippo::Creator',
            'WebService::Shippo::Fetcher',
            'WebService::Shippo::Lister',
@@ -14,10 +15,10 @@ sub api_resource {'addresses'}
 
 sub validate
 {
-    my ( $invocant, $id, @params ) = @_;
+    my ( $callbacks, $invocant, $id, @params ) = &callbacks;
     my $url = $invocant->url( "$id/validate" );
     my $response = WebService::Shippo::Request->get( $url, @params );
-    return $invocant->construct_from( $response );
+    return $invocant->construct_from( $response, $callbacks );
 }
 
 package    # Hide from PAUSE
