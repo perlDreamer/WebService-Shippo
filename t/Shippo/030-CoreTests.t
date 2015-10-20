@@ -80,6 +80,24 @@ my @objects_under_test = (
             return $object->is_valid;
         },
     },
+    'Shipment' => {
+        create_default_item => \&default_outbound_shipment,
+        class               => 'Shippo::Shipment',
+        object_is_valid     => sub {
+            my ( $object ) = @_;
+            return $object->is_valid;
+        },
+        more_tests => [
+            testRates => sub {
+                stash->{item}->rates(
+                    callback {
+                        my ( $rate ) = @_;
+                        ok( $rate->is_valid, __TEST__ );
+                    }
+                );
+            },
+        ],
+    },
 );
 
 my @tests;
@@ -89,7 +107,7 @@ while ( @objects_under_test ) {
     my $config          = shift @objects_under_test;
     my $class           = $config->{class};
     my $object_is_valid = $config->{object_is_valid};
-    my $other_tests     = $config->{more_tests};
+    my $more_tests      = $config->{more_tests};
     push @tests, $test_group => [
         testValidCreate => sub {
             stash->{item} = $config->{create_default_item}->();
@@ -140,7 +158,7 @@ while ( @objects_under_test ) {
             };
             like( $exception, qr/404 NOT FOUND/i, __TEST__ );
         },
-        $other_tests ? @$other_tests : (),
+        $more_tests ? @$more_tests : (),
     ];
 } ## end while ( @objects_under_test)
 
@@ -158,7 +176,7 @@ sub default_address
                              country        => 'US',
                              phone          => '123 353 2345',
                              email          => 'jmercouris@iit.com',
-                             metadata       => 'Customer ID 234;234'
+                             metadata       => 'Customer ID 234;234',
     );
 }
 
@@ -183,7 +201,7 @@ sub default_parcel
                             weight        => '2',
                             mass_unit     => 'lb',
                             template      => '',
-                            metadata      => 'Customer ID 123456'
+                            metadata      => 'Customer ID 123456',
     );
 }
 
@@ -197,7 +215,7 @@ sub default_customs_item
                                  value_currency => 'USD',
                                  tariff_number  => '',
                                  origin_country => 'US',
-                                 metadata       => 'Order ID #123123'
+                                 metadata       => 'Order ID #123123',
     );
 }
 
@@ -221,7 +239,7 @@ sub default_customs_declaration
                                  disclaimer           => '',
                                  incoterm             => '',
                                  items                => [ $customs_item->object_id ],
-                                 metadata             => 'Order ID #123123'
+                                 metadata             => 'Order ID #123123',
     );
 }
 
@@ -230,7 +248,29 @@ sub default_manifest
     my $address = default_address();
     Shippo::Manifest->create( provider        => 'USPS',
                               submission_date => '2014-05-16T23:59:59Z',
-                              address_from    => $address->object_id
+                              address_from    => $address->object_id,
+    );
+}
+
+sub default_outbound_shipment
+{
+    my $address_from = default_address();
+    my $address_to   = default_address();
+    my $parcel       = default_parcel();
+    Shippo::Shipment->create(
+                            object_purpose      => 'QUOTE',
+                            address_from        => $address_from->id,
+                            address_to          => $address_to->id,
+                            parcel              => $parcel->id,
+                            submission_type     => 'PICKUP',
+                            submission_date     => '2013-12-03T12:00:00.000Z',
+                            insurance_amount    => '30',
+                            insurance_currency  => 'USD',
+                            extra               => { signature_confirmation => true },
+                            customs_declaration => '',
+                            reference_1         => '',
+                            reference_2         => '',
+                            metadata            => 'Customer ID 123456',
     );
 }
 
