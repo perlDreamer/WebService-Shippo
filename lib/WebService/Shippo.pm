@@ -7,9 +7,11 @@ our $VERSION = '0.0.6';
 require WebService::Shippo::Entities;
 require WebService::Shippo::Request;
 require WebService::Shippo::Config;
+use Params::Callbacks ( 'callbacks', 'callback' );
 use base ( 'Exporter' );
 
 our @EXPORT_OK = qw(
+    callback
     shippo_address
     shippo_address_list
     shippo_address_validate
