@@ -44,7 +44,7 @@ our @EXPORT_OK = qw(
     shippo_transaction_list
     shippo_transaction_create
 );
-our %EXPORT_TAGS = ( all => \@EXPORT_OK );
+our %EXPORT_TAGS = ( all => \@EXPORT_OK, ALL => \@EXPORT_OK );
 
 #<<< Don't Perl Tidy this
 sub shippo_address                    { WebService::Shippo::Address->get( @_ ) }
