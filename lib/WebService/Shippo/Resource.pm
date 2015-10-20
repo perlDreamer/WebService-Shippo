@@ -140,6 +140,55 @@ sub api_resource
     croak 'Method not implemented in abstract base class';
 }
 
+sub id
+{
+    my ( $invocant ) = @_;
+    return undef unless exists $invocant->{object_id};
+    return $invocant->{object_id};
+}
+
+sub owner
+{
+    my ( $invocant ) = @_;
+    return undef unless exists $invocant->{object_owner};
+    return $invocant->{object_owner};
+}
+
+sub c_time
+{
+    my ( $invocant ) = @_;
+    return undef unless exists $invocant->{object_created};
+    return $invocant->{object_created};
+}
+
+sub u_time
+{
+    my ( $invocant ) = @_;
+    return undef unless exists $invocant->{object_updated};
+    return $invocant->{object_updated};
+}
+
+sub status
+{
+    my ( $invocant ) = @_;
+    return undef unless exists $invocant->{object_status};
+    return $invocant->{object_status};
+}
+
+sub state
+{
+    my ( $invocant ) = @_;
+    return undef unless exists $invocant->{object_state};
+    return $invocant->{object_state};
+}
+
+sub is_valid
+{
+    my ( $invocant ) = @_;
+    return undef unless exists $invocant->{object_state};
+    return $invocant->{object_state} && $invocant->{object_state} eq 'VALID';
+}
+
 BEGIN {
     no warnings 'once';
     # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
