@@ -82,6 +82,18 @@ sub shippo_transaction_list           { Shippo::Transaction->all( @_ ) }
 sub shippo_transaction_create         { Shippo::Transaction->create( @_ ) }
 #>>>
 
+sub import
+{
+    my ( $class ) = @_;
+    # Configure Shippo client on import
+    WebService::Shippo::Config->config;
+    # The API key is overridden with the envornment's value if defined.
+    WebService::Shippo::Resource->api_key( $ENV{SHIPPO_TOKEN} )
+        if $ENV{SHIPPO_TOKEN};
+    # Pass call frame to Exporter's import for it's processing
+    goto &Exporter::import;
+}
+
 BEGIN {
     no warnings 'once';
     # There are some useful symbols defined elsewhere that I'd like to
@@ -93,18 +105,6 @@ BEGIN {
     # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
     # namespace is just cruel; allow the use of "Shippo", too.
     *Shippo:: = *WebService::Shippo::;
-}
-
-sub import
-{
-    my ( $class ) = @_;
-    # Configure Shippo client on import
-    Shippo::Config->config;
-    # The API key is overridden with the envornment's value if defined.
-    Shippo::Resource->api_key( $ENV{SHIPPO_TOKEN} )
-        if $ENV{SHIPPO_TOKEN};
-    # Pass call frame to Exporter's import for it's processing
-    goto &Exporter::import;
 }
 
 1;
