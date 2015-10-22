@@ -9,11 +9,9 @@ Don't have an account? Sign up at https://goshippo.com/
 
 ### Version
 
-0.0.7 built 2015-10-20 (no more changes until 2015-10-23 - I'm out of town).
+0.0.7 built 2015-10-20.
 
-_This Shippo API Perl Client is functional but is in a pre-release stage
-of its development. There are still tests and documentation to be written,
-and those tasks are currently under way._
+_This Shippo API Perl Client is functional but is in a pre-release stage of its development. There are still tests and documentation to be written, and those tasks are currently under way._
 
 ### Requirements
 
@@ -130,7 +128,7 @@ use WebService::Shippo;
 
 Shippo->api_key(PRIVATE-AUTH-TOKEN);
 
-my $address = Shippo::Address->create({
+my $address = Shippo::Address->create(
     object_purpose => 'PURCHASE',
     name           => 'John Smith',
     street1        => '6512 Greene Rd.',
@@ -143,7 +141,7 @@ my $address = Shippo::Address->create({
     country        => 'US',
     email          => 'user@gmail.com',
     metadata       => 'Customer ID 123456'
-});
+);
 
 print 'Success with Address 1 : ', $address
 
