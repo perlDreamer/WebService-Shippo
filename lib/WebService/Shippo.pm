@@ -141,7 +141,7 @@ see, documentation is rather thin on the ground; that, too, is coming.
     
     Shippo->api_key(PRIVATE-AUTH-TOKEN);
     
-    my $address = Shippo::Address->create({
+    my $address = Shippo::Address->create(
         object_purpose => 'PURCHASE',
         name           => 'John Smith',
         street1        => '6512 Greene Rd.',
@@ -154,7 +154,7 @@ see, documentation is rather thin on the ground; that, too, is coming.
         country        => 'US',
         email          => 'user@gmail.com',
         metadata       => 'Customer ID 123456'
-    });
+    );
     
     print 'Success with Address 1 : ', $address
     
