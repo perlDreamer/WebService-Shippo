@@ -3,15 +3,17 @@ use warnings;
 use MRO::Compat 'c3';
 
 package WebService::Shippo::CustomsItem;
-use base ( 'WebService::Shippo::Creator',
-           'WebService::Shippo::Fetcher',
-           'WebService::Shippo::Lister',
-           'WebService::Shippo::Resource',
+use base (
+    'WebService::Shippo::Resource',
+    'WebService::Shippo::Creator',
+    'WebService::Shippo::Fetcher',
+    'WebService::Shippo::Lister',
+
 );
 
-sub api_resource {'customs/items'}
+sub api_resource { 'customs/items' }
 
-package    # Hide from PAUSE
+package                               # Hide from PAUSE
     WebService::Shippo::CustomsItemList;
 use base ( 'WebService::Shippo::ObjectList' );
 
