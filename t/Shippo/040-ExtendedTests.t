@@ -88,6 +88,11 @@ my @tests = (
     testObjectList => sub {
         my $carrier_accounts
             = WebService::Shippo::CarrierAccount->all( results => 1 );
+        is( $carrier_accounts->item_class, 'WebService::Shippo::CarrierAccount',
+            __TEST__
+        );
+        my $items = $carrier_accounts->items;
+        is_deeply( $items, [ $carrier_accounts->items ], __TEST__ );
         ok( $carrier_accounts->item_count, __TEST__ );
         for my $n ( 1 .. 3 ) {
             ok( $carrier_accounts->results, __TEST__ );
@@ -115,6 +120,7 @@ my @tests = (
         ok( @{ $carrier_accounts->{results} } > 1, __TEST__ );
         my $i = 0;
         my $p = 1;
+
         for ( 1 .. 10 ) {
             my $ii = $carrier_accounts->item_at_index( $i++ );
             my $ip = $carrier_accounts->item( $p++ );
