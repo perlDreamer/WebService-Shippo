@@ -41,11 +41,14 @@ sub new
         if ( $ref_type eq 'HASH' ) {
             my $invocant = $invocant->new( $response->{object_id} );
             $invocant->refresh_from( $response );
-            if ( exists( $invocant->{count} ) && exists( $invocant->{results} ) ) {
+            if (   exists( $invocant->{count} )
+                && exists( $invocant->{results} ) )
+            {
                 my $item_class = $invocant->class;
                 $invocant->{results} = [
                     map {
-                        $callbacks->smart_transform( bless( $_, $item_class ) )
+                        $callbacks->smart_transform(
+                            bless( $_, $item_class ) )
                     } @{ $invocant->{results} }
                 ];
                 return bless( $invocant, $invocant->list_class );
@@ -54,8 +57,9 @@ sub new
                 return $callbacks->smart_transform( $invocant );
             }
         }
-        elsif ( $ref_type eq 'ARRAY' ) { # Hmmm, this may need removing!
-            return [ map { $invocant->construct_from( $_, $callbacks ) } @$response ];
+        elsif ( $ref_type eq 'ARRAY' ) {    # Hmmm, this may need removing!
+            return [ map { $invocant->construct_from( $_, $callbacks ) }
+                    @$response ];
         }
         elsif ( $response->isa( 'HTTP::Response' ) ) {
             croak $response->status_line
@@ -87,6 +91,15 @@ sub refresh_from
     my ( $invocant, $hash ) = @_;
     @{$invocant}{ keys %$hash } = values %$hash;
     return $invocant;
+}
+
+sub refresh
+{
+    my ( $invocant ) = @_;
+    my $url          = $invocant->url( $invocant->{object_id} );
+    my $response     = Shippo::Request->get( $url );
+    my $update       = $invocant->construct_from( $response );
+    return $invocant->refresh_from( $update );
 }
 
 {
