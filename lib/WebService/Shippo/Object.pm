@@ -57,10 +57,6 @@ sub new
                 return $callbacks->smart_transform( $invocant );
             }
         }
-        elsif ( $ref_type eq 'ARRAY' ) {    # Hmmm, this may need removing!
-            return [ map { $invocant->construct_from( $_, $callbacks ) }
-                    @$response ];
-        }
         elsif ( $response->isa( 'HTTP::Response' ) ) {
             croak $response->status_line
                 unless $response->is_success;
