@@ -2,18 +2,22 @@ NAME
     WebService::Shippo - A Shippo API Perl Wrapper (coming soon)
 
 VERSION
-    0.0.8
-
-    Built 2015-10-24.
+    0.0.9 (2015-10-24)
 
 UNDER CONSTRUCTION
     This is a work in progress.
 
-    The project was minted on 14 October 2015 and is undergoing change on an
-    almost daily basis. While it is fairly stable, there are more tests to
-    be written and, without a doubt, more bugs to be squashed. And, as you
-    can see, documentation is rather thin on the ground; that, too, is
-    coming.
+    The project was minted on 2015-10-14 and is undergoing change on an
+    almost daily basis. A minimal set of tests, with 96.1% statement
+    coverage, was completed on 2015-10-24; the balance of that coverage is
+    lost to the one-line non-OO interface defined in WebService/Shippo.pm,
+    all of which simply call out the OO interface. The Coveralls coverage is
+    showing 93% on Github because WebService/Shippo/Config.pm isn't
+    exercised as heavily on Travis CI builds, and that's because I don't
+    distribute a config file containing my API keys.
+
+    Aside for a nip and a tuck here and there, this code can be considered
+    stable and I can now beging documenting it.
 
 SYNOPIS
         use strict;

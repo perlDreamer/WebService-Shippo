@@ -31,9 +31,10 @@ my %WriteMakefileArgs = (
   },
   "TEST_REQUIRES" => {
     "Data::Dumper::Concise" => 0,
+    "Test::Deep" => 0,
     "Try::Tiny" => 0
   },
-  "VERSION" => "0.0.8",
+  "VERSION" => "0.0.9",
   "test" => {
     "TESTS" => "t/*.t t/Shippo/*.t"
   }
@@ -50,6 +51,7 @@ my %FallbackPrereqs = (
   "Params::Callbacks" => 0,
   "Path::Class" => 0,
   "Sub::Util" => 0,
+  "Test::Deep" => 0,
   "Try::Tiny" => 0,
   "URI::Encode" => 0,
   "YAML::XS" => 0,

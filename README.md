@@ -9,9 +9,13 @@ Don't have an account? Sign up at https://goshippo.com/
 
 ### Version
 
-0.0.8 built 2015-10-24.
+0.0.9 (2015-10-24)
 
-_This Shippo API Perl Client is functional but is in a pre-release stage of its development. There are still tests and documentation to be written, and those tasks are currently under way._
+_This Shippo API Perl Client is functional but is in a pre-release stage of its development._
+
+_Code is reasonably complete and stable, and test coverage is reasonable at 96.1% (local) / 93% (Github). It will never be 100% because Travi CI builds don't exercise parts of the configuration module that handle configuration files, and that's because I won't upload my API keys. Those tests do, however, pass on my local builds. The coverage is further depressed by the one-line subroutines making up the non-OO interface; since they only call code that is tested already, I will test those at a later date._
+
+_Aside from a nip and tuck here and there, I will be focussing on documentation from this point._
 
 ### Requirements
 
