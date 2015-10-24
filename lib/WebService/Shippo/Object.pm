@@ -57,15 +57,12 @@ sub new
                 return $callbacks->smart_transform( $invocant );
             }
         }
-        elsif ( $response->isa( 'HTTP::Response' ) ) {
+        else {
             croak $response->status_line
                 unless $response->is_success;
             my $content = $response->decoded_content;
             my $hash    = $json->decode( $content );
             return $invocant->construct_from( $hash, $callbacks );
-        }
-        else {
-            return $response;
         }
     }
 }
