@@ -47,6 +47,12 @@ my @tests = (
                 'mass_unit'     => 'lb',
             ),
         );
+        is( $shipment->owner,   $shipment->{object_owner},   __TEST__ );
+        is( $shipment->created, $shipment->{object_created}, __TEST__ );
+        is( $shipment->purpose, $shipment->{object_purpose}, __TEST__ );
+        is( $shipment->state,   $shipment->{object_state},   __TEST__ );
+        is( $shipment->updated, $shipment->{object_updated}, __TEST__ )
+            ;
         try {
             my $rates = $shipment->get_shipping_rates( $shipment->id, 'GBP' );
         }
