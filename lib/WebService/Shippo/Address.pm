@@ -5,13 +5,15 @@ use MRO::Compat 'c3';
 package WebService::Shippo::Address;
 require WebService::Shippo::Request;
 use Params::Callbacks ( 'callbacks' );
-use base ( 'WebService::Shippo::Creator',
-           'WebService::Shippo::Fetcher',
-           'WebService::Shippo::Lister',
-           'WebService::Shippo::Resource',
+use base (
+    'WebService::Shippo::Resource',
+    'WebService::Shippo::Creator',
+    'WebService::Shippo::Fetcher',
+    'WebService::Shippo::Lister',
+
 );
 
-sub api_resource {'addresses'}
+sub api_resource { 'addresses' }
 
 sub validate
 {
