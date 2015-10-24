@@ -3,13 +3,15 @@ use warnings;
 use MRO::Compat 'c3';
 
 package WebService::Shippo::Transaction;
-use base ( 'WebService::Shippo::Creator',
-           'WebService::Shippo::Fetcher',
-           'WebService::Shippo::Lister',
-           'WebService::Shippo::Resource',
+use base (
+    'WebService::Shippo::Resource',
+    'WebService::Shippo::Creator',
+    'WebService::Shippo::Fetcher',
+    'WebService::Shippo::Lister',
+    'WebService::Shippo::Async',
 );
 
-sub api_resource {'transactions'}
+sub api_resource { 'transactions' }
 
 package    # Hide from PAUSE
     WebService::Shippo::TransactionList;
