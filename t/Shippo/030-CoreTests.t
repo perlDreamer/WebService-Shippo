@@ -325,7 +325,7 @@ sub default_shipment {
 
 sub default_rate {
     my $shipment = default_shipment();
-    my $rates    = $shipment->get_shipping_rates( $shipment->id );
+    my $rates    = WebService::Shippo::Shipment->get_shipping_rates( $shipment->id );
     return $rates;
 }
 
