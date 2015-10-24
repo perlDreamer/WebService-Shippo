@@ -9,7 +9,7 @@ Don't have an account? Sign up at https://goshippo.com/
 
 ### Version
 
-0.0.7 built 2015-10-20.
+0.0.8 built 2015-10-24.
 
 _This Shippo API Perl Client is functional but is in a pre-release stage of its development. There are still tests and documentation to be written, and those tasks are currently under way._
 
@@ -41,12 +41,12 @@ Build tests have been conducted successfully on all later versions of Perl.
 <tt>Path::Class</tt><br/>
 <tt>Sub::Util</tt><br/>
 <tt>Time::HiRes</tt><br/>
-<tt>Try::Tiny</tt><br/>
 <tt>URI::Encode</tt><br/>
 <tt>YAML::XS</tt><br/>
 </td>
 <td valign="top">
 <tt>Data::Dumper::Concise</tt><br/>
+<tt>Try::Tiny</tt><br/>
 </td>
 </tr>
 </tbody>

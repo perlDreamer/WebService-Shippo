@@ -3,7 +3,7 @@ use warnings;
 
 package WebService::Shippo;
 # ABSTRACT: A Shippo Perl API wrapper
-our $VERSION = '0.0.7';
+our $VERSION = '0.0.8';
 require WebService::Shippo::Entities;
 require WebService::Shippo::Request;
 require WebService::Shippo::Config;
@@ -119,9 +119,9 @@ WebService::Shippo - A Shippo API Perl Wrapper (coming soon)
 
 =head1 VERSION
 
-0.0.7 
+0.0.8 
 
-Built 2015-10-20 (no more changes until 2015-10-23 - I'm out of town).
+Built 2015-10-24.
 
 =head1 UNDER CONSTRUCTION
 
