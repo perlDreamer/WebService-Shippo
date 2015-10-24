@@ -4,16 +4,18 @@ use MRO::Compat 'c3';
 
 package WebService::Shippo::CarrierAccount;
 use boolean ( 'boolean' );
-use base ( 'WebService::Shippo::Creator',
-           'WebService::Shippo::Fetcher',
-           'WebService::Shippo::Lister',
-           'WebService::Shippo::Updater',
-           'WebService::Shippo::Resource',
+use base (
+    'WebService::Shippo::Resource',
+    'WebService::Shippo::Creator',
+    'WebService::Shippo::Fetcher',
+    'WebService::Shippo::Lister',
+    'WebService::Shippo::Updater',
+
 );
 
-sub api_resource {'carrier_accounts'}    # why not "carrier/accounts", which
-                                         # would be consistent with Customs
-                                         # Declaration resource?
+sub api_resource { 'carrier_accounts' }    # why not "carrier/accounts", which
+                                           # would be consistent with Customs
+                                           # Declaration resource?
 
 sub active
 {
