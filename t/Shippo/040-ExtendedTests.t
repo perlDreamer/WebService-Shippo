@@ -8,8 +8,52 @@ use WebService::Shippo ':all';
 
 my @tests = (
     testSetRateTimeout => sub {
-        Shippo::Async->timeout( 30 );
-        is( Shippo::Async->timeout, 30, __TEST__ );
+        Shippo::Async->timeout( 0 );
+        is( Shippo::Async->timeout, 0, __TEST__ );
+        my $exception;
+        my $shipment = Shippo::Shipment->create(
+            object_purpose => 'PURCHASE',
+            address_from   => Shippo::Address->create(
+                'object_purpose' => 'PURCHASE',
+                'name'           => 'Shawn Ippotle',
+                'company'        => 'Shippo',
+                'street1'        => '215 Clayton St.',
+                'city'           => 'San Francisco',
+                'state'          => 'CA',
+                'zip'            => '94117',
+                'country'        => 'US',
+                'phone'          => '+1 555 341 9393',
+                'email'          => 'shippotle@goshippo.com'
+            ),
+            address_to => Shippo::Address->create(
+                'object_purpose' => 'PURCHASE',
+                'name'           => 'Mr Hippo"',
+                'company'        => '',
+                'street1'        => 'Broadway 1',
+                'street2'        => '',
+                'city'           => 'New York',
+                'state'          => 'NY',
+                'zip'            => '10007',
+                'country'        => 'US',
+                'phone'          => '+1 555 341 9393',
+                'email'          => 'mrhippo@goshippo.com'
+            ),
+            parcel => Shippo::Parcel->create(
+                'length'        => '5',
+                'width'         => '5',
+                'height'        => '5',
+                'distance_unit' => 'in',
+                'weight'        => '2',
+                'mass_unit'     => 'lb',
+            ),
+        );
+        try {
+            my $rates = $shipment->get_shipping_rates( $shipment->id, 'GBP' );
+        }
+        catch {
+            $exception = $_;
+        };
+        like( $exception, qr/timed-out/i, __TEST__ );
         Shippo::Async->timeout( 20 );
         is( Shippo::Async->timeout, 20, __TEST__ );
     },
