@@ -29,12 +29,11 @@ sub wait_if_status_in
 {
     my ( $invocant, @states ) = @_;
     my $start_time = [ gettimeofday() ];
-    my $delay = 0.25;
+    my $delay = 0.5;
     my $backoff = 0.25;
     while ( !$invocant->timeout_exceeded( $start_time ) ) {
         return $invocant
             unless any { /^$invocant->{object_status}$/ } @states;
-        print "# $delay $invocant->{object_status}\n";
         sleep( $delay );
         $delay += $backoff;
         $invocant->refresh;
