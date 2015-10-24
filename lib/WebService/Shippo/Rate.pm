@@ -3,24 +3,13 @@ use warnings;
 use MRO::Compat 'c3';
 
 package WebService::Shippo::Rate;
-use base ( 'WebService::Shippo::Fetcher',
-           'WebService::Shippo::Lister',
-           'WebService::Shippo::Resource',
+use base (
+    'WebService::Shippo::Resource',
+    'WebService::Shippo::Fetcher',
+    'WebService::Shippo::Lister',
 );
 
-{
-    my $value = 20;
-
-    sub TIMEOUT
-    {
-        my ( $class, $new_value ) = @_;
-        return $value unless @_ > 1;
-        $value = $new_value;
-        return $class;
-    }
-}
-
-sub api_resource {'rates'}
+sub api_resource { 'rates' }
 
 package    # Hide from PAUSE
     WebService::Shippo::RateList;
