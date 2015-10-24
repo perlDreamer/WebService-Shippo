@@ -47,14 +47,15 @@ my @tests = (
                 'mass_unit'     => 'lb',
             ),
         );
-        is( $shipment->owner,   $shipment->{object_owner},   __TEST__ );
-        is( $shipment->created, $shipment->{object_created}, __TEST__ );
-        is( $shipment->purpose, $shipment->{object_purpose}, __TEST__ );
-        is( $shipment->state,   $shipment->{object_state},   __TEST__ );
-        is( $shipment->updated, $shipment->{object_updated}, __TEST__ )
-            ;
+        is( $shipment->owner,     $shipment->{object_owner},   __TEST__ );
+        is( $shipment->created,   $shipment->{object_created}, __TEST__ );
+        is( $shipment->purpose,   $shipment->{object_purpose}, __TEST__ );
+        is( $shipment->state,     $shipment->{object_state},   __TEST__ );
+        is( $shipment->updated,   $shipment->{object_updated}, __TEST__ );
+        is( $shipment->to_string, $shipment->to_json,          __TEST__ );
+        my $rates;
         try {
-            my $rates = $shipment->get_shipping_rates( $shipment->id, 'GBP' );
+            $rates = $shipment->get_shipping_rates( $shipment->id, 'GBP' );
         }
         catch {
             $exception = $_;
@@ -66,6 +67,21 @@ my @tests = (
         like( $exception, qr/timed-out/i, __TEST__ );
         Shippo::Async->timeout( 20 );
         is( Shippo::Async->timeout, 20, __TEST__ );
+        $rates = $shipment->get_shipping_rates( $shipment->id, 'GBP' );
+        ok( $rates->results, __TEST__ );
+    },
+    testObject => sub {
+        my $ca = WebService::Shippo::CarrierAccount->all_pages( results => 50 );
+        my @ca = $ca->results;
+        ok( @ca > 1, __TEST__ );
+        my %p;
+        for my $carrier ( $ca->items ) {
+            %p = $carrier->parameters;
+            if ( keys %p ) {
+                last;
+            }
+        }
+        ok( keys %p, __TEST__ );
     },
     testpretty => sub {
         Shippo->pretty( 1 );
