@@ -53,6 +53,10 @@ my @tests = (
         catch {
             $exception = $_;
         };
+        is( WebService::Shippo::Request->response->content,
+            '{"count": 0, "next": null, "previous": null, "results": []}',
+            __TEST__
+        );
         like( $exception, qr/timed-out/i, __TEST__ );
         Shippo::Async->timeout( 20 );
         is( Shippo::Async->timeout, 20, __TEST__ );
