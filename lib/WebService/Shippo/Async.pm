@@ -31,7 +31,7 @@ sub wait_while_status_in
     my $start_time = [ gettimeofday() ];
     while ( !$invocant->timeout_exceeded( $start_time ) ) {
         return $invocant
-            unless any {/^$invocant->{object_status}$/} @states;
+            unless any { /^$invocant->{object_status}$/ } @states;
         usleep( 500 );
         $invocant->refresh;
     }
