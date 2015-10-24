@@ -7,12 +7,32 @@ use TestHarness;
 use WebService::Shippo ':all';
 
 my @tests = (
-    setup => sub {
-        Shippo::Rate->TIMEOUT( 30 );
-        is( Shippo::Rate->TIMEOUT, 30, __TEST__ );
-        Shippo::Rate->TIMEOUT( 20 );
-        is( Shippo::Rate->TIMEOUT, 20, __TEST__ );
+    testSetRateTimeout => sub {
+        Shippo::Async->timeout( 30 );
+        is( Shippo::Async->timeout, 30, __TEST__ );
+        Shippo::Async->timeout( 20 );
+        is( Shippo::Async->timeout, 20, __TEST__ );
     },
+    testCurrency => [
+        eur => sub {
+            my $val = Shippo::Currency->validate_currency( 'EUR' );
+            my @val = Shippo::Currency->validate_currency( 'EUR' );
+            is( $val, 'EUR', __TEST__ );
+            is_deeply( \@val, [ 'EUR', 'Euro' ], __TEST__ );
+        },
+        gbp => sub {
+            my $val = Shippo::Currency->validate_currency( 'GBP' );
+            my @val = Shippo::Currency->validate_currency( 'GBP' );
+            is( $val, 'GBP', __TEST__ );
+            is_deeply( \@val, [ 'GBP', 'Pound Sterling' ], __TEST__ );
+        },
+        usd => sub {
+            my $val = Shippo::Currency->validate_currency( 'USD' );
+            my @val = Shippo::Currency->validate_currency( 'USD' );
+            is( $val, 'USD', __TEST__ );
+            is_deeply( \@val, [ 'USD', 'US Dollar' ], __TEST__ );
+        },
+    ]
 );
 
 SKIP: {
