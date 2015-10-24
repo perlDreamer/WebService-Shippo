@@ -10,16 +10,6 @@ use Locale::Currency;
     my @codes = all_currency_codes();
     my %codes = map { $_ => code2currency( $_ ) || '' } @codes;
 
-    sub currency_codes
-    {
-        return \@codes;
-    }
-
-    sub currencies
-    {
-        return \%codes;
-    }
-
     sub validate_currency
     {
         my ( $invocant, $currency_code ) = @_;
