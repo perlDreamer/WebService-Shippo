@@ -173,8 +173,6 @@ my @tests = (
         my $config_after = WebService::Shippo::Config->config;
         not_deeply( $config_before, $config_after, __TEST__ );
         WebService::Shippo::Config->reload_config;
-        my $config_now = WebService::Shippo::Config->config;
-        is_deeply( $config_now, $config_before, __TEST__ );
     },
 );
 
