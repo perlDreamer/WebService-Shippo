@@ -9,8 +9,9 @@ use Clone       ( 'clone' );
 use URI::Encode ( 'uri_encode' );
 
 {
-    my $value = { 'Content-Type' => 'application/json',
-                  'Accept'       => 'application/json',
+    my $value = {
+        'Content-Type' => 'application/json',
+        'Accept'       => 'application/json',
     };
 
     sub headers { wantarray ? %$value : $value }
@@ -67,7 +68,7 @@ sub query_string
     sub get
     {
         my ( $invocant, $url, @params ) = @_;
-        @params = ({})
+        @params = ( {} )
             unless @params;
         my $params = ref( $params[0] ) ? $params[0] : {@params};
         $url .= $invocant->query_string( $params );
@@ -84,10 +85,10 @@ sub query_string
     sub put
     {
         my ( $invocant, $url, @params ) = @_;
-        @params = ({})
+        @params = ( {} )
             unless @params;
-        my $params = ref( $params[0] ) ? $params[0] : {@params};
-        my $payload = $json->encode( $params );
+        my $params   = ref( $params[0] ) ? $params[0] : {@params};
+        my $payload  = $json->encode( $params );
         my $response = user_agent->put( $url, headers, Content => $payload );
         $last_response = clone( $response );
         $invocant->handle_failed_request
@@ -98,10 +99,10 @@ sub query_string
     sub post
     {
         my ( $invocant, $url, @params ) = @_;
-        @params = ({})
+        @params = ( {} )
             unless @params;
-        my $params = ref( $params[0] ) ? $params[0] : {@params};
-        my $payload = $json->encode( $params );
+        my $params   = ref( $params[0] ) ? $params[0] : {@params};
+        my $payload  = $json->encode( $params );
         my $response = user_agent->post( $url, headers, Content => $payload );
         $last_response = clone( $response );
         $invocant->handle_failed_request
