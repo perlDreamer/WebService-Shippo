@@ -19,11 +19,9 @@ SYNOPIS
         use strict;
         use WebService::Shippo;
     
-        # Following statement is not necessary if SHIPPO_TOKEN is set in
-        # your process environment.
         Shippo->api_key(PRIVATE-AUTH-TOKEN);
     
-        my $address1 = Shippo::Address->create({
+        my $address = Shippo::Address->create(
             object_purpose => 'PURCHASE',
             name           => 'John Smith',
             street1        => '6512 Greene Rd.',
@@ -36,7 +34,7 @@ SYNOPIS
             country        => 'US',
             email          => 'user@gmail.com',
             metadata       => 'Customer ID 123456'
-        });
+        );
     
         print 'Success with Address 1 : ', $address
     
