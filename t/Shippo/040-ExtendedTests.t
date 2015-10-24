@@ -13,11 +13,11 @@ my @tests = (
         Shippo::Async->timeout( 20 );
         is( Shippo::Async->timeout, 20, __TEST__ );
     },
-    testPretty => sub {
-        Shippo->PRETTY( 1 );
-        is( Shippo->PRETTY, 1, __TEST__ );
-        Shippo->PRETTY( 0 );
-        is( Shippo->PRETTY, 0, __TEST__ );
+    testpretty => sub {
+        Shippo->pretty( 1 );
+        is( Shippo->pretty, 1, __TEST__ );
+        Shippo->pretty( 0 );
+        is( Shippo->pretty, 0, __TEST__ );
     },
     testCurrency => [
         eur => sub {

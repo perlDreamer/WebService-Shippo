@@ -77,7 +77,7 @@ sub new
 {
     my $value = 0;
 
-    sub PRETTY
+    sub pretty
     {
         my ( $class, $new_value ) = @_;
         return $value unless @_ > 1;
@@ -127,7 +127,7 @@ sub refresh
     sub to_json
     {
         $json->pretty
-            if PRETTY;
+            if pretty;
         return $json->encode( $_[0] );
     }
 
@@ -137,7 +137,7 @@ sub refresh
     sub to_string
     {
         $json->pretty
-            if PRETTY;
+            if pretty;
         return $json->encode( $_[0] );
     }
 }

@@ -99,7 +99,7 @@ BEGIN {
     # There are some useful symbols defined elsewhere that I'd like to
     # make available (alias) via the root namespace.
     *api_key  = *WebService::Shippo::Resource::api_key;
-    *PRETTY   = *WebService::Shippo::Object::PRETTY;
+    *pretty   = *WebService::Shippo::Object::pretty;
     *response = *WebService::Shippo::Request::response;
     *Response = *WebService::Shippo::Request::response;
     # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
