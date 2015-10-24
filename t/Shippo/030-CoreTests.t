@@ -369,7 +369,7 @@ sub default_transaction {
     my $rates       = $shipment->get_shipping_rates( $shipment->id );
     my $rate        = $rates->item( 1 );
     my $transaction = Shippo::Transaction->create( rate => $rate->id );
-    $transaction->wait_while_status_in( 'QUEUED', 'WAITING' );
+    $transaction->wait_if_status_in( 'QUEUED', 'WAITING' );
     return $transaction;
 }
 

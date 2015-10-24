@@ -57,7 +57,7 @@ sub get_shipping_rates
         $shipment = WebService::Shippo::Shipment->fetch( $shipment_id );
     }
     &request_get_shipping_rates;
-    $shipment->wait_while_status_in( 'QUEUED', 'WAITING' );
+    $shipment->wait_if_status_in( 'QUEUED', 'WAITING' );
     return &request_get_shipping_rates;
 }
 
