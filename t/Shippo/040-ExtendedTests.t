@@ -65,14 +65,13 @@ my @tests = (
             __TEST__
         );
         like( $exception, qr/timed-out/i, __TEST__ );
-        Shippo::Async->timeout( 20 );
-        is( Shippo::Async->timeout, 20, __TEST__ );
+        Shippo::Async->timeout( 60 );
+        is( Shippo::Async->timeout, 60, __TEST__ );
         $rates = $shipment->get_shipping_rates( $shipment->id, 'GBP' );
         ok( $rates->results, __TEST__ );
     },
     testObject => sub {
-        my $ca
-            = WebService::Shippo::CarrierAccount->all_pages( results => 50 );
+        my $ca = WebService::Shippo::CarrierAccount->all_pages( results => 50 );
         my @ca = $ca->results;
         ok( @ca > 1, __TEST__ );
         my %p;
@@ -85,6 +84,43 @@ my @tests = (
         ok( keys %p, __TEST__ );
         $ca->foo( 'foo' );
         is( $ca->foo, 'foo', __TEST__ );
+    },
+    testObjectList => sub {
+        my $carrier_accounts
+            = WebService::Shippo::CarrierAccount->all( results => 1 );
+        ok( $carrier_accounts->item_count, __TEST__ );
+        for my $n ( 1 .. 3 ) {
+            ok( $carrier_accounts->results, __TEST__ );
+            last unless $carrier_accounts->{next};
+            $carrier_accounts = $carrier_accounts->next_page;
+        }
+        $carrier_accounts = $carrier_accounts->plus_previous_pages;
+        ok( @{ $carrier_accounts->{results} } > 1, __TEST__ );
+        for my $n ( 1 .. 3 ) {
+            ok( $carrier_accounts->results, __TEST__ );
+            last unless $carrier_accounts->{next};
+            $carrier_accounts = $carrier_accounts->next_page;
+        }
+        for my $n ( 1 .. 3 ) {
+            ok( $carrier_accounts->results, __TEST__ );
+            last unless $carrier_accounts->{previous};
+            $carrier_accounts = $carrier_accounts->previous_page;
+        }
+        $carrier_accounts = $carrier_accounts->plus_previous_pages;
+        ok( @{ $carrier_accounts->{results} } > 1, __TEST__ );
+        $carrier_accounts
+            = WebService::Shippo::CarrierAccount->all(
+            results => @{ $carrier_accounts->{results} } || 1 );
+        $carrier_accounts = $carrier_accounts->plus_next_pages;
+        ok( @{ $carrier_accounts->{results} } > 1, __TEST__ );
+        my $i = 0;
+        my $p = 1;
+        for ( 1 .. 10 ) {
+            my $ii = $carrier_accounts->item_at_index( $i++ );
+            my $ip = $carrier_accounts->item( $p++ );
+            last unless $ii && $ip;
+            is( $ip->id, $ii->id, __TEST__ );
+        }
     },
     testpretty => sub {
         Shippo->pretty( 1 );
