@@ -41,7 +41,6 @@ our @EXPORT_OK = qw(
     shippo_shipment_list
     shippo_shipment_create
     shippo_shipment_rates
-    shippo_return_shipment_create
     shippo_transaction
     shippo_transaction_list
     shippo_transaction_create
@@ -78,7 +77,6 @@ sub shippo_shipment                   { WebService::Shippo::Shipment->get( @_ ) 
 sub shippo_shipment_list              { WebService::Shippo::Shipment->all( @_ ) }
 sub shippo_shipment_create            { WebService::Shippo::Shipment->create( @_ ) }
 sub shippo_shipment_rates             { WebService::Shippo::Shipment->rates( @_ ) }
-sub shippo_return_shipment_create     { WebService::Shippo::ReturnShipment->create( @_ ) }
 sub shippo_transaction                { WebService::Shippo::Transaction->get( @_ ) }
 sub shippo_transaction_list           { WebService::Shippo::Transaction->all( @_ ) }
 sub shippo_transaction_create         { WebService::Shippo::Transaction->create( @_ ) }
