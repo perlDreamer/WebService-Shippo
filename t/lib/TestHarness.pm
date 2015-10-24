@@ -5,6 +5,7 @@ package TestHarness;
 use Carp ( 'croak' );
 use Data::Dumper::Concise;
 use Test::More;
+use Test::Deep;
 use Try::Tiny;
 use boolean ':all';
 use base ( 'Exporter' );
@@ -12,9 +13,11 @@ use base ( 'Exporter' );
 #<<<
 our @EXPORT = ( 
     @Test::More::EXPORT,
+    @Test::Deep::EXPORT,
     qw/
     __TEST__
     __STASH__ 
+    not_deeply
     stash 
     Dumper 
     dump 
@@ -29,6 +32,13 @@ our @EXPORT = (
 
 our $__TEST__  = undef;
 our $__STASH__ = undef;
+
+sub not_deeply
+{
+    my ( $s1, $s2, $name ) = @_;
+    my ( $identical ) = Test::Deep::cmp_details( $s1, $s2 );
+    ok( !$identical, $name );
+}
 
 # * dump ( LIST )
 #   Parameters:

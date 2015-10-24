@@ -82,7 +82,21 @@ my @tests = (
             is( $val, 'USD', __TEST__ );
             is_deeply( \@val, [ 'USD', 'US Dollar' ], __TEST__ );
         },
-    ]
+    ],
+    testConfig => sub {
+        my $config_file_before = WebService::Shippo::Config->config_file;
+        WebService::Shippo::Config->config_file( '/etc/foo' );
+        my $config_file_after = WebService::Shippo::Config->config_file;
+        is( $config_file_after, '/etc/foo', __TEST__ );
+        WebService::Shippo::Config->config_file( $config_file_before );
+        my $config_before = WebService::Shippo::Config->config;
+        WebService::Shippo::Config->config( { foo => 'bar', bar => 'baz' } );
+        my $config_after = WebService::Shippo::Config->config;
+        not_deeply( $config_before, $config_after, __TEST__ );
+        WebService::Shippo::Config->reload_config;
+        my $config_now = WebService::Shippo::Config->config;
+        is_deeply( $config_now, $config_before, __TEST__ );
+    },
 );
 
 SKIP: {
