@@ -27,7 +27,7 @@ my @tests = (
             ),
             address_to => Shippo::Address->create(
                 'object_purpose' => 'PURCHASE',
-                'name'           => 'Mr Hippo"',
+                'name'           => 'Mr Hippo',
                 'company'        => '',
                 'street1'        => 'Broadway 1',
                 'street2'        => '',
@@ -71,7 +71,8 @@ my @tests = (
         ok( $rates->results, __TEST__ );
     },
     testObject => sub {
-        my $ca = WebService::Shippo::CarrierAccount->all_pages( results => 50 );
+        my $ca
+            = WebService::Shippo::CarrierAccount->all_pages( results => 50 );
         my @ca = $ca->results;
         ok( @ca > 1, __TEST__ );
         my %p;
@@ -82,6 +83,8 @@ my @tests = (
             }
         }
         ok( keys %p, __TEST__ );
+        $ca->foo( 'foo' );
+        is( $ca->foo, 'foo', __TEST__ );
     },
     testpretty => sub {
         Shippo->pretty( 1 );
