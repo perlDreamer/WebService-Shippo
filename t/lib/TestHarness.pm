@@ -13,7 +13,7 @@ use base ( 'Exporter' );
 our @EXPORT = ( 
     @Test::More::EXPORT,
     qw/
-    __TEST__ 
+    __TEST__
     __STASH__ 
     stash 
     Dumper 
@@ -40,10 +40,19 @@ our $__STASH__ = undef;
 #
 sub dump
 {
-    Test::More::diag( Dumper( @_ ) );
+    for my $thing ( @_ ) {
+        if ( ref $thing ) {
+            Test::More::diag( Dumper( $thing ) );
+        }
+        else {
+            Test::More::diag( $thing );
+        }
+    }
+
+    return @_;
 }
 
-# * __TEST__ 
+# * __TEST__
 #   Return Value:
 #       STRING - the name of the test currently being executed.
 # * __TEST__ (LIST)
@@ -63,7 +72,7 @@ sub __TEST__
     return $__TEST__ . ': ' . join( '', @_ );
 }
 
-# * __STASH__ 
+# * __STASH__
 #   Return Value:
 #       HASHREF - the structure used by the test as a medium for sharing
 #           data with other tests in the same test sequence.
@@ -80,7 +89,7 @@ sub __TEST__
 #       HASHREF - the structure used by the test as a medium for sharing
 #           data with other tests in the same test sequence.
 #
-# A place to share data among tests in the same sequence. The "__STASH__" 
+# A place to share data among tests in the same sequence. The "__STASH__"
 # symbol also has an alias called "stash".
 #
 sub __STASH__
@@ -102,7 +111,7 @@ sub __STASH__
 #           of key/value pairs for which the key is a test's name and the
 #           value is a code reference (a test) or an array (another test
 #           sequence). Due to their sequential nature test sequences are
-#           expressed as arrays instead of hashes. 
+#           expressed as arrays instead of hashes.
 #       PARENT-NAME - the name of the test that defined this test sequence,
 #           usually set by "run_tests" on a recursive call for nested test
 #           sequences and combined with the current test's name.
@@ -117,7 +126,7 @@ sub __STASH__
 sub run_tests
 {
     my ( $invocant, $tests, $parent_name, $parent_stash ) = @_;
-    my @tests = @{ $tests };
+    my @tests = @{$tests};
     croak 'Odd number of elements in test array'
         if @tests % 2;
     local $__STASH__ = $parent_stash ? {%$parent_stash} : {};
