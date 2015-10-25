@@ -130,11 +130,15 @@ discounts on shipping rates.
 
 Don't have an account? Sign up at L<https://goshippo.com/>
 
+    use strict;
     use WebService::Shippo;
     
-    Shippo->api_key(PRIVATE-AUTH-TOKEN);
+    # If it hasn't already done outside of the script, you
+    # must set your API key...
+    Shippo->api_key( 'PASTE YOUR PRIVATE AUTH TOKEN HERE' )
+        unless Shippo->api_key;
     
-    $address = Shippo::Address->create(
+    my $address = Shippo::Address->create(
         object_purpose => 'PURCHASE',
         name           => 'John Smith',
         street1        => '6512 Greene Rd.',
