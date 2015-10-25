@@ -1,88 +1,88 @@
-Using worker: worker-linux-docker-5b8127a2.prod.travis-ci.org:travis-linux-1
+Using worker: worker-linux-docker-e66cc01f.prod.travis-ci.org:travis-linux-8
 
-Build system information
+travis_fold:start:system_info[0K[33;1mBuild system information[0m
 Build language: perl
-Build image provisioning date and time
+[34m[1mBuild image provisioning date and time[0m
 Thu Feb  5 15:09:33 UTC 2015
-Operating System Details
+[34m[1mOperating System Details[0m
 Distributor ID:	Ubuntu
 Description:	Ubuntu 12.04.5 LTS
 Release:	12.04
 Codename:	precise
-Linux Version
+[34m[1mLinux Version[0m
 3.13.0-29-generic
-Cookbooks Version
+[34m[1mCookbooks Version[0m
 a68419e https://github.com/travis-ci/travis-cookbooks/tree/a68419e
-GCC version
+[34m[1mGCC version[0m
 gcc (Ubuntu/Linaro 4.6.3-1ubuntu5) 4.6.3
 Copyright (C) 2011 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-LLVM version
+[34m[1mLLVM version[0m
 clang version 3.4 (tags/RELEASE_34/final)
 Target: x86_64-unknown-linux-gnu
 Thread model: posix
-Pre-installed Ruby versions
+[34m[1mPre-installed Ruby versions[0m
 ruby-1.9.3-p551
-Pre-installed Node.js versions
+[34m[1mPre-installed Node.js versions[0m
 v0.10.36
-Pre-installed Go versions
+[34m[1mPre-installed Go versions[0m
 1.4.1
-Redis version
+[34m[1mRedis version[0m
 redis-server 2.8.19
-riak version
+[34m[1mriak version[0m
 2.0.2
-MongoDB version
+[34m[1mMongoDB version[0m
 MongoDB 2.4.12
-CouchDB version
+[34m[1mCouchDB version[0m
 couchdb 1.6.1
-Neo4j version
+[34m[1mNeo4j version[0m
 1.9.4
-RabbitMQ Version
+[34m[1mRabbitMQ Version[0m
 3.4.3
-ElasticSearch version
+[34m[1mElasticSearch version[0m
 1.4.0
-Installed Sphinx versions
+[34m[1mInstalled Sphinx versions[0m
 2.0.10
 2.1.9
 2.2.6
-Default Sphinx version
+[34m[1mDefault Sphinx version[0m
 2.2.6
-Installed Firefox version
+[34m[1mInstalled Firefox version[0m
 firefox 31.0esr
-PhantomJS version
+[34m[1mPhantomJS version[0m
 1.9.8
-ant -version
+[34m[1mant -version[0m
 Apache Ant(TM) version 1.8.2 compiled on December 3 2011
-mvn -version
+[34m[1mmvn -version[0m
 Apache Maven 3.2.5 (12a6b3acb947671f09b81f49094c53f426d8cea1; 2014-12-14T17:29:23+00:00)
 Maven home: /usr/local/maven
 Java version: 1.7.0_76, vendor: Oracle Corporation
 Java home: /usr/lib/jvm/java-7-oracle/jre
 Default locale: en_US, platform encoding: ANSI_X3.4-1968
 OS name: "linux", version: "3.13.0-29-generic", arch: "amd64", family: "unix"
-
-$ git clone --depth=50 --branch=master https://github.com/cpanic/WebService-Shippo.git cpanic/WebService-Shippo
+travis_fold:end:system_info[0K
+travis_fold:start:git.checkout[0Ktravis_time:start:0442f9de[0K$ git clone --depth=50 --branch=master https://github.com/cpanic/WebService-Shippo.git cpanic/WebService-Shippo
 Cloning into 'cpanic/WebService-Shippo'...
-remote: Counting objects: 314, done.
-remote: Compressing objects: 100% (234/234), done.
-remote: Total 314 (delta 159), reused 200 (delta 47), pack-reused 0
-Receiving objects: 100% (314/314), 56.42 KiB | 0 bytes/s, done.
-Resolving deltas: 100% (159/159), done.
+remote: Counting objects: 338, done.[K
+remote: Compressing objects:   0% (1/199)   [Kremote: Compressing objects:   1% (2/199)   [Kremote: Compressing objects:   2% (4/199)   [Kremote: Compressing objects:   3% (6/199)   [Kremote: Compressing objects:   4% (8/199)   [Kremote: Compressing objects:   5% (10/199)   [Kremote: Compressing objects:   6% (12/199)   [Kremote: Compressing objects:   7% (14/199)   [Kremote: Compressing objects:   8% (16/199)   [Kremote: Compressing objects:   9% (18/199)   [Kremote: Compressing objects:  10% (20/199)   [Kremote: Compressing objects:  11% (22/199)   [Kremote: Compressing objects:  12% (24/199)   [Kremote: Compressing objects:  13% (26/199)   [Kremote: Compressing objects:  14% (28/199)   [Kremote: Compressing objects:  15% (30/199)   [Kremote: Compressing objects:  16% (32/199)   [Kremote: Compressing objects:  17% (34/199)   [Kremote: Compressing objects:  18% (36/199)   [Kremote: Compressing objects:  19% (38/199)   [Kremote: Compressing objects:  20% (40/199)   [Kremote: Compressing objects:  21% (42/199)   [Kremote: Compressing objects:  22% (44/199)   [Kremote: Compressing objects:  23% (46/199)   [Kremote: Compressing objects:  24% (48/199)   [Kremote: Compressing objects:  25% (50/199)   [Kremote: Compressing objects:  26% (52/199)   [Kremote: Compressing objects:  27% (54/199)   [Kremote: Compressing objects:  28% (56/199)   [Kremote: Compressing objects:  29% (58/199)   [Kremote: Compressing objects:  30% (60/199)   [Kremote: Compressing objects:  31% (62/199)   [Kremote: Compressing objects:  32% (64/199)   [Kremote: Compressing objects:  33% (66/199)   [Kremote: Compressing objects:  34% (68/199)   [Kremote: Compressing objects:  35% (70/199)   [Kremote: Compressing objects:  36% (72/199)   [Kremote: Compressing objects:  37% (74/199)   [Kremote: Compressing objects:  38% (76/199)   [Kremote: Compressing objects:  39% (78/199)   [Kremote: Compressing objects:  40% (80/199)   [Kremote: Compressing objects:  41% (82/199)   [Kremote: Compressing objects:  42% (84/199)   [Kremote: Compressing objects:  43% (86/199)   [Kremote: Compressing objects:  44% (88/199)   [Kremote: Compressing objects:  45% (90/199)   [Kremote: Compressing objects:  46% (92/199)   [Kremote: Compressing objects:  47% (94/199)   [Kremote: Compressing objects:  48% (96/199)   [Kremote: Compressing objects:  49% (98/199)   [Kremote: Compressing objects:  50% (100/199)   [Kremote: Compressing objects:  51% (102/199)   [Kremote: Compressing objects:  52% (104/199)   [Kremote: Compressing objects:  53% (106/199)   [Kremote: Compressing objects:  54% (108/199)   [Kremote: Compressing objects:  55% (110/199)   [Kremote: Compressing objects:  56% (112/199)   [Kremote: Compressing objects:  57% (114/199)   [Kremote: Compressing objects:  58% (116/199)   [Kremote: Compressing objects:  59% (118/199)   [Kremote: Compressing objects:  60% (120/199)   [Kremote: Compressing objects:  61% (122/199)   [Kremote: Compressing objects:  62% (124/199)   [Kremote: Compressing objects:  63% (126/199)   [Kremote: Compressing objects:  64% (128/199)   [Kremote: Compressing objects:  65% (130/199)   [Kremote: Compressing objects:  66% (132/199)   [Kremote: Compressing objects:  67% (134/199)   [Kremote: Compressing objects:  68% (136/199)   [Kremote: Compressing objects:  69% (138/199)   [Kremote: Compressing objects:  70% (140/199)   [Kremote: Compressing objects:  71% (142/199)   [Kremote: Compressing objects:  72% (144/199)   [Kremote: Compressing objects:  73% (146/199)   [Kremote: Compressing objects:  74% (148/199)   [Kremote: Compressing objects:  75% (150/199)   [Kremote: Compressing objects:  76% (152/199)   [Kremote: Compressing objects:  77% (154/199)   [Kremote: Compressing objects:  78% (156/199)   [Kremote: Compressing objects:  79% (158/199)   [Kremote: Compressing objects:  80% (160/199)   [Kremote: Compressing objects:  81% (162/199)   [Kremote: Compressing objects:  82% (164/199)   [Kremote: Compressing objects:  83% (166/199)   [Kremote: Compressing objects:  84% (168/199)   [Kremote: Compressing objects:  85% (170/199)   [Kremote: Compressing objects:  86% (172/199)   [Kremote: Compressing objects:  87% (174/199)   [Kremote: Compressing objects:  88% (176/199)   [Kremote: Compressing objects:  89% (178/199)   [Kremote: Compressing objects:  90% (180/199)   [Kremote: Compressing objects:  91% (182/199)   [Kremote: Compressing objects:  92% (184/199)   [Kremote: Compressing objects:  93% (186/199)   [Kremote: Compressing objects:  94% (188/199)   [Kremote: Compressing objects:  95% (190/199)   [Kremote: Compressing objects:  96% (192/199)   [Kremote: Compressing objects:  97% (194/199)   [Kremote: Compressing objects:  98% (196/199)   [Kremote: Compressing objects:  99% (198/199)   [Kremote: Compressing objects: 100% (199/199)   [Kremote: Compressing objects: 100% (199/199), done.[K
+remote: Total 338 (delta 185), reused 254 (delta 103), pack-reused 0[K
+Receiving objects:   0% (1/338)   Receiving objects:   1% (4/338)   Receiving objects:   2% (7/338)   Receiving objects:   3% (11/338)   Receiving objects:   4% (14/338)   Receiving objects:   5% (17/338)   Receiving objects:   6% (21/338)   Receiving objects:   7% (24/338)   Receiving objects:   8% (28/338)   Receiving objects:   9% (31/338)   Receiving objects:  10% (34/338)   Receiving objects:  11% (38/338)   Receiving objects:  12% (41/338)   Receiving objects:  13% (44/338)   Receiving objects:  14% (48/338)   Receiving objects:  15% (51/338)   Receiving objects:  16% (55/338)   Receiving objects:  17% (58/338)   Receiving objects:  18% (61/338)   Receiving objects:  19% (65/338)   Receiving objects:  20% (68/338)   Receiving objects:  21% (71/338)   Receiving objects:  22% (75/338)   Receiving objects:  23% (78/338)   Receiving objects:  24% (82/338)   Receiving objects:  25% (85/338)   Receiving objects:  26% (88/338)   Receiving objects:  27% (92/338)   Receiving objects:  28% (95/338)   Receiving objects:  29% (99/338)   Receiving objects:  30% (102/338)   Receiving objects:  31% (105/338)   Receiving objects:  32% (109/338)   Receiving objects:  33% (112/338)   Receiving objects:  34% (115/338)   Receiving objects:  35% (119/338)   Receiving objects:  36% (122/338)   Receiving objects:  37% (126/338)   Receiving objects:  38% (129/338)   Receiving objects:  39% (132/338)   Receiving objects:  40% (136/338)   Receiving objects:  41% (139/338)   Receiving objects:  42% (142/338)   Receiving objects:  43% (146/338)   Receiving objects:  44% (149/338)   Receiving objects:  45% (153/338)   Receiving objects:  46% (156/338)   Receiving objects:  47% (159/338)   Receiving objects:  48% (163/338)   Receiving objects:  49% (166/338)   Receiving objects:  50% (169/338)   Receiving objects:  51% (173/338)   Receiving objects:  52% (176/338)   Receiving objects:  53% (180/338)   Receiving objects:  54% (183/338)   Receiving objects:  55% (186/338)   Receiving objects:  56% (190/338)   Receiving objects:  57% (193/338)   Receiving objects:  58% (197/338)   Receiving objects:  59% (200/338)   Receiving objects:  60% (203/338)   Receiving objects:  61% (207/338)   Receiving objects:  62% (210/338)   Receiving objects:  63% (213/338)   Receiving objects:  64% (217/338)   Receiving objects:  65% (220/338)   Receiving objects:  66% (224/338)   Receiving objects:  67% (227/338)   Receiving objects:  68% (230/338)   Receiving objects:  69% (234/338)   Receiving objects:  70% (237/338)   Receiving objects:  71% (240/338)   Receiving objects:  72% (244/338)   Receiving objects:  73% (247/338)   Receiving objects:  74% (251/338)   Receiving objects:  75% (254/338)   Receiving objects:  76% (257/338)   Receiving objects:  77% (261/338)   Receiving objects:  78% (264/338)   Receiving objects:  79% (268/338)   Receiving objects:  80% (271/338)   Receiving objects:  81% (274/338)   Receiving objects:  82% (278/338)   Receiving objects:  83% (281/338)   Receiving objects:  84% (284/338)   Receiving objects:  85% (288/338)   Receiving objects:  86% (291/338)   Receiving objects:  87% (295/338)   Receiving objects:  88% (298/338)   Receiving objects:  89% (301/338)   Receiving objects:  90% (305/338)   Receiving objects:  91% (308/338)   Receiving objects:  92% (311/338)   Receiving objects:  93% (315/338)   Receiving objects:  94% (318/338)   Receiving objects:  95% (322/338)   Receiving objects:  96% (325/338)   Receiving objects:  97% (328/338)   Receiving objects:  98% (332/338)   Receiving objects:  99% (335/338)   Receiving objects: 100% (338/338)   Receiving objects: 100% (338/338), 58.30 KiB | 0 bytes/s, done.
+Resolving deltas:   0% (0/185)   Resolving deltas:   1% (3/185)   Resolving deltas:   2% (5/185)   Resolving deltas:   3% (7/185)   Resolving deltas:   7% (14/185)   Resolving deltas:   8% (16/185)   Resolving deltas:   9% (18/185)   Resolving deltas:  11% (22/185)   Resolving deltas:  24% (45/185)   Resolving deltas:  25% (48/185)   Resolving deltas:  26% (49/185)   Resolving deltas:  28% (52/185)   Resolving deltas:  34% (64/185)   Resolving deltas:  36% (68/185)   Resolving deltas:  37% (69/185)   Resolving deltas:  39% (73/185)   Resolving deltas:  49% (91/185)   Resolving deltas:  57% (107/185)   Resolving deltas:  60% (111/185)   Resolving deltas:  61% (113/185)   Resolving deltas:  69% (129/185)   Resolving deltas:  85% (159/185)   Resolving deltas:  95% (177/185)   Resolving deltas:  96% (178/185)   Resolving deltas: 100% (185/185)   Resolving deltas: 100% (185/185), done.
 Checking connectivity... done.
-$ cd cpanic/WebService-Shippo
-$ git checkout -qf 6b54cd4503b0b6b801d5d826e57ab55f172f1147
+travis_time:end:0442f9de:start=1445726595182322465,finish=1445726595846116208,duration=663793743[0K$ cd cpanic/WebService-Shippo
+$ git checkout -qf dd608937f02575066d4aaf6ba6121489946846e9
+travis_fold:end:git.checkout[0K
+[33;1mThis job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.[0m
+[33;1mIf you require sudo, add 'sudo: required' to your .travis.yml[0m
+[33;1mSee http://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.[0m
 
-This job is running on container-based infrastructure, which does not allow use of 'sudo', setuid and setguid executables.
-If you require sudo, add 'sudo: required' to your .travis.yml
-See http://docs.travis-ci.com/user/workers/container-based-infrastructure/ for details.
-
-Setting environment variables from repository settings
+[33;1mSetting environment variables from repository settings[0m
 $ export SHIPPO_TOKEN=[secure]
 
-$ perlbrew use 5.18
-$ perl --version
+travis_time:start:2d3bc610[0K$ perlbrew use 5.18
+travis_time:end:2d3bc610:start=1445726609140098217,finish=1445726609242209610,duration=102111393[0K$ perl --version
 
 This is perl 5, version 18, subversion 2 (v5.18.2) built for x86_64-linux
 (with 1 registered patch, see perl -V for more detail)
@@ -119,24 +119,24 @@ perl version 5.018002 (/home/travis/perl5/perlbrew/perls/5.18/bin/perl)
     PERLBREW_ROOT=/home/travis/perl5/perlbrew
     PERLBREW_VERSION=0.73
   @INC:
-    FatPacked::36699944=HASH(0x22fff28)
+    FatPacked::26033960=HASH(0x18d3f28)
     /home/travis/perl5/perlbrew/perls/5.18/lib/site_perl/5.18.2/x86_64-linux
     /home/travis/perl5/perlbrew/perls/5.18/lib/site_perl/5.18.2
     /home/travis/perl5/perlbrew/perls/5.18/lib/5.18.2/x86_64-linux
     /home/travis/perl5/perlbrew/perls/5.18/lib/5.18.2
     .
-$ git clone git://github.com/haarg/perl-travis-helper
+travis_fold:start:before_install.1[0Ktravis_time:start:0053e158[0K$ git clone git://github.com/haarg/perl-travis-helper
 Cloning into 'perl-travis-helper'...
-remote: Counting objects: 985, done.
-remote: Total 985 (delta 0), reused 0 (delta 0), pack-reused 985
-Receiving objects: 100% (985/985), 154.91 KiB | 0 bytes/s, done.
-Resolving deltas: 100% (605/605), done.
+remote: Counting objects: 985, done.[K
+Receiving objects:   0% (1/985)   Receiving objects:   1% (10/985)   Receiving objects:   2% (20/985)   Receiving objects:   3% (30/985)   Receiving objects:   4% (40/985)   Receiving objects:   5% (50/985)   Receiving objects:   6% (60/985)   Receiving objects:   7% (69/985)   Receiving objects:   8% (79/985)   Receiving objects:   9% (89/985)   Receiving objects:  10% (99/985)   Receiving objects:  11% (109/985)   Receiving objects:  12% (119/985)   Receiving objects:  13% (129/985)   Receiving objects:  14% (138/985)   Receiving objects:  15% (148/985)   Receiving objects:  16% (158/985)   Receiving objects:  17% (168/985)   Receiving objects:  18% (178/985)   Receiving objects:  19% (188/985)   Receiving objects:  20% (197/985)   Receiving objects:  21% (207/985)   Receiving objects:  22% (217/985)   Receiving objects:  23% (227/985)   Receiving objects:  24% (237/985)   Receiving objects:  25% (247/985)   Receiving objects:  26% (257/985)   Receiving objects:  27% (266/985)   Receiving objects:  28% (276/985)   Receiving objects:  29% (286/985)   Receiving objects:  30% (296/985)   Receiving objects:  31% (306/985)   Receiving objects:  32% (316/985)   Receiving objects:  33% (326/985)   Receiving objects:  34% (335/985)   Receiving objects:  35% (345/985)   Receiving objects:  36% (355/985)   Receiving objects:  37% (365/985)   Receiving objects:  38% (375/985)   Receiving objects:  39% (385/985)   Receiving objects:  40% (394/985)   Receiving objects:  41% (404/985)   Receiving objects:  42% (414/985)   Receiving objects:  43% (424/985)   Receiving objects:  44% (434/985)   remote: Total 985 (delta 0), reused 0 (delta 0), pack-reused 985[K
+Receiving objects:  45% (444/985)   Receiving objects:  46% (454/985)   Receiving objects:  47% (463/985)   Receiving objects:  48% (473/985)   Receiving objects:  49% (483/985)   Receiving objects:  50% (493/985)   Receiving objects:  51% (503/985)   Receiving objects:  52% (513/985)   Receiving objects:  53% (523/985)   Receiving objects:  54% (532/985)   Receiving objects:  55% (542/985)   Receiving objects:  56% (552/985)   Receiving objects:  57% (562/985)   Receiving objects:  58% (572/985)   Receiving objects:  59% (582/985)   Receiving objects:  60% (591/985)   Receiving objects:  61% (601/985)   Receiving objects:  62% (611/985)   Receiving objects:  63% (621/985)   Receiving objects:  64% (631/985)   Receiving objects:  65% (641/985)   Receiving objects:  66% (651/985)   Receiving objects:  67% (660/985)   Receiving objects:  68% (670/985)   Receiving objects:  69% (680/985)   Receiving objects:  70% (690/985)   Receiving objects:  71% (700/985)   Receiving objects:  72% (710/985)   Receiving objects:  73% (720/985)   Receiving objects:  74% (729/985)   Receiving objects:  75% (739/985)   Receiving objects:  76% (749/985)   Receiving objects:  77% (759/985)   Receiving objects:  78% (769/985)   Receiving objects:  79% (779/985)   Receiving objects:  80% (788/985)   Receiving objects:  81% (798/985)   Receiving objects:  82% (808/985)   Receiving objects:  83% (818/985)   Receiving objects:  84% (828/985)   Receiving objects:  85% (838/985)   Receiving objects:  86% (848/985)   Receiving objects:  87% (857/985)   Receiving objects:  88% (867/985)   Receiving objects:  89% (877/985)   Receiving objects:  90% (887/985)   Receiving objects:  91% (897/985)   Receiving objects:  92% (907/985)   Receiving objects:  93% (917/985)   Receiving objects:  94% (926/985)   Receiving objects:  95% (936/985)   Receiving objects:  96% (946/985)   Receiving objects:  97% (956/985)   Receiving objects:  98% (966/985)   Receiving objects:  99% (976/985)   Receiving objects: 100% (985/985)   Receiving objects: 100% (985/985), 154.91 KiB | 0 bytes/s, done.
+Resolving deltas:   0% (0/605)   Resolving deltas:   1% (12/605)   Resolving deltas:   4% (28/605)   Resolving deltas:   8% (50/605)   Resolving deltas:  13% (84/605)   Resolving deltas:  14% (90/605)   Resolving deltas:  15% (95/605)   Resolving deltas:  20% (123/605)   Resolving deltas:  21% (133/605)   Resolving deltas:  22% (139/605)   Resolving deltas:  23% (145/605)   Resolving deltas:  25% (152/605)   Resolving deltas:  30% (184/605)   Resolving deltas:  31% (191/605)   Resolving deltas:  32% (195/605)   Resolving deltas:  34% (206/605)   Resolving deltas:  35% (212/605)   Resolving deltas:  36% (223/605)   Resolving deltas:  37% (224/605)   Resolving deltas:  39% (237/605)   Resolving deltas:  42% (255/605)   Resolving deltas:  43% (265/605)   Resolving deltas:  44% (267/605)   Resolving deltas:  50% (304/605)   Resolving deltas:  51% (310/605)   Resolving deltas:  53% (325/605)   Resolving deltas:  55% (334/605)   Resolving deltas:  60% (365/605)   Resolving deltas:  64% (393/605)   Resolving deltas:  67% (409/605)   Resolving deltas:  71% (431/605)   Resolving deltas:  73% (445/605)   Resolving deltas:  74% (451/605)   Resolving deltas:  77% (468/605)   Resolving deltas:  78% (474/605)   Resolving deltas:  79% (483/605)   Resolving deltas:  80% (484/605)   Resolving deltas:  81% (492/605)   Resolving deltas:  84% (510/605)   Resolving deltas:  85% (516/605)   Resolving deltas:  88% (537/605)   Resolving deltas:  90% (547/605)   Resolving deltas:  93% (566/605)   Resolving deltas:  94% (573/605)   Resolving deltas:  97% (591/605)   Resolving deltas:  99% (602/605)   Resolving deltas: 100% (605/605)   Resolving deltas: 100% (605/605), done.
 Checking connectivity... done.
-$ source perl-travis-helper/init
+travis_time:end:0053e158:start=1445726609501868567,finish=1445726609641153993,duration=139285426[0Ktravis_fold:end:before_install.1[0Ktravis_fold:start:before_install.2[0Ktravis_time:start:00d35cbe[0K$ source perl-travis-helper/init
 Perl Travis Helpers: heads/master-0-gc522d3f
-$ build-perl
+travis_time:end:00d35cbe:start=1445726609644801592,finish=1445726609882783501,duration=237981909[0Ktravis_fold:end:before_install.2[0Ktravis_fold:start:before_install.3[0Ktravis_time:start:00c2c368[0K$ build-perl
 Perl 5.18 already installed.
-$ perl -V
+travis_time:end:00c2c368:start=1445726609886432781,finish=1445726610147673258,duration=261240477[0Ktravis_fold:end:before_install.3[0Ktravis_fold:start:before_install.4[0Ktravis_time:start:09305770[0K$ perl -V
 Summary of my perl5 (revision 5 version 18 subversion 2) configuration:
    
   Platform:
@@ -196,138 +196,214 @@ Characteristics of this binary (from libperl):
     /home/travis/perl5/perlbrew/perls/5.18/lib/5.18.2/x86_64-linux
     /home/travis/perl5/perlbrew/perls/5.18/lib/5.18.2
     .
-$ export RELEASE_TESTING=1 AUTOMATED_TESTING=1 AUTHOR_TESTING=1 HARNESS_OPTIONS=c HARNESS_TIMER=1
-$ cpanm --quiet --notest Devel::Cover::Report::Coveralls
+travis_time:end:09305770:start=1445726610151273364,finish=1445726610161396800,duration=10123436[0Ktravis_fold:end:before_install.4[0Ktravis_fold:start:install.1[0Ktravis_time:start:0717e0d8[0K$ export RELEASE_TESTING=1 AUTOMATED_TESTING=1 AUTHOR_TESTING=1 HARNESS_OPTIONS=c HARNESS_TIMER=1
+travis_time:end:0717e0d8:start=1445726610165229593,finish=1445726610168153416,duration=2923823[0Ktravis_fold:end:install.1[0Ktravis_fold:start:install.2[0Ktravis_time:start:127ec710[0K$ cpanm --quiet --notest Devel::Cover::Report::Coveralls
+Successfully installed YAML-1.15
 Successfully installed Devel-Cover-1.21
 Successfully installed HTTP-Tiny-0.056 (upgraded from 0.025)
-Successfully installed YAML-1.15
 Successfully installed Devel-Cover-Report-Coveralls-0.11
 4 distributions installed
-$ cpanm --quiet --notest --skip-satisfied --installdeps .
+travis_time:end:127ec710:start=1445726610171688319,finish=1445726618504039170,duration=8332350851[0Ktravis_fold:end:install.2[0Ktravis_fold:start:install.3[0Ktravis_time:start:2f4bafcf[0K$ cpanm --quiet --notest --skip-satisfied --installdeps .
+Successfully installed IO-Stty-0.03
+Successfully installed Message-String-0.1.9
+Successfully installed Params-Callbacks-2.0.31
+Successfully installed boolean-0.45
 Successfully installed common-sense-3.74
 Successfully installed Types-Serialiser-1.0
 Successfully installed JSON-XS-3.01
-Successfully installed boolean-0.45
-Successfully installed Data-Dumper-Concise-2.022
 Successfully installed YAML-LibYAML-0.59
 Successfully installed URI-Encode-v1.0.1
-7 distributions installed
-$ PERL5OPT='-MDevel::Cover=+ignore,/usr,\.t$,/prove$,TestHarness\.pm$,-coverage,statement,branch,condition,path,subroutine' prove -lrvm t
-[23:04:27] t/Shippo/000-Authentication.t .. 
-ok 1 - use WebService::Shippo;
-ok 2 - testInvalidCredentials
-1..2
-ok     1124 ms ( 0.00 usr  0.00 sys +  1.05 cusr  0.05 csys =  1.10 CPU)
-[23:04:28] t/Shippo/005-Error.t ........... 
-ok 1 - use WebService::Shippo;
-ok 2 - testBadResource
-ok 3 - testBadResource
-1..3
-ok      874 ms ( 0.00 usr  0.00 sys +  0.82 cusr  0.03 csys =  0.85 CPU)
-[23:04:29] t/Shippo/010-CoreTests.t ....... 
-ok 1 - use WebService::Shippo;
-ok 2 - Address.testValidCreate
-ok 3 - Address.testValidCreate
-ok 4 - Address.testInvalidCreate
-ok 5 - Address.testListAll
-ok 6 - Address.testListAll
-ok 7 - Address.testListPageSize
-ok 8 - Address.testFetch
-ok 9 - Address.testFetch
-ok 10 - Address.testInvalidFetch
-ok 11 - Address.testValidateAddress
-ok 12 - CarrierAccount.testValidCreate
-ok 13 - CarrierAccount.testValidCreate
-ok 14 - CarrierAccount.testInvalidCreate
-ok 15 - CarrierAccount.testListAll
-ok 16 - CarrierAccount.testListAll
-ok 17 - CarrierAccount.testListPageSize
-ok 18 - CarrierAccount.testFetch
-ok 19 - CarrierAccount.testFetch
-ok 20 - CarrierAccount.testInvalidFetch
-ok 21 - CarrierAccount.testUpdate
-ok 22 - CarrierAccount.testUpdate
-ok 23 - CarrierAccount.testUpdate
-ok 24 - CarrierAccount.testUpdate
-ok 25 - CarrierAccount.testUpdate
-ok 26 - CustomsItem.testValidCreate
-ok 27 - CustomsItem.testValidCreate
-ok 28 - CustomsItem.testInvalidCreate
-ok 29 - CustomsItem.testListAll
-ok 30 - CustomsItem.testListAll
-ok 31 - CustomsItem.testListPageSize
-ok 32 - CustomsItem.testFetch
-ok 33 - CustomsItem.testFetch
-ok 34 - CustomsItem.testInvalidFetch
-ok 35 - CustomsDeclaration.testValidCreate
-ok 36 - CustomsDeclaration.testValidCreate
-ok 37 - CustomsDeclaration.testInvalidCreate
-ok 38 - CustomsDeclaration.testListAll
-ok 39 - CustomsDeclaration.testListAll
-ok 40 - CustomsDeclaration.testListPageSize
-ok 41 - CustomsDeclaration.testFetch
-ok 42 - CustomsDeclaration.testFetch
-ok 43 - CustomsDeclaration.testInvalidFetch
-ok 44 - Manifest.testValidCreate
-ok 45 - Manifest.testValidCreate
-ok 46 - Manifest.testInvalidCreate
-ok 47 - Manifest.testListAll
-ok 48 - Manifest.testListAll
-ok 49 - Manifest.testListPageSize
-ok 50 - Manifest.testFetch
-ok 51 - Manifest.testFetch
-ok 52 - Manifest.testInvalidFetch
-ok 53 - Parcel.testValidCreate
-ok 54 - Parcel.testValidCreate
-ok 55 - Parcel.testInvalidCreate
-ok 56 - Parcel.testListAll
-ok 57 - Parcel.testListAll
-ok 58 - Parcel.testListPageSize
-ok 59 - Parcel.testFetch
-ok 60 - Parcel.testFetch
-ok 61 - Parcel.testInvalidFetch
-1..61
-ok     5193 ms ( 0.02 usr  0.00 sys +  1.94 cusr  0.09 csys =  2.05 CPU)
-[23:04:34]
-All tests successful.
-Files=3, Tests=66,  7 wallclock secs ( 0.06 usr  0.01 sys +  3.81 cusr  0.17 csys =  4.05 CPU)
+Successfully installed Data-Dumper-Concise-2.022
+10 distributions installed
+travis_time:end:2f4bafcf:start=1445726618507712928,finish=1445726638305968018,duration=19798255090[0Ktravis_fold:end:install.3[0Ktravis_time:start:103f940d[0K$ PERL5OPT='-MDevel::Cover=+ignore,/usr,\.t$,/prove$,TestHarness\.pm$,-coverage,statement,branch,condition,path,subroutine' prove -lrvm t
+[22:43:59] t/Shippo/000-Load.t ............ 
+ok 1 - use WebService::Shippo;[0m
+1..1[0m
+ok     1000 ms ( 0.01 usr  0.00 sys +  0.77 cusr  0.04 csys =  0.82 CPU)
+[22:44:00] t/Shippo/010-Authentication.t .. 
+ok 1 - testInvalidCredentials[0m
+1..1[0m
+ok     1111 ms ( 0.00 usr  0.00 sys +  0.98 cusr  0.07 csys =  1.05 CPU)
+[22:44:01] t/Shippo/020-Error.t ........... 
+ok 1 - testBadResource[0m
+ok 2 - testBadResource[0m
+1..2[0m
+ok     1102 ms ( 0.00 usr  0.00 sys +  1.03 cusr  0.05 csys =  1.08 CPU)
+[22:44:02] t/Shippo/030-CoreTests.t ....... 
+ok 1 - Address.testValidCreate[0m
+ok 2 - Address.testValidCreate[0m
+ok 3 - Address.testListAll[0m
+ok 4 - Address.testListAll[0m
+ok 5 - Address.testListPageSize[0m
+ok 6 - Address.testValidateAddress[0m
+ok 7 - CarrierAccount.testValidCreate[0m
+ok 8 - CarrierAccount.testValidCreate[0m
+ok 9 - CarrierAccount.testListAll[0m
+ok 10 - CarrierAccount.testListAll[0m
+ok 11 - CarrierAccount.testListPageSize[0m
+ok 12 - CarrierAccount.testUpdate[0m
+ok 13 - CarrierAccount.testUpdate[0m
+ok 14 - CarrierAccount.testUpdate[0m
+ok 15 - CarrierAccount.testUpdate[0m
+ok 16 - CarrierAccount.testUpdate[0m
+ok 17 - CustomsItem.testValidCreate[0m
+ok 18 - CustomsItem.testValidCreate[0m
+ok 19 - CustomsItem.testListAll[0m
+ok 20 - CustomsItem.testListAll[0m
+ok 21 - CustomsItem.testListPageSize[0m
+ok 22 - CustomsDeclaration.testValidCreate[0m
+ok 23 - CustomsDeclaration.testValidCreate[0m
+ok 24 - CustomsDeclaration.testListAll[0m
+ok 25 - CustomsDeclaration.testListAll[0m
+ok 26 - CustomsDeclaration.testListPageSize[0m
+ok 27 - Manifest.testValidCreate[0m
+ok 28 - Manifest.testValidCreate[0m
+ok 29 - Manifest.testListAll[0m
+ok 30 - Manifest.testListAll[0m
+ok 31 - Manifest.testListPageSize[0m
+ok 32 - Parcel.testValidCreate[0m
+ok 33 - Parcel.testValidCreate[0m
+ok 34 - Parcel.testListAll[0m
+ok 35 - Parcel.testListAll[0m
+ok 36 - Parcel.testListPageSize[0m
+ok 37 - Rate.testValidCreate[0m
+ok 38 - Rate.testValidCreate[0m
+ok 39 - Rate.testListAll[0m
+ok 40 - Rate.testListAll[0m
+ok 41 - Rate.testListPageSize[0m
+ok 42 - Shipment.testValidCreate[0m
+ok 43 - Shipment.testValidCreate[0m
+ok 44 - Shipment.testInvalidCreate[0m
+ok 45 - Shipment.testListAll[0m
+ok 46 - Shipment.testListAll[0m
+ok 47 - Shipment.testListPageSize[0m
+ok 48 - Shipment.testInvalidFetch[0m
+ok 49 - Shipment.testFetch[0m
+ok 50 - Shipment.testFetch[0m
+ok 51 - Shipment.testRates[0m
+ok 52 - Shipment.testRates[0m
+ok 53 - Shipment.testRates[0m
+ok 54 - Shipment.testRates[0m
+ok 55 - Shipment.testRates[0m
+ok 56 - Shipment.testRates[0m
+ok 57 - Shipment.testRates[0m
+ok 58 - Shipment.testRates[0m
+ok 59 - Shipment.testRates[0m
+ok 60 - Shipment.testRates[0m
+ok 61 - Transaction.testValidCreate[0m
+ok 62 - Transaction.testValidCreate[0m
+ok 63 - Transaction.testInvalidCreate[0m
+ok 64 - Transaction.testListAll[0m
+ok 65 - Transaction.testListAll[0m
+ok 66 - Transaction.testListPageSize[0m
+ok 67 - Transaction.testFetch[0m
+ok 68 - Transaction.testFetch[0m
+ok 69 - Transaction.testInvalidFetch[0m
+ok 70 - Refund.testValidCreate[0m
+ok 71 - Refund.testValidCreate[0m
+ok 72 - Refund.testInvalidCreate[0m
+ok 73 - Refund.testListAll[0m
+ok 74 - Refund.testListAll[0m
+ok 75 - Refund.testListPageSize[0m
+ok 76 - Refund.testFetch[0m
+ok 77 - Refund.testFetch[0m
+ok 78 - Refund.testInvalidFetch[0m
+1..78[0m
+ok    15260 ms ( 0.02 usr  0.00 sys +  2.38 cusr  0.13 csys =  2.53 CPU)
+[22:44:17] t/Shippo/040-ExtendedTests.t ... 
+ok 1 - testSetRateTimeout[0m
+ok 2 - testSetRateTimeout[0m
+ok 3 - testSetRateTimeout[0m
+ok 4 - testSetRateTimeout[0m
+ok 5 - testSetRateTimeout[0m
+ok 6 - testSetRateTimeout[0m
+ok 7 - testSetRateTimeout[0m
+ok 8 - testSetRateTimeout[0m
+ok 9 - testSetRateTimeout[0m
+ok 10 - testSetRateTimeout[0m
+ok 11 - testSetRateTimeout[0m
+ok 12 - testObject[0m
+ok 13 - testObject[0m
+ok 14 - testObject[0m
+ok 15 - testObjectList[0m
+ok 16 - testObjectList[0m
+ok 17 - testObjectList[0m
+ok 18 - testObjectList[0m
+ok 19 - testObjectList[0m
+ok 20 - testObjectList[0m
+ok 21 - testObjectList[0m
+ok 22 - testObjectList[0m
+ok 23 - testObjectList[0m
+ok 24 - testObjectList[0m
+ok 25 - testObjectList[0m
+ok 26 - testObjectList[0m
+ok 27 - testObjectList[0m
+ok 28 - testObjectList[0m
+ok 29 - testObjectList[0m
+ok 30 - testObjectList[0m
+ok 31 - testObjectList[0m
+ok 32 - testObjectList[0m
+ok 33 - testObjectList[0m
+ok 34 - testObjectList[0m
+ok 35 - testObjectList[0m
+ok 36 - testObjectList[0m
+ok 37 - testObjectList[0m
+ok 38 - testObjectList[0m
+ok 39 - testObjectList[0m
+ok 40 - testpretty[0m
+ok 41 - testpretty[0m
+ok 42 - testCurrency.eur[0m
+ok 43 - testCurrency.eur[0m
+ok 44 - testCurrency.gbp[0m
+ok 45 - testCurrency.gbp[0m
+ok 46 - testCurrency.usd[0m
+ok 47 - testCurrency.usd[0m
+ok 48 - testConfig[0m
+ok 49 - testConfig[0m
+ok 50 - testConfig[0m
+ok 51 - testConfig[0m
+1..51[0m
+ok     9708 ms ( 0.01 usr  0.00 sys +  2.13 cusr  0.09 csys =  2.23 CPU)
+[22:44:27]
+[32mAll tests successful.
+[0mFiles=5, Tests=133, 29 wallclock secs ( 0.07 usr  0.01 sys +  7.29 cusr  0.38 csys =  7.75 CPU)
 Result: PASS
-
-The command "PERL5OPT='-MDevel::Cover=+ignore,/usr,\.t$,/prove$,TestHarness\.pm$,-coverage,statement,branch,condition,path,subroutine' prove -lrvm t" exited with 0.
-$ cover -report coveralls
+travis_time:end:103f940d:start=1445726638309674787,finish=1445726667377764108,duration=29068089321[0K
+[32;1mThe command "PERL5OPT='-MDevel::Cover=+ignore,/usr,\.t$,/prove$,TestHarness\.pm$,-coverage,statement,branch,condition,path,subroutine' prove -lrvm t" exited with 0.[0m
+travis_fold:start:after_success[0Ktravis_time:start:1bae50af[0K$ cover -report coveralls
 Reading database from /home/travis/build/cpanic/WebService-Shippo/cover_db
 
 
 ------------------------------------------ ------ ------ ------ ------ ------
 File                                         stmt   bran   cond    sub  total
 ------------------------------------------ ------ ------ ------ ------ ------
-lib/WebService/Shippo.pm                     38.8   50.0    n/a   15.3   29.4
+lib/WebService/Shippo.pm                     42.8   50.0    n/a   17.9   32.9
 lib/WebService/Shippo/Address.pm            100.0    n/a    n/a  100.0  100.0
+lib/WebService/Shippo/Async.pm              100.0  100.0    n/a  100.0  100.0
 lib/WebService/Shippo/CarrierAccount.pm     100.0   75.0    n/a  100.0   96.2
-lib/WebService/Shippo/Config.pm              63.1   31.2   20.0   92.3   57.2
+lib/WebService/Shippo/Config.pm              84.7   56.2   30.7  100.0   75.2
 lib/WebService/Shippo/Creator.pm            100.0    n/a    n/a  100.0  100.0
-lib/WebService/Shippo/CurrencyAware.pm       70.5    0.0    n/a   80.0   61.5
+lib/WebService/Shippo/Currency.pm           100.0   75.0    n/a  100.0   96.6
 ...WebService/Shippo/CustomsDeclaration.pm  100.0    n/a    n/a  100.0  100.0
 lib/WebService/Shippo/CustomsItem.pm        100.0    n/a    n/a  100.0  100.0
 lib/WebService/Shippo/Entities.pm           100.0    n/a    n/a  100.0  100.0
 lib/WebService/Shippo/Fetcher.pm            100.0    n/a    n/a  100.0  100.0
-lib/WebService/Shippo/Lister.pm              82.3    n/a   33.3   83.3   76.9
+lib/WebService/Shippo/Lister.pm             100.0    n/a   66.6  100.0   96.6
 lib/WebService/Shippo/Manifest.pm           100.0    n/a    n/a  100.0  100.0
-lib/WebService/Shippo/Object.pm              76.4   41.3   50.0   88.1   68.8
-lib/WebService/Shippo/ObjectList.pm          24.5    0.0    0.0   33.3   20.6
+lib/WebService/Shippo/Object.pm             100.0   75.0   60.0  100.0   92.8
+lib/WebService/Shippo/ObjectList.pm         100.0   58.3   33.3  100.0   89.2
 lib/WebService/Shippo/Parcel.pm             100.0    n/a    n/a  100.0  100.0
-lib/WebService/Shippo/Rate.pm                95.2    n/a    n/a   87.5   93.1
-lib/WebService/Shippo/Refund.pm              95.2    n/a    n/a   87.5   93.1
-lib/WebService/Shippo/Request.pm             98.6   81.2    n/a   94.1   93.5
-lib/WebService/Shippo/Resource.pm            77.6   53.5   21.0   86.3   67.5
-lib/WebService/Shippo/ReturnShipment.pm      95.2    n/a    n/a   87.5   93.1
-lib/WebService/Shippo/Shipment.pm            69.7    0.0    0.0   80.0   63.2
-lib/WebService/Shippo/Transaction.pm         95.2    n/a    n/a   87.5   93.1
+lib/WebService/Shippo/Rate.pm               100.0    n/a    n/a  100.0  100.0
+lib/WebService/Shippo/Refund.pm             100.0    n/a    n/a  100.0  100.0
+lib/WebService/Shippo/Request.pm            100.0   81.2    n/a  100.0   95.1
+lib/WebService/Shippo/Resource.pm           100.0   62.5   41.6  100.0   88.1
+lib/WebService/Shippo/Shipment.pm           100.0   75.0   66.6  100.0   93.4
+lib/WebService/Shippo/Transaction.pm        100.0    n/a    n/a  100.0  100.0
 lib/WebService/Shippo/Updater.pm            100.0    n/a    n/a  100.0  100.0
-Total                                        78.5   47.3   26.2   77.3   71.9
+Total                                        95.0   70.6   47.5   89.1   88.8
 ------------------------------------------ ------ ------ ------ ------ ------
 
 
-register: https://coveralls.io/jobs/9092970
-
+register: https://coveralls.io/jobs/9216603
+travis_time:end:1bae50af:start=1445726667381496246,finish=1445726668424718712,duration=1043222466[0Ktravis_fold:end:after_success[0K
 Done. Your build exited with 0.
