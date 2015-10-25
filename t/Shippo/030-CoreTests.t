@@ -196,14 +196,10 @@ while ( @objects_under_test ) {
         testInvalidFetch => sub {
             return if grep { /^testInvalidFetch$/ } @skip_tests;
             my $id = 'Invalid Object Identifier';
-            my $exception;
-            try {
+            eval {
                 $class->fetch( $id );
-            }
-            catch {
-                $exception = $_;
             };
-            like( $exception, qr/404 NOT FOUND/i, __TEST__ );
+            like( $@, qr/404 NOT FOUND/i, __TEST__ );
         },
         $more_tests ? @$more_tests : (),
     ];
