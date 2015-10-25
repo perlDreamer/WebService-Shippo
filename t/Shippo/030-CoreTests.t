@@ -11,14 +11,14 @@ my @objects_under_test = (
         create_default_item => \&default_address,
         class               => 'Shippo::Address',
         object_is_valid     => sub {
-            my ($object) = @_;
+            my ( $object ) = @_;
             return $object->is_valid;
         },
         more_tests => [
             testValidateAddress => sub {
                 my $address   = stash->{item};
                 my $object_id = $address->object_id;
-                my $validated = Shippo::Address->validate($object_id);
+                my $validated = Shippo::Address->validate( $object_id );
                 ok( $validated->is_valid, __TEST__ );
             },
         ],
@@ -27,24 +27,24 @@ my @objects_under_test = (
         create_default_item => \&default_carrier_account,
         class               => 'Shippo::CarrierAccount',
         object_is_valid     => sub {
-            my ($object) = @_;
+            my ( $object ) = @_;
             return $object->carrier eq 'fedex';
         },
         more_tests => [
             testUpdate => sub {
                 my $carrier_account = stash->{item};
-                my $updated_account
-                    = Shippo::CarrierAccount->update(
+                my $updated_account = Shippo::CarrierAccount->update(
                     $carrier_account->object_id,
-                    active => false );
+                    active => false
+                );
                 is( $updated_account->active, false, __TEST__ );
-                $updated_account->active(true);
+                $updated_account->active( true );
                 is( $updated_account->active, true, __TEST__ );
-                $updated_account->active(false);
+                $updated_account->active( false );
                 is( $updated_account->active, false, __TEST__ );
-                $updated_account->production(true);
+                $updated_account->production( true );
                 is( $updated_account->production, true, __TEST__ );
-                $updated_account->production(false);
+                $updated_account->production( false );
                 is( $updated_account->production, false, __TEST__ );
             },
         ],
@@ -53,7 +53,7 @@ my @objects_under_test = (
         create_default_item => \&default_customs_item,
         class               => 'Shippo::CustomsItem',
         object_is_valid     => sub {
-            my ($object) = @_;
+            my ( $object ) = @_;
             return $object->is_valid;
         },
     },
@@ -61,7 +61,7 @@ my @objects_under_test = (
         create_default_item => \&default_customs_declaration,
         class               => 'Shippo::CustomsDeclaration',
         object_is_valid     => sub {
-            my ($object) = @_;
+            my ( $object ) = @_;
             return $object->is_valid;
         },
     },
@@ -69,7 +69,7 @@ my @objects_under_test = (
         create_default_item => \&default_manifest,
         class               => 'Shippo::Manifest',
         object_is_valid     => sub {
-            my ($object) = @_;
+            my ( $object ) = @_;
             return $object->status eq 'NOTRANSACTIONS';
         },
     },
@@ -77,16 +77,16 @@ my @objects_under_test = (
         create_default_item => \&default_parcel,
         class               => 'Shippo::Parcel',
         object_is_valid     => sub {
-            my ($object) = @_;
+            my ( $object ) = @_;
             return $object->is_valid;
         },
     },
     'Rate' => {
         create_default_item => \&default_rate,
         class               => 'Shippo::Rate',
-        skip => [ 'testInvalidCreate', 'testFetch', 'testInvalidFetch' ],
+        skip            => [ 'testInvalidCreate', 'testFetch', 'testInvalidFetch' ],
         object_is_valid => sub {
-            my ($object) = @_;
+            my ( $object ) = @_;
             return defined $object;
         },
     },
@@ -94,7 +94,7 @@ my @objects_under_test = (
         create_default_item => \&default_shipment,
         class               => 'Shippo::Shipment',
         object_is_valid     => sub {
-            my ($object) = @_;
+            my ( $object ) = @_;
             return $object->is_valid;
         },
         skip       => ['testFetch'],
@@ -102,15 +102,15 @@ my @objects_under_test = (
             testFetch => sub {
                 my $object = stash->{list}{results}[0];
                 my $id     = $object->{object_id};
-                ok( defined($id), __TEST__ );
-                my $item = Shippo::Shipment->fetch($id);
+                ok( defined( $id ), __TEST__ );
+                my $item = Shippo::Shipment->fetch( $id );
                 is( $object->id, $item->id, __TEST__ );
             },
             testRates => sub {
                 stash->{item}->get_shipping_rates(
                     stash->{item}->id,
                     callback {
-                        my ($rate) = @_;
+                        my ( $rate ) = @_;
                         ok( $rate->is_valid, __TEST__ );
                     }
                 );
@@ -119,7 +119,7 @@ my @objects_under_test = (
                 stash->{item}->get_shipping_rates(
                     stash->{item}->id, 'GBP',
                     callback {
-                        my ($rate) = @_;
+                        my ( $rate ) = @_;
                         ok( $rate->is_valid, __TEST__ );
                     }
                 );
@@ -130,7 +130,7 @@ my @objects_under_test = (
         create_default_item => \&default_transaction,
         class               => 'Shippo::Transaction',
         object_is_valid     => sub {
-            my ($object) = @_;
+            my ( $object ) = @_;
             return $object->is_valid;
         },
     },
@@ -213,7 +213,8 @@ while ( @objects_under_test ) {
     ];
 } ## end while ( @objects_under_test)
 
-sub default_address {
+sub default_address
+{
     Shippo::Address->create(
         object_purpose => 'QUOTE',
         name           => 'John Smith',
@@ -231,7 +232,8 @@ sub default_address {
     );
 }
 
-sub default_carrier_account {
+sub default_carrier_account
+{
     my ( $account_id ) = @_;
     $account_id = rand() unless $account_id;
     Shippo::CarrierAccount->create(
@@ -243,7 +245,8 @@ sub default_carrier_account {
     );
 }
 
-sub default_parcel {
+sub default_parcel
+{
     Shippo::Parcel->create(
         length        => '5',
         width         => '5',
@@ -256,7 +259,8 @@ sub default_parcel {
     );
 }
 
-sub default_customs_item {
+sub default_customs_item
+{
     Shippo::CustomsItem->create(
         description    => 'T-Shirt',
         quantity       => '2',
@@ -270,7 +274,8 @@ sub default_customs_item {
     );
 }
 
-sub default_customs_declaration {
+sub default_customs_declaration
+{
     my $customs_item = default_customs_item();
     Shippo::CustomsDeclaration->create(
         exporter_reference   => '',
@@ -293,7 +298,8 @@ sub default_customs_declaration {
     );
 }
 
-sub default_manifest {
+sub default_manifest
+{
     my $address = default_address();
     Shippo::Manifest->create(
         provider        => 'USPS',
@@ -302,7 +308,8 @@ sub default_manifest {
     );
 }
 
-sub default_shipment {
+sub default_shipment
+{
     my $address_from = default_address();
     my $address_to   = default_address();
     my $parcel       = default_parcel();
@@ -323,59 +330,65 @@ sub default_shipment {
     );
 }
 
-sub default_rate {
+sub default_rate
+{
     my $shipment = default_shipment();
-    my $rates    = WebService::Shippo::Shipment->get_shipping_rates( $shipment->id );
+    my $rates = WebService::Shippo::Shipment->get_shipping_rates( $shipment->id );
     return $rates;
 }
 
-sub default_transaction {
+sub default_transaction
+{
     my $shipment = Shippo::Shipment->create(
         object_purpose => 'PURCHASE',
-        address_from   => Shippo::Address->create(
-            'object_purpose' => 'PURCHASE',
-            'name'           => 'Shawn Ippotle',
-            'company'        => 'Shippo',
-            'street1'        => '215 Clayton St.',
-            'city'           => 'San Francisco',
-            'state'          => 'CA',
-            'zip'            => '94117',
-            'country'        => 'US',
-            'phone'          => '+1 555 341 9393',
-            'email'          => 'shippotle@goshippo.com'
-        ),
-        address_to => Shippo::Address->create(
-            'object_purpose' => 'PURCHASE',
-            'name'           => 'Mr Hippo"',
-            'company'        => '',
-            'street1'        => 'Broadway 1',
-            'street2'        => '',
-            'city'           => 'New York',
-            'state'          => 'NY',
-            'zip'            => '10007',
-            'country'        => 'US',
-            'phone'          => '+1 555 341 9393',
-            'email'          => 'mrhippo@goshippo.com'
-        ),
-        parcel => Shippo::Parcel->create(
-            'length'        => '5',
-            'width'         => '5',
-            'height'        => '5',
-            'distance_unit' => 'in',
-            'weight'        => '2',
-            'mass_unit'     => 'lb',
-        ),
+        address_from   => {
+            object_purpose => 'PURCHASE',
+            name           => 'Shawn Ippotle',
+            company        => 'Shippo',
+            street1        => '215 Clayton St.',
+            city           => 'San Francisco',
+            state          => 'CA',
+            zip            => '94117',
+            country        => 'US',
+            phone          => '+1 555 341 9393',
+            email          => 'shippotle@goshippo.com'
+        },
+        address_to => {
+            object_purpose => 'PURCHASE',
+            name           => 'Mr Hippo',
+            company        => '',
+            street1        => 'Broadway 1',
+            street2        => '',
+            city           => 'New York',
+            state          => 'NY',
+            zip            => '10007',
+            country        => 'US',
+            phone          => '+1 555 341 9393',
+            email          => 'mrhippo@goshippo.com'
+        },
+        parcel => {
+            length        => '5',
+            width         => '5',
+            height        => '5',
+            distance_unit => 'in',
+            weight        => '2',
+            mass_unit     => 'lb'
+        },
     );
     my $rates       = $shipment->get_shipping_rates( $shipment->id );
     my $rate        = $rates->item( 1 );
     my $transaction = Shippo::Transaction->create( rate => $rate->id );
-    $transaction->wait_if_status_in( 'QUEUED', 'WAITING' );
+    my $label_url1  = $transaction->get_shipping_label( $transaction->id );
+    ok( $label_url1, __TEST__ );
+    my $label_url2 = Shippo::Transaction->get_shipping_label( $transaction->id );
+    ok( $label_url2, __TEST__ );
+    is( $label_url1, $label_url2, __TEST__ );
     return $transaction;
 }
 
-sub default_refund {
-    my $refund
-        = Shippo::Refund->create( transaction => default_transaction->id );
+sub default_refund
+{
+    my $refund = Shippo::Refund->create( transaction => default_transaction->id );
     return $refund;
 }
 
