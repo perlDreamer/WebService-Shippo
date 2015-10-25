@@ -44,7 +44,7 @@ Build tests have been conducted successfully on all later versions of Perl.
 </td>
 <td valign="top">
 <tt>Data::Dumper::Concise</tt><br/>
-<tt>Try::Tiny</tt><br/>
+<tt>Test::Deep</tt><br/>
 </td>
 </tr>
 </tbody>
