@@ -13,6 +13,9 @@ my %WriteMakefileArgs = (
     "ExtUtils::MakeMaker" => 0
   },
   "DISTNAME" => "WebService-Shippo",
+  "EXE_FILES" => [
+    "bin/create_shipping_label.pl"
+  ],
   "LICENSE" => "perl",
   "MIN_PERL_VERSION" => "5.008008",
   "NAME" => "WebService::Shippo",
@@ -21,6 +24,7 @@ my %WriteMakefileArgs = (
     "File::HomeDir" => 0,
     "JSON::XS" => 0,
     "LWP" => 0,
+    "LWP::Protocol::https" => 0,
     "MRO::Compat" => 0,
     "Params::Callbacks" => 0,
     "Path::Class" => 0,
@@ -47,6 +51,7 @@ my %FallbackPrereqs = (
   "File::HomeDir" => 0,
   "JSON::XS" => 0,
   "LWP" => 0,
+  "LWP::Protocol::https" => 0,
   "MRO::Compat" => 0,
   "Params::Callbacks" => 0,
   "Path::Class" => 0,

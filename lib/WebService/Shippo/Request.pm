@@ -2,11 +2,12 @@ use strict;
 use warnings;
 
 package WebService::Shippo::Request;
-use Carp        ( 'confess' );
-use JSON::XS    ();
-use LWP         ();
-use Clone       ( 'clone' );
-use URI::Encode ( 'uri_encode' );
+use Carp                 ( 'confess' );
+use JSON::XS             ();
+use LWP                  ();
+use LWP::Protocol::https ();
+use Clone                ( 'clone' );
+use URI::Encode          ( 'uri_encode' );
 
 {
     my $value = {
