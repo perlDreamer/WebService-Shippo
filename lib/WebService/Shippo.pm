@@ -88,6 +88,9 @@ sub import
     # Configure Shippo client on import
     WebService::Shippo::Config->config;
     # The API key is overridden with the envornment's value if defined.
+    WebService::Shippo::Resource->api_username_password(
+        @ENV{ 'SHIPPO_USER', 'SHIPPO_PASS' } )
+        if $ENV{SHIPPO_USER} && !$ENV{SHIPPO_TOKEN};
     WebService::Shippo::Resource->api_key( $ENV{SHIPPO_TOKEN} )
         if $ENV{SHIPPO_TOKEN};
     # Pass call frame to Exporter's import for further processing
@@ -98,11 +101,12 @@ BEGIN {
     no warnings 'once';
     # There are some useful symbols defined elsewhere that I'd like to
     # make available (alias) via the root namespace.
-    *api_key  = *WebService::Shippo::Resource::api_key;
-    *config   = *WebService::Shippo::Config::config;
-    *pretty   = *WebService::Shippo::Object::pretty;
-    *response = *WebService::Shippo::Request::response;
-    *Response = *WebService::Shippo::Request::response;
+    *api_key               = *WebService::Shippo::Resource::api_key;
+    *api_username_password = *WebService::Shippo::Resource::api_username_password;
+    *config                = *WebService::Shippo::Config::config;
+    *pretty                = *WebService::Shippo::Object::pretty;
+    *response              = *WebService::Shippo::Request::response;
+    *Response              = *WebService::Shippo::Request::response;
     # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
     # namespace is just cruel; allow the use of "Shippo", too.
     *Shippo:: = *WebService::Shippo::;

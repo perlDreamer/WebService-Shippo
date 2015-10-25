@@ -57,11 +57,15 @@ our @SEARCH_PATH = (
         my $class = ref( $invocant ) || $invocant;
         $config = $new_value;
         my $default_token = $config->{default_token} || 'private_token';
-        my $api_key = $config->{$default_token};
+        my $api_key       = $config->{$default_token};
+        my $user          = $config->{username} || $config->{email};
+        my $pass          = $config->{password};
         Shippo::Resource->api_private_token( $config->{private_token} );
         Shippo::Resource->api_public_token( $config->{public_token} );
         Shippo::Resource->api_key( $api_key )
             if $api_key;
+        Shippo::Resourse->api_username_password( $user, $pass )
+            if $user && !$api_key;
         bless $config, $class;
         return $invocant;
     }

@@ -5,7 +5,8 @@ use MRO::Compat 'c3';
 package WebService::Shippo::Resource;
 require WebService::Shippo::Request;
 use URI::Encode ( 'uri_encode' );
-use base        ( 'WebService::Shippo::Object' );
+use MIME::Base64;
+use base ( 'WebService::Shippo::Object' );
 use constant DEFAULT_API_SCHEME  => 'https';
 use constant DEFAULT_API_HOST    => 'api.goshippo.com';
 use constant DEFAULT_API_PORT    => '443';
@@ -45,6 +46,22 @@ use constant DEFAULT_API_VERSION => 'v1';
         $value = $new_value;
         Shippo::Request->headers->{Authorization} = "ShippoToken $value"
             if $value;
+        return $class;
+    }
+}
+
+{
+    my @value = ();
+
+    sub api_username_password
+    {
+        my ( $class, $user, $pass ) = @_;
+        return @value unless @_ > 1;
+        @value = ( $user, $pass );
+        if ( @value ) {
+            my $header = 'Basic ' . encode_base64( join ':', @value );
+            Shippo::Request->headers->{Authorization} = $header;
+        }
         return $class;
     }
 }
