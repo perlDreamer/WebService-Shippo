@@ -17,7 +17,7 @@ Perl 5.8.8 minimum.
 
 Build tests have been conducted successfully on all later versions of Perl.
 
-##### Dependencies
+### Dependencies
 
 <table>
 <thead>
@@ -113,7 +113,7 @@ sudo -s cpanm WebService::Shippo
 cpanm WebService::Shippo
 ```
 
-##### Installating from GitHub
+### Installing from GitHub
 
 Clone this repository only if you need to make changes. The distribution is 
 managed using `Dist::Zilla`, which will have dependency requirements of
