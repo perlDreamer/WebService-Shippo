@@ -150,6 +150,7 @@ while ( @objects_under_test ) {
     my $test_group      = shift @objects_under_test;
     my $config          = shift @objects_under_test;
     my $class           = $config->{class};
+diag $class;
     my $object_is_valid = $config->{object_is_valid};
     my $more_tests      = $config->{more_tests};
     my @skip_tests      = @{ $config->{skip} } if $config->{skip};
@@ -315,9 +316,9 @@ sub default_shipment
     my $parcel       = default_parcel();
     Shippo::Shipment->create(
         object_purpose      => 'QUOTE',
-        address_from        => $address_from,
-        address_to          => $address_to,
-        parcel              => $parcel,
+        address_from        => $address_from->object_id,
+        address_to          => $address_to->object_id,
+        parcel              => $parcel->object_id,
         submission_type     => 'PICKUP',
         submission_date     => '2013-12-03T12:00:00.000Z',
         insurance_amount    => '30',
