@@ -125,6 +125,6 @@ BEGIN {
 }
 
 # Init the user_agent attribute, and all that entails...
-__PACKAGE__->user_agent( LWP::UserAgent->new );
+__PACKAGE__->user_agent( LWP::UserAgent->new( ssl_opts => { verify_hostname => 1 } ) );
 
 1;
