@@ -122,12 +122,11 @@ its own.
 ### Using the Shippo API Perl Client
 
 ```perl
-use strict;
 use WebService::Shippo;
 
 Shippo->api_key(PRIVATE-AUTH-TOKEN);
 
-my $address = Shippo::Address->create(
+$address = Shippo::Address->create(
     object_purpose => 'PURCHASE',
     name           => 'John Smith',
     street1        => '6512 Greene Rd.',
@@ -143,9 +142,11 @@ my $address = Shippo::Address->create(
 );
 
 print 'Success with Address 1 : ', $address
+```
 
-# All being well, you should see something like the following output:
+All being well, you should see something like the following output:
 
+```
 Success with Address 1 : {
    "city" : "Woodridge",
    "company" : "Initech",
