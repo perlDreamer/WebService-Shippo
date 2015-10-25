@@ -10,10 +10,9 @@ my @tests = (
     testSetRateTimeout => sub {
         Shippo::Async->timeout( 0 );
         is( Shippo::Async->timeout, 0, __TEST__ );
-        my $exception;
         my $shipment = Shippo::Shipment->create(
             object_purpose => 'PURCHASE',
-            address_from   => Shippo::Address->create(
+            address_from   => {
                 'object_purpose' => 'PURCHASE',
                 'name'           => 'Shawn Ippotle',
                 'company'        => 'Shippo',
@@ -24,8 +23,8 @@ my @tests = (
                 'country'        => 'US',
                 'phone'          => '+1 555 341 9393',
                 'email'          => 'shippotle@goshippo.com'
-            ),
-            address_to => Shippo::Address->create(
+            },
+            address_to => {
                 'object_purpose' => 'PURCHASE',
                 'name'           => 'Mr Hippo',
                 'company'        => '',
@@ -37,15 +36,15 @@ my @tests = (
                 'country'        => 'US',
                 'phone'          => '+1 555 341 9393',
                 'email'          => 'mrhippo@goshippo.com'
-            ),
-            parcel => Shippo::Parcel->create(
+            },
+            parcel => {
                 'length'        => '5',
                 'width'         => '5',
                 'height'        => '5',
                 'distance_unit' => 'in',
                 'weight'        => '2',
                 'mass_unit'     => 'lb',
-            ),
+            },
         );
         is( $shipment->owner,     $shipment->{object_owner},   __TEST__ );
         is( $shipment->created,   $shipment->{object_created}, __TEST__ );
