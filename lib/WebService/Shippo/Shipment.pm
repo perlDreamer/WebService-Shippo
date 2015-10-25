@@ -4,7 +4,7 @@ use MRO::Compat 'c3';
 
 package WebService::Shippo::Shipment;
 require WebService::Shippo::Rate;
-use Carp              ( 'croak' );
+use Carp              ( 'confess' );
 use Params::Callbacks ( 'callbacks', 'callback' );
 use Scalar::Util      ( 'blessed' );
 use base (
@@ -21,7 +21,7 @@ sub api_resource { 'shipments' }
 sub request_get_shipping_rates
 {
     my ( $callbacks, $invocant, $shipment_id, @params ) = &callbacks;
-    croak "Expected a shipment id"
+    confess "Expected a shipment id"
         unless $shipment_id;
     my $currency;
     if ( @params && @params % 2 ) {
