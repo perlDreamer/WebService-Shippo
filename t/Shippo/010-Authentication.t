@@ -9,10 +9,8 @@ use WebService::Shippo ':all';
 my $tests = [
     testInvalidCredentials => sub {
         Shippo->api_key( 'Invalid API key' );
-        my $exception;
-        try { Shippo::Address->create }
-        catch { $exception = $_ };
-        like( $exception, qr/401 UNAUTHORIZED/i, __TEST__ );
+        eval { Shippo::Address->create };
+        like( $@, qr/401 UNAUTHORIZED/i, __TEST__ );
     },
 ];
 

@@ -54,12 +54,10 @@ my @tests = (
         is( $shipment->updated,   $shipment->{object_updated}, __TEST__ );
         is( $shipment->to_string, $shipment->to_json,          __TEST__ );
         my $rates;
-        try {
+        eval {
             $rates = $shipment->get_shipping_rates( $shipment->id, 'GBP' );
-        }
-        catch {
-            $exception = $_;
         };
+        my $exception = $@;
         is( WebService::Shippo::Request->response->content,
             '{"count": 0, "next": null, "previous": null, "results": []}',
             __TEST__

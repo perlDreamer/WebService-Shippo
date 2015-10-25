@@ -7,8 +7,8 @@ use Carp ( 'confess' );
 use Locale::Currency;
 
 {
-    my @codes = all_currency_codes();
-    my %codes = map { $_ => code2currency( $_ ) || '' } @codes;
+    my @codes = Locale::Codes::Currency::all_currency_codes();
+    my %codes = map { $_ => Locale::Codes::Currency::code2currency( $_ ) || '' } @codes;
 
     sub validate_currency
     {

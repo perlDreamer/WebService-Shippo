@@ -8,9 +8,8 @@ use WebService::Shippo ':all';
 
 my $tests = [
     testBadResource => sub {
-        my $exception;
-        try { Shippo::Request->get( 'https://api.goshippo.com/v1/hello/' ) }
-        catch { $exception = $_ };
+        eval { Shippo::Request->get( 'https://api.goshippo.com/v1/hello/' ) };
+        my $exception = $@;
         ok( $exception, __TEST__ );
         like( $exception, qr/404 NOT FOUND/i, __TEST__ );
     },

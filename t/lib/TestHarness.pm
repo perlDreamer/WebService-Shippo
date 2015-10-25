@@ -6,7 +6,6 @@ use Carp ( 'croak' );
 use Data::Dumper::Concise;
 use Test::More;
 use Test::Deep;
-use Try::Tiny;
 use boolean ':all';
 use base ( 'Exporter' );
 
@@ -21,9 +20,6 @@ our @EXPORT = (
     stash 
     Dumper 
     dump 
-    try 
-    catch
-    finally
     true
     false
     boolean
