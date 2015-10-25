@@ -9,7 +9,7 @@ Don't have an account? Sign up at https://goshippo.com/
 
 ### Version
 
-0.0.9 (2015-10-24)
+0.0.10 (2015-10-25)
 
 ### Requirements
 
