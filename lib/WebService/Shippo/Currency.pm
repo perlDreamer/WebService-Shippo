@@ -4,7 +4,7 @@ use MRO::Compat 'c3';
 
 package WebService::Shippo::Currency;
 use Carp ( 'confess' );
-use Locale::Codes ();
+use Locale::Currency ();
 
 {
     my @codes = Locale::Codes::_all_codes('currency');
