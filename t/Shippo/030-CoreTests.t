@@ -150,7 +150,6 @@ while ( @objects_under_test ) {
     my $test_group      = shift @objects_under_test;
     my $config          = shift @objects_under_test;
     my $class           = $config->{class};
-diag $class;
     my $object_is_valid = $config->{object_is_valid};
     my $more_tests      = $config->{more_tests};
     my @skip_tests      = @{ $config->{skip} } if $config->{skip};
@@ -164,14 +163,10 @@ diag $class;
         },
         testInvalidCreate => sub {
             return if grep { /^testInvalidCreate$/ } @skip_tests;
-            my $e;
-            try {
+            eval {
                 $class->create( invalid_data => 'invalid' );
-            }
-            catch {
-                $e = $_;
             };
-            like( $e, qr/400 BAD REQUEST/i, __TEST__ );
+            like( $@, qr/400 BAD REQUEST/i, __TEST__ );
         },
         testListAll => sub {
             return if grep { /^testListAll$/ } @skip_tests;
