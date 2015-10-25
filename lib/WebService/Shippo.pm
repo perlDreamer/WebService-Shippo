@@ -99,6 +99,7 @@ BEGIN {
     # There are some useful symbols defined elsewhere that I'd like to
     # make available (alias) via the root namespace.
     *api_key  = *WebService::Shippo::Resource::api_key;
+    *config   = *WebService::Shippo::Config::config;
     *pretty   = *WebService::Shippo::Object::pretty;
     *response = *WebService::Shippo::Request::response;
     *Response = *WebService::Shippo::Request::response;
@@ -121,29 +122,19 @@ WebService::Shippo - A Shippo API Perl Wrapper (coming soon)
 
 0.0.9 (2015-10-24)
 
-=head1 UNDER CONSTRUCTION
-
-B<This is a work in progress.>
-
-The project was minted on 2015-10-14 and is undergoing change on an almost
-daily basis. A minimal set of tests, with 96.1% statement coverage, was
-completed on 2015-10-24; the balance of that coverage is lost to the one-line
-non-OO interface defined in WebService/Shippo.pm, all of which simply call
-out the OO interface. The Coveralls coverage is showing 93% on Github because
-WebService/Shippo/Config.pm isn't exercised as heavily on Travis CI builds,
-and that's because I don't distribute a config file containing my API keys.
-
-Aside for a nip and a tuck here and there, this code can be considered stable
-and I can now beging documenting it.
-
 =head1 SYNOPIS
 
-    use strict;
+Shippo is a shipping API that connects you with multiple shipping providers
+(such as USPS, UPS, and Fedex) through one interface, and offers you great
+discounts on shipping rates.
+
+Don't have an account? Sign up at L<https://goshippo.com/>
+
     use WebService::Shippo;
     
     Shippo->api_key(PRIVATE-AUTH-TOKEN);
     
-    my $address = Shippo::Address->create(
+    $address = Shippo::Address->create(
         object_purpose => 'PURCHASE',
         name           => 'John Smith',
         street1        => '6512 Greene Rd.',
@@ -159,9 +150,9 @@ and I can now beging documenting it.
     );
     
     print 'Success with Address 1 : ', $address
-    
-    # All being well, you should see something like the following output:
-    
+
+All being well, you should see something like the following output:
+
     Success with Address 1 : {
        "city" : "Woodridge",
        "company" : "Initech",
@@ -189,13 +180,7 @@ and I can now beging documenting it.
     
 =head1 DESCRIPTION
 
-Shippo is a shipping API that connects you with multiple shipping providers
-(such as USPS, UPS, and Fedex) through one interface, and offers you great
-discounts on shipping rates.
-
-Don't have an account? Sign up at L<https://goshippo.com/>
-
-=head2 Full API Documentation
+=head1 FULL API DOCUMENTATION
 
 =over 2
 
