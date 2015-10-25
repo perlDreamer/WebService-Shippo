@@ -4,11 +4,12 @@ use MRO::Compat 'c3';
 
 package WebService::Shippo::Currency;
 use Carp ( 'confess' );
-use Locale::Currency;
+use Locale::Currency ();
+use Locale::Codes::Currency ();
 
 {
-    my @codes = Locale::Codes::Currency::all_currency_codes();
-    my %codes = map { $_ => Locale::Codes::Currency::code2currency( $_ ) || '' } @codes;
+    my @codes = Locale::Codes::_all_codes('currency');
+    my %codes = map { $_ => Locale::Codes::_code2name( 'currency', $_ ) || '' } @codes;
 
     sub validate_currency
     {
