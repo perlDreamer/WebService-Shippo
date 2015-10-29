@@ -38,14 +38,14 @@ my @objects_under_test = (
                     active => false
                 );
                 is( $updated_account->active, false, __TEST__ );
-                $updated_account->active( true );
+                $updated_account->activate();
                 is( $updated_account->active, true, __TEST__ );
-                $updated_account->active( false );
+                $updated_account->deactivate();
                 is( $updated_account->active, false, __TEST__ );
-                $updated_account->production( true );
-                is( $updated_account->production, true, __TEST__ );
-                $updated_account->production( false );
-                is( $updated_account->production, false, __TEST__ );
+                $updated_account->enable_test_mode();
+                is( $updated_account->test, true, __TEST__ );
+                $updated_account->disable_test_mode();
+                is( $updated_account->test, false, __TEST__ );
             },
         ],
     },

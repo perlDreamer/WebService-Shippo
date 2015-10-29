@@ -3,14 +3,21 @@ use warnings;
 
 package WebService::Shippo;
 # ABSTRACT: A Shippo Perl API wrapper
-our $VERSION = '0.0.10';
-require WebService::Shippo::Entities;
-require WebService::Shippo::Request;
-require WebService::Shippo::Config;
-use Params::Callbacks ( 'callbacks', 'callback' );
-use base ( 'Exporter' );
+our $VERSION = '0.0.11';
+use boolean ':all';
+use WebService::Shippo::Entities ();
+use WebService::Shippo::Request  ();
+use WebService::Shippo::Config   ();
+use Params::Callbacks            ( 'callbacks', 'callback' );
+use base                         ( 'Exporter' );
 
 our @EXPORT_OK = qw(
+    true
+    false
+    boolean
+    isTrue
+    isFalse
+    isBoolean
     callback
     shippo_address
     shippo_address_list
@@ -45,7 +52,7 @@ our @EXPORT_OK = qw(
     shippo_transaction_list
     shippo_transaction_create
 );
-our %EXPORT_TAGS = ( all => \@EXPORT_OK, ALL => \@EXPORT_OK );
+our %EXPORT_TAGS = ( all => \@EXPORT_OK, bool => $boolean::EXPORT_TAGS{all} );
 
 #<<< Don't Perl Tidy this
 sub shippo_address                    { WebService::Shippo::Address->get( @_ ) }
@@ -124,7 +131,7 @@ WebService::Shippo - A Shippo API Perl Wrapper (coming soon)
 
 =head1 VERSION
 
-0.0.10 (2015-10-25)
+0.0.11 (2015-10-29)
 
 =head1 SYNOPIS
 
@@ -203,9 +210,11 @@ questions.
 
 =over 2
 
+=item * L<http://search.cpan.org/dist/WebService-Shippo/lib/WebService/Shippo.pm>
+
 =item * L<https://github.com/cpanic/WebService-Shippo>
 
-=item * L<http://search.cpan.org/dist/WebService-Shippo/lib/WebService/Shippo.pm>
+=item * L<https://github.com/cpanic/WebService-Shippo/wiki>
 
 =back
 

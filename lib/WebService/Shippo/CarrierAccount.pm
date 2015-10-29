@@ -3,7 +3,8 @@ use warnings;
 use MRO::Compat 'c3';
 
 package WebService::Shippo::CarrierAccount;
-use boolean ( 'boolean' );
+use Carp         ( 'confess' );
+use Scalar::Util ( 'blessed' );
 use base (
     'WebService::Shippo::Resource',
     'WebService::Shippo::Creator',
@@ -17,23 +18,55 @@ sub api_resource { 'carrier_accounts' }    # why not "carrier/accounts", which
                                            # would be consistent with Customs
                                            # Declaration resource?
 
-sub active
+sub activate
 {
-    my ( $invocant, $bool ) = @_;
-    return boolean( $invocant->{active} ) unless @_ > 1;
-    my $object_id = $invocant->{object_id}
-        or return $invocant;
-    my $upd = __PACKAGE__->update( $object_id, active => boolean( $bool ) );
+    my ( $invocant, $object_id ) = @_;
+    $object_id = $invocant->{object_id}
+        if blessed( $invocant ) && !$object_id;
+    confess 'Expected an object id'
+        unless $object_id;
+    my $upd = __PACKAGE__->update( $object_id, active => 1 );
+    return $upd
+        unless blessed( $invocant ) && $invocant->id eq $object_id;
+    $invocant->refresh_from( $upd );
+}
+
+sub deactivate
+{
+    my ( $invocant, $object_id ) = @_;
+    $object_id = $invocant->{object_id}
+        if blessed( $invocant ) && !$object_id;
+    confess 'Expected an object id'
+        unless $object_id;
+    my $upd = __PACKAGE__->update( $object_id, active => 0 );
+    return $upd
+        unless blessed( $invocant ) && $invocant->id eq $object_id;
+    $invocant->refresh_from( $upd );
+}
+
+sub enable_test_mode
+{
+    my ( $invocant, $object_id ) = @_;
+    $object_id = $invocant->{object_id}
+        if blessed( $invocant ) && !$object_id;
+    confess 'Expected an object id'
+        unless $object_id;
+    my $upd = __PACKAGE__->update( $object_id, test => 1 );
+    return $upd
+        unless blessed( $invocant ) && $invocant->id eq $object_id;
     return $invocant->refresh_from( $upd );
 }
 
-sub production
+sub disable_test_mode
 {
-    my ( $invocant, $bool ) = @_;
-    return boolean( !$invocant->{test} ) unless @_ > 1;
-    my $object_id = $invocant->{object_id}
-        or return $invocant;
-    my $upd = __PACKAGE__->update( $object_id, test => boolean( !$bool ) );
+    my ( $invocant, $object_id ) = @_;
+    $object_id = $invocant->{object_id}
+        if blessed( $invocant ) && !$object_id;
+    confess 'Expected an object id'
+        unless $object_id;
+    my $upd = __PACKAGE__->update( $object_id, test => 0 );
+    return $upd
+        unless blessed( $invocant ) && $invocant->id eq $object_id;
     return $invocant->refresh_from( $upd );
 }
 

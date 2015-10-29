@@ -2,7 +2,7 @@ NAME
     WebService::Shippo - A Shippo API Perl Wrapper (coming soon)
 
 VERSION
-    0.0.10 (2015-10-25)
+    0.0.11 (2015-10-29)
 
 SYNOPIS
     Shippo is a shipping API that connects you with multiple shipping
@@ -71,10 +71,12 @@ FULL API DOCUMENTATION
       questions.
 
 REPOSITORY
-    * <https://github.com/cpanic/WebService-Shippo>
-
     * <http://search.cpan.org/dist/WebService-Shippo/lib/WebService/Shippo.p
       m>
+
+    * <https://github.com/cpanic/WebService-Shippo>
+
+    * <https://github.com/cpanic/WebService-Shippo/wiki>
 
 AUTHOR
     Iain Campbell <cpanic@cpan.org>

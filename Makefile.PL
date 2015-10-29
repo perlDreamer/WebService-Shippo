@@ -14,6 +14,7 @@ my %WriteMakefileArgs = (
   },
   "DISTNAME" => "WebService-Shippo",
   "EXE_FILES" => [
+    "bin/carrier_account.pl",
     "bin/create_shipping_label.pl"
   ],
   "LICENSE" => "perl",
@@ -38,7 +39,7 @@ my %WriteMakefileArgs = (
     "Data::Dumper::Concise" => 0,
     "Test::Deep" => 0
   },
-  "VERSION" => "0.0.10",
+  "VERSION" => "0.0.11",
   "test" => {
     "TESTS" => "t/*.t t/Shippo/*.t"
   }
