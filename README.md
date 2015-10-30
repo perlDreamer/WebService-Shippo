@@ -9,7 +9,8 @@ Don't have an account? Sign up at https://goshippo.com/
 
 ### Version
 
-0.0.10 (2015-10-25)
+* 0.0.11 (2015-10-30) on Github
+* 0.0.10 (2015-10-25) on CPAN
 
 ### Requirements
 

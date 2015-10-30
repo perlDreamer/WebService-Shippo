@@ -10,9 +10,9 @@ use Params::Callbacks ( 'callbacks', 'callback' );
 use base ( 'Exporter' );
 
 our @EXPORT = qw(
-    true 
-    false 
-    boolean 
+    true
+    false
+    boolean
     callback
 );
 
@@ -22,7 +22,7 @@ our @EXPORT_OK = qw(
     isBoolean
     callbacks
 );
-our %EXPORT_TAGS = ( all => \@EXPORT_OK, bool => $boolean::EXPORT_TAGS{all} );
+our %EXPORT_TAGS = ( all => [ @EXPORT, @EXPORT_OK ], bool => $boolean::EXPORT_TAGS{all} );
 
 sub import
 {
@@ -30,7 +30,8 @@ sub import
     # Configure Shippo client on import
     WebService::Shippo::Config->config;
     # The API key is overridden with the envornment's value if defined.
-    WebService::Shippo::Resource->api_username_password( @ENV{ 'SHIPPO_USER', 'SHIPPO_PASS' } )
+    WebService::Shippo::Resource->api_username_password(
+        @ENV{ 'SHIPPO_USER', 'SHIPPO_PASS' } )
         if $ENV{SHIPPO_USER} && !$ENV{SHIPPO_TOKEN};
     WebService::Shippo::Resource->api_key( $ENV{SHIPPO_TOKEN} )
         if $ENV{SHIPPO_TOKEN};

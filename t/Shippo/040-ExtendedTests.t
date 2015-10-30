@@ -53,9 +53,7 @@ my @tests = (
         is( $shipment->updated,   $shipment->{object_updated}, __TEST__ );
         is( $shipment->to_string, $shipment->to_json,          __TEST__ );
         my $rates;
-        eval {
-            $rates = $shipment->get_shipping_rates( $shipment->id, 'GBP' );
-        };
+        eval { $rates = $shipment->get_shipping_rates( $shipment->id, 'GBP' ); };
         my $exception = $@;
         is( WebService::Shippo::Request->response->content,
             '{"count": 0, "next": null, "previous": null, "results": []}',
@@ -64,6 +62,10 @@ my @tests = (
         like( $exception, qr/timed-out/i, __TEST__ );
         Shippo::Async->timeout( 60 );
         is( Shippo::Async->timeout, 60, __TEST__ );
+        $shipment->get_shipping_rates( $shipment->id, 'USD', async => 1 );
+        $shipment->wait_unless_status_in( 'ERROR', 'SUCCESS' );
+        $rates = $shipment->get_shipping_rates( $shipment->id, 'USD', async => 1 );
+        ok( @{ $rates->{results} }, __TEST__ );
     },
     testObject => sub {
         my $ca = WebService::Shippo::CarrierAccount->all;
@@ -163,8 +165,8 @@ my @tests = (
                 public_token  => 'foo'
             }
         );
-        is(WebService::Shippo::Resource->api_private_token, 'bar', __TEST__);
-        is(WebService::Shippo::Resource->api_public_token, 'foo', __TEST__);
+        is( WebService::Shippo::Resource->api_private_token, 'bar', __TEST__ );
+        is( WebService::Shippo::Resource->api_public_token,  'foo', __TEST__ );
         my $config_after = WebService::Shippo::Config->config;
         not_deeply( $config_before, $config_after, __TEST__ );
         WebService::Shippo::Config->reload_config;

@@ -3,9 +3,10 @@ use warnings;
 use MRO::Compat 'c3';
 
 package WebService::Shippo::Async;
-use Carp        ( 'confess' );
-use List::Util  ( 'any' );
-use Time::HiRes ( 'gettimeofday', 'tv_interval' );
+use Carp              ( 'confess' );
+use List::Util        ( 'any' );
+use Params::Callbacks ( 'callbacks' );
+use Time::HiRes       ( 'gettimeofday', 'tv_interval' );
 
 {
     my $value = 60;
@@ -27,32 +28,32 @@ use Time::HiRes ( 'gettimeofday', 'tv_interval' );
 
 sub wait_if_status_in
 {
-    my ( $invocant, @states ) = @_;
+    my ( $callbacks, $invocant, @states ) = &callbacks;
     my $start_time = [ gettimeofday() ];
-    my $delay = 0.5;
-    my $backoff = 0.25;
+    my $delay      = 0.5;
+    my $backoff    = 0.25;
     while ( !$invocant->timeout_exceeded( $start_time ) ) {
         return $invocant
             unless any { /^$invocant->{object_status}$/ } @states;
         sleep( $delay );
         $delay += $backoff;
-        $invocant->refresh;
+        $callbacks->transform( $invocant->refresh );
     }
     confess 'Asynchronus operation timed-out';
 }
 
 sub wait_unless_status_in
 {
-    my ( $invocant, @states ) = @_;
+    my ( $callbacks, $invocant, @states ) = &callbacks;
     my $start_time = [ gettimeofday() ];
-    my $delay = 0.5;
-    my $backoff = 0.25;
+    my $delay      = 0.5;
+    my $backoff    = 0.25;
     while ( !$invocant->timeout_exceeded( $start_time ) ) {
         return $invocant
             if any { /^$invocant->{object_status}$/ } @states;
         sleep( $delay );
         $delay += $backoff;
-        $invocant->refresh;
+        $callbacks->transform( $invocant->refresh );
     }
     confess 'Asynchronus operation timed-out';
 }
