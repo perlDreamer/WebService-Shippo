@@ -176,7 +176,7 @@ Success with Address 1 : {
    "zip" : "60517"
 }
 ```
-
+For additional integration notes, visit the [project wiki pages](https://github.com/cpanic/WebService-Shippo/wiki).
 ### Full API documentation
 
 * For API documentation, go to https://goshippo.com/docs/ 
