@@ -16,9 +16,13 @@ sub first_page
 sub all
 {
     my ( $callbacks, $invocant, %params ) = &callbacks;
-    my $response = WebService::Shippo::Request->get( $invocant->url, results => 1 );
-    my $obj = $invocant->construct_from( $response );
-    $params{results} = $obj->count;
+    my $response;
+    unless ( $params{results} ) {
+        $response = WebService::Shippo::Request->get( $invocant->url, results => 1 );
+        $params{results} = $invocant->construct_from( $response )->count;
+        $params{results} = 3
+            unless $params{results};
+    }
     $response = WebService::Shippo::Request->get( $invocant->url, %params );
     return $invocant->construct_from( $response, $callbacks );
 }

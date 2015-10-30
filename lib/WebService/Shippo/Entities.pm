@@ -15,5 +15,6 @@ require WebService::Shippo::Rate;
 require WebService::Shippo::Refund;
 require WebService::Shippo::Shipment;
 require WebService::Shippo::Transaction;
+require WebService::Shippo::Config;
 
 1;
