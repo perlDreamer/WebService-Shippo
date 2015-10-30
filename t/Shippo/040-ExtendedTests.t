@@ -68,7 +68,7 @@ my @tests = (
         ok( $rates->results, __TEST__ );
     },
     testObject => sub {
-        my $ca = WebService::Shippo::CarrierAccount->all_pages( results => 50 );
+        my $ca = WebService::Shippo::CarrierAccount->all;
         my @ca = $ca->results;
         ok( @ca > 1, __TEST__ );
         my %p;
@@ -84,7 +84,7 @@ my @tests = (
     },
     testObjectList => sub {
         my $carrier_accounts
-            = WebService::Shippo::CarrierAccount->all( results => 1 );
+            = WebService::Shippo::CarrierAccount->first_page( results => 1 );
         is( $carrier_accounts->item_class, 'WebService::Shippo::CarrierAccount',
             __TEST__
         );
