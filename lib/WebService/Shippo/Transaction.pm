@@ -17,7 +17,7 @@ sub api_resource { 'transactions' }
 
 sub get_shipping_label
 {
-    my ( $invocant, $transaction_id ) = @_;
+    my ( $invocant, $transaction_id, %params ) = @_;
     confess "Expected a transaction id"
         unless $transaction_id;
     my $transaction;
@@ -30,7 +30,8 @@ sub get_shipping_label
     else {
         $transaction = WebService::Shippo::Transaction->fetch( $transaction_id );
     }
-    $transaction->wait_if_status_in( 'QUEUED', 'WAITING' );
+    $transaction->wait_if_status_in( 'QUEUED', 'WAITING' )
+        unless $params{async};
     return $transaction->label_url;
 }
 
