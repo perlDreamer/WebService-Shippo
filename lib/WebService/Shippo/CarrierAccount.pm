@@ -57,7 +57,7 @@ sub enable_test_mode
     return $invocant->refresh_from( $upd );
 }
 
-sub disable_test_mode
+sub enable_production_mode
 {
     my ( $invocant, $object_id ) = @_;
     $object_id = $invocant->{object_id}

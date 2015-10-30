@@ -44,7 +44,7 @@ my @objects_under_test = (
                 is( $updated_account->active, false, __TEST__ );
                 $updated_account->enable_test_mode();
                 is( $updated_account->test, true, __TEST__ );
-                $updated_account->disable_test_mode();
+                $updated_account->enable_production_mode();
                 is( $updated_account->test, false, __TEST__ );
             },
         ],
