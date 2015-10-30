@@ -78,9 +78,6 @@ sub query_string
         $url .= $invocant->query_string( $params );
         my $response = user_agent->get( $url, headers );
         $last_response = clone( $response );
-        unless ( $response->is_success ) {
-
-        }
         $invocant->handle_failed_request
             unless $response->is_success;
         return $response;
