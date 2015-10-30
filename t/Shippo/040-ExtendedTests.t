@@ -64,8 +64,6 @@ my @tests = (
         like( $exception, qr/timed-out/i, __TEST__ );
         Shippo::Async->timeout( 60 );
         is( Shippo::Async->timeout, 60, __TEST__ );
-        $rates = $shipment->get_shipping_rates( $shipment->id, 'GBP' );
-        ok( $rates->results, __TEST__ );
     },
     testObject => sub {
         my $ca = WebService::Shippo::CarrierAccount->all;

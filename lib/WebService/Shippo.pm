@@ -11,7 +11,12 @@ require WebService::Shippo::Config;
 use Params::Callbacks ( 'callbacks', 'callback' );
 use base ( 'Exporter' );
 
-our @EXPORT = qw(true false boolean callback);
+our @EXPORT = qw(
+    true 
+    false 
+    boolean 
+    callback
+);
 
 our @EXPORT_OK = qw(
     isTrue

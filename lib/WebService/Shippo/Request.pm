@@ -11,8 +11,11 @@ use URI::Encode          ( 'uri_encode' );
 
 {
     my $value = {
-        'Content-Type' => 'application/json',
-        'Accept'       => 'application/json',
+        'Content-Type'  => 'application/json',
+        'Accept'        => 'application/json',
+        'Pragma'        => 'no-cache',
+        'Cache-Control' => 'max-age=0, no-cache, no-store',
+        'Expires'       => 'Fri, 26 Oct 2001 00:00:00 GMT',
     };
 
     sub headers { wantarray ? %$value : $value }
