@@ -30,8 +30,7 @@ sub import
     # Configure Shippo client on import
     WebService::Shippo::Config->config;
     # The API key is overridden with the envornment's value if defined.
-    WebService::Shippo::Resource->api_username_password(
-        @ENV{ 'SHIPPO_USER', 'SHIPPO_PASS' } )
+    WebService::Shippo::Resource->api_username_password( @ENV{ 'SHIPPO_USER', 'SHIPPO_PASS' } )
         if $ENV{SHIPPO_USER} && !$ENV{SHIPPO_TOKEN};
     WebService::Shippo::Resource->api_key( $ENV{SHIPPO_TOKEN} )
         if $ENV{SHIPPO_TOKEN};
