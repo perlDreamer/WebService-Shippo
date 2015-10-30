@@ -5,11 +5,11 @@ package WebService::Shippo;
 # ABSTRACT: A Shippo Perl API wrapper
 our $VERSION = '0.0.11';
 use boolean ':all';
-use WebService::Shippo::Entities ();
-use WebService::Shippo::Request  ();
-use WebService::Shippo::Config   ();
-use Params::Callbacks            ( 'callbacks', 'callback' );
-use base                         ( 'Exporter' );
+require WebService::Shippo::Entities;
+require WebService::Shippo::Request;
+require WebService::Shippo::Config;
+use Params::Callbacks ( 'callbacks', 'callback' );
+use base ( 'Exporter' );
 
 our @EXPORT_OK = qw(
     true
