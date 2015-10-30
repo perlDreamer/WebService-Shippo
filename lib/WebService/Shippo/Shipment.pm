@@ -18,31 +18,6 @@ use base (
 
 sub api_resource { 'shipments' }
 
-sub request_get_shipping_rates
-{
-    my ( $callbacks, $invocant, $shipment_id, @params ) = &callbacks;
-    confess "Expected a shipment id"
-        unless $shipment_id;
-    my $currency;
-    if ( @params && @params % 2 ) {
-        ( $currency, @params ) = @params;
-        $currency = $invocant->validate_currency( $currency );
-    }
-    my $rates_url = "$shipment_id/rates";
-    $rates_url .= "/$currency"
-        if $currency;
-    $rates_url = $invocant->url( $rates_url );
-    my $response = WebService::Shippo::Request->get( $rates_url, @params );
-    unshift @$callbacks, callback {
-        return unless @_;
-        return $_[0] unless defined $_[0];
-        return bless( $_[0], 'WebService::Shippo::Rate' );
-    };
-    my $rates = $invocant->construct_from( $response, $callbacks );
-    bless $rates, WebService::Shippo::Rate->list_class;
-    return $rates;
-}
-
 sub get_shipping_rates
 {
     my ( $callbacks, $invocant, $shipment_id, @params ) = &callbacks;
@@ -56,9 +31,35 @@ sub get_shipping_rates
     else {
         $shipment = WebService::Shippo::Shipment->fetch( $shipment_id );
     }
-    &request_get_shipping_rates;
-    $shipment->wait_if_status_in( 'QUEUED', 'WAITING' );
-    return &request_get_shipping_rates;
+    confess "Expected a shipment id"
+        unless $shipment_id;
+    my $currency;
+    if ( @params && @params % 2 ) {
+        ( $currency, @params ) = @params;
+        $currency = $invocant->validate_currency( $currency );
+    }
+    my $rates_url = "$shipment_id/rates";
+    $rates_url .= "/$currency"
+        if $currency;
+    $rates_url = $invocant->url( $rates_url );
+    my $async;
+    my %params = @params;
+    $async = delete( $params{async} )
+        if exists $params{async};
+    @params = %params;
+    unless ( $async ) {
+        WebService::Shippo::Request->get( $rates_url, @params );
+        $shipment->wait_if_status_in( 'QUEUED', 'WAITING' );
+    }
+    my $response = WebService::Shippo::Request->get( $rates_url, @params );
+    unshift @$callbacks, callback {
+        return unless @_;
+        return $_[0] unless defined $_[0];
+        return bless( $_[0], 'WebService::Shippo::Rate' );
+    };
+    my $rates = $invocant->construct_from( $response, $callbacks );
+    bless $rates, WebService::Shippo::Rate->list_class;
+    return $rates;
 }
 
 package    # Hide from PAUSE
