@@ -4,10 +4,8 @@ use warnings;
 package WebService::Shippo;
 # ABSTRACT: A Shippo Perl API wrapper
 our $VERSION = '0.0.11';
-use boolean ':all';
 require WebService::Shippo::Entities;
-require WebService::Shippo::Request;
-require WebService::Shippo::Config;
+use boolean ':all';
 use Params::Callbacks ( 'callbacks', 'callback' );
 use base ( 'Exporter' );
 
@@ -22,75 +20,9 @@ our @EXPORT_OK = qw(
     isTrue
     isFalse
     isBoolean
-    shippo_address
-    shippo_address_list
-    shippo_address_validate
-    shippo_address_create
-    shippo_carrier_account
-    shippo_carrier_account_list
-    shippo_carrier_account_create
-    shippo_carrier_account_update
-    shippo_customs_declaration
-    shippo_customs_declaration_list
-    shippo_customs_declaration_create
-    shippo_customs_item
-    shippo_customs_item_list
-    shippo_customs_item_create
-    shippo_manifest
-    shippo_manifest_list
-    shippo_manifest_create
-    shippo_parcel
-    shippo_parcel_list
-    shippo_parcel_create
-    shippo_rate
-    shippo_rate_list
-    shippo_refund
-    shippo_refund_list
-    shippo_refund_create
-    shippo_shipment
-    shippo_shipment_list
-    shippo_shipment_create
-    shippo_shipment_rates
-    shippo_transaction
-    shippo_transaction_list
-    shippo_transaction_create
+    callbacks
 );
 our %EXPORT_TAGS = ( all => \@EXPORT_OK, bool => $boolean::EXPORT_TAGS{all} );
-
-#<<< Don't Perl Tidy this
-sub shippo_address                    { WebService::Shippo::Address->get( @_ ) }
-sub shippo_address_list               { WebService::Shippo::Address->all( @_ ) }
-sub shippo_address_validate           { WebService::Shippo::Address->validate( @_ ) }
-sub shippo_address_create             { WebService::Shippo::Address->create( @_ ) }
-sub shippo_carrier_account            { WebService::Shippo::CarrierAccount->get( @_ ) }
-sub shippo_carrier_account_list       { WebService::Shippo::CarrierAccount->all( @_ ) }
-sub shippo_carrier_account_create     { WebService::Shippo::CarrierAccount->create( @_ ) }
-sub shippo_carrier_account_update     { WebService::Shippo::CarrierAccount->update( @_ ) }
-sub shippo_customs_declaration        { WebService::Shippo::CustomsDeclaration->get( @_ ) }
-sub shippo_customs_declaration_list   { WebService::Shippo::CustomsDeclaration->all( @_ ) }
-sub shippo_customs_declaration_create { WebService::Shippo::CustomsDeclaration->create( @_ ) }
-sub shippo_customs_item               { WebService::Shippo::CustomsItem->get( @_ ) }
-sub shippo_customs_item_list          { WebService::Shippo::CustomsItem->all( @_ ) }
-sub shippo_customs_item_create        { WebService::Shippo::CustomsItem->create( @_ ) }
-sub shippo_manifest                   { WebService::Shippo::Manifest->get( @_ ) }
-sub shippo_manifest_list              { WebService::Shippo::Manifest->all( @_ ) }
-sub shippo_manifest_create            { WebService::Shippo::Manifest->create( @_ ) }
-sub shippo_parcel                     { WebService::Shippo::Parcel->get( @_ ) }
-sub shippo_parcel_list                { WebService::Shippo::Parcel->all( @_ ) }
-sub shippo_parcel_create              { WebService::Shippo::Parcel->create( @_ ) }
-sub shippo_rate                       { WebService::Shippo::Rate->get( @_ ) }
-sub shippo_rate_list                  { WebService::Shippo::Rate->all( @_ ) }
-sub shippo_refund                     { WebService::Shippo::Refund->get( @_ ) }
-sub shippo_refund_list                { WebService::Shippo::Refund->all( @_ ) }
-sub shippo_refund_create              { WebService::Shippo::Refund->create( @_ ) }
-sub shippo_shipment                   { WebService::Shippo::Shipment->get( @_ ) }
-sub shippo_shipment_list              { WebService::Shippo::Shipment->all( @_ ) }
-sub shippo_shipment_create            { WebService::Shippo::Shipment->create( @_ ) }
-sub shippo_shipment_rates             { WebService::Shippo::Shipment->rates( @_ ) }
-sub shippo_transaction                { WebService::Shippo::Transaction->get( @_ ) }
-sub shippo_transaction_list           { WebService::Shippo::Transaction->all( @_ ) }
-sub shippo_transaction_create         { WebService::Shippo::Transaction->create( @_ ) }
-#>>>
 
 sub import
 {
