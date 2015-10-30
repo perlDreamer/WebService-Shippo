@@ -109,19 +109,11 @@ my @objects_under_test = (
             testRates => sub {
                 stash->{item}->get_shipping_rates(
                     stash->{item}->id,
-                    callback {
-                        my ( $rate ) = @_;
-                        ok( $rate->is_valid, __TEST__ );
-                    }
                 );
             },
             testRates => sub {
                 stash->{item}->get_shipping_rates(
                     stash->{item}->id, 'GBP',
-                    callback {
-                        my ( $rate ) = @_;
-                        ok( $rate->is_valid, __TEST__ );
-                    }
                 );
             },
         ],
@@ -168,9 +160,9 @@ while ( @objects_under_test ) {
             };
             like( $@, qr/400 BAD REQUEST/i, __TEST__ );
         },
-        testListAll => sub {
+        testListFirstPage => sub {
             return if grep { /^testListAll$/ } @skip_tests;
-            stash->{list} = $class->all( results => 3, page => 1 );
+            stash->{list} = $class->first_page( results => 3, page => 1 );
             my $list = stash->{list};
             ok( defined( $list->count ),   __TEST__ );
             ok( defined( $list->results ), __TEST__ );
@@ -178,7 +170,7 @@ while ( @objects_under_test ) {
         testListPageSize => sub {
             return if grep { /^testListPageSize$/ } @skip_tests;
             my $page_size = 1;
-            my $list      = $class->all(
+            my $list      = $class->first_page(
                 {   'results' => $page_size,
                     'page'    => 1
                 }

@@ -6,18 +6,21 @@ package WebService::Shippo::Lister;
 require WebService::Shippo::Request;
 use Params::Callbacks ( 'callbacks' );
 
-sub all
+sub first_page
 {
     my ( $callbacks, $invocant, @params ) = &callbacks;
     my $response = WebService::Shippo::Request->get( $invocant->url, @params );
     return $invocant->construct_from( $response, $callbacks );
 }
 
-sub all_pages
+sub all
 {
-    my ( $callbacks, $invocant, @params ) = &callbacks;
-    my $response = WebService::Shippo::Request->get( $invocant->url, @params );
-    return $invocant->construct_from( $response, $callbacks )->plus_next_pages;
+    my ( $callbacks, $invocant, %params ) = &callbacks;
+    my $response = WebService::Shippo::Request->get( $invocant->url, results => 1 );
+    my $obj = $invocant->construct_from( $response );
+    $params{results} = $obj->count;
+    $response = WebService::Shippo::Request->get( $invocant->url, %params );
+    return $invocant->construct_from( $response, $callbacks );
 }
 
 sub list_class

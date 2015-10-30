@@ -54,8 +54,6 @@ print "Shipment details:\n", $shipment->to_json;
 # Retrieve shipping rates...
 my $rates = Shippo::Shipment->get_shipping_rates( $shipment->object_id );
 
-print "Refreshed shipment details:\n", $shipment->refresh->to_json;
-
 print "Shipping rates:\n", $rates->to_json;
 
 # Get the preferred rate from your list of rates...
