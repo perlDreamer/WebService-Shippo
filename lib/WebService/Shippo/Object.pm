@@ -45,12 +45,9 @@ sub new
                 && exists( $invocant->{results} ) )
             {
                 my $item_class = $invocant->class;
-                $invocant->{results} = [
-                    map {
-                        $callbacks->smart_transform(
-                            bless( $_, $item_class ) )
-                    } @{ $invocant->{results} }
-                ];
+                $invocant->{results}
+                    = [ map { $callbacks->smart_transform( bless( $_, $item_class ) ) }
+                        @{ $invocant->{results} } ];
                 return bless( $invocant, $invocant->list_class );
             }
             else {
@@ -93,6 +90,20 @@ sub refresh
     my $response     = Shippo::Request->get( $url );
     my $update       = $invocant->construct_from( $response );
     return $invocant->refresh_from( $update );
+}
+
+sub is_same_object
+{
+    my ( $invocant, $object_id ) = @_;
+    return
+        unless defined $object_id;
+    return
+        unless blessed( $invocant );
+    return
+        unless reftype( $invocant ) eq 'HASH';
+    return
+        unless exists $invocant->{object_id};
+    return $invocant->{object_id} eq $object_id;
 }
 
 {
