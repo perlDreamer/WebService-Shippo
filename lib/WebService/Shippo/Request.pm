@@ -62,11 +62,15 @@ sub query_string
     my $json          = JSON::XS->new->utf8->convert_blessed->allow_blessed;
     my $last_response = undef;
 
-    sub handle_failed_request
+    sub response
     {
-        my ( $invocant ) = @_;
-        confess $last_response->status_line . "\n" . $last_response->content
-            . "\n\tFailed request";
+        return $last_response;
+    }
+
+    sub confess_failure
+    {
+        confess sprintf "%s\n%s\n\tFailed request", $last_response->status_line,
+            $last_response->content;
     }
 
     sub get
@@ -78,7 +82,7 @@ sub query_string
         $url .= $invocant->query_string( $params );
         my $response = user_agent->get( $url, headers );
         $last_response = clone( $response );
-        $invocant->handle_failed_request
+        $invocant->confess_failure( $response )
             unless $response->is_success;
         return $response;
     }
@@ -92,7 +96,7 @@ sub query_string
         my $payload  = $json->encode( $params );
         my $response = user_agent->put( $url, headers, Content => $payload );
         $last_response = clone( $response );
-        $invocant->handle_failed_request
+        $invocant->confess_failure( $response )
             unless $response->is_success;
         return $response;
     }
@@ -106,14 +110,9 @@ sub query_string
         my $payload  = $json->encode( $params );
         my $response = user_agent->post( $url, headers, Content => $payload );
         $last_response = clone( $response );
-        $invocant->handle_failed_request
+        $invocant->confess_failure( $response )
             unless $response->is_success;
         return $response;
-    }
-
-    sub response
-    {
-        return $last_response;
     }
 }
 
@@ -125,6 +124,7 @@ BEGIN {
 }
 
 # Init the user_agent attribute, and all that entails...
-__PACKAGE__->user_agent( LWP::UserAgent->new( ssl_opts => { verify_hostname => 1 } ) );
+__PACKAGE__->user_agent(
+    LWP::UserAgent->new( ssl_opts => { verify_hostname => 1 } ) );
 
 1;
