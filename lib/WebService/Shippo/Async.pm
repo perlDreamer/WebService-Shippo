@@ -44,4 +44,8 @@ sub wait_if_status_in
     return;
 }
 
+BEGIN {
+    *wait_while_status_in = *wait_if_status_in;
+}
+
 1;
