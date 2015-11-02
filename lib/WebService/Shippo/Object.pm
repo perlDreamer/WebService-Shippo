@@ -65,7 +65,7 @@ sub new
 }
 
 {
-    my $value = 0;
+    my $value = 1;
 
     sub pretty
     {
