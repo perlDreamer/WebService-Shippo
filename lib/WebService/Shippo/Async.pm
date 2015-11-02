@@ -26,7 +26,7 @@ use Time::HiRes       ( 'gettimeofday', 'tv_interval' );
     }
 }
 
-sub wait_if_status_in
+sub wait_while_status_in
 {
     my ( $callbacks, $invocant, @states ) = &callbacks;
     my $start_time = [ gettimeofday() ];
@@ -45,7 +45,7 @@ sub wait_if_status_in
 }
 
 BEGIN {
-    *wait_while_status_in = *wait_if_status_in;
+    *wait_if_status_in = *wait_while_status_in;
 }
 
 1;
