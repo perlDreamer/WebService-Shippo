@@ -65,7 +65,7 @@ sub new
 }
 
 {
-    my $value = 1;
+    my $value = 0;
 
     sub pretty
     {
@@ -130,9 +130,10 @@ sub is_same_object
     # Serializes the object to a JSON string.
     sub to_json
     {
+        my ( $data, $pretty ) = @_;
         $json->pretty
-            if pretty;
-        return $json->encode( $_[0] );
+            if $pretty || pretty;
+        return $json->encode( $data );
     }
 
     # Also, serializes the object to a JSON string. This method will be
