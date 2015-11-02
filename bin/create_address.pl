@@ -19,4 +19,4 @@ my $address = Shippo::Address->create(
     metadata       => 'Customer ID 123456'
 );
 
-print $address->validate->to_json;
+print $address->validate->to_json(1);
