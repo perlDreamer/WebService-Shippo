@@ -64,7 +64,7 @@ my @tests = (
         is( Shippo::Async->timeout, 60, __TEST__ );
         $shipment->get_shipping_rates( $shipment->id, 'USD', async => 1 );
         sleep 1;
-        $shipment->wait_unless_status_in( 'ERROR', 'SUCCESS' );
+        $shipment->wait_while_status_in( 'QUEUED', 'WAITING' );
         sleep 1;
         $rates = $shipment->get_shipping_rates( $shipment->id, 'USD', async => 1 );
         ok( @{ $rates->{results} }, __TEST__ );

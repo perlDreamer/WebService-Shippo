@@ -37,25 +37,11 @@ sub wait_if_status_in
             unless any { /^$invocant->{object_status}$/ } @states;
         sleep( $delay );
         $delay += $backoff;
-        $callbacks->transform( $invocant->refresh );
+        last unless $callbacks->transform( $invocant->refresh );
     }
-    confess 'Asynchronus operation timed-out';
-}
-
-sub wait_unless_status_in
-{
-    my ( $callbacks, $invocant, @states ) = &callbacks;
-    my $start_time = [ gettimeofday() ];
-    my $delay      = 0.5;
-    my $backoff    = 0.25;
-    while ( !$invocant->timeout_exceeded( $start_time ) ) {
-        return $invocant
-            if any { /^$invocant->{object_status}$/ } @states;
-        sleep( $delay );
-        $delay += $backoff;
-        $callbacks->transform( $invocant->refresh );
-    }
-    confess 'Asynchronus operation timed-out';
+    confess 'Asynchronus operation timed-out'
+        if $invocant->timeout_exceeded( $start_time );
+    return;
 }
 
 1;
