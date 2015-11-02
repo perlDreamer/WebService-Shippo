@@ -21,10 +21,7 @@ sub get_shipping_label
     confess "Expected a transaction id"
         unless $transaction_id;
     my $transaction;
-    if (   blessed( $invocant )
-        && $invocant->id
-        && $invocant->id eq $transaction_id )
-    {
+    if ( $invocant->is_same_object($transaction_id) ) {
         $transaction = $invocant;
     }
     else {

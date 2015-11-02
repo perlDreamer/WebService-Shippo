@@ -21,18 +21,15 @@ sub api_resource { 'shipments' }
 sub get_shipping_rates
 {
     my ( $callbacks, $invocant, $shipment_id, @params ) = &callbacks;
+    confess "Expected a shipment id"
+        unless $shipment_id;
     my $shipment;
-    if (   blessed( $invocant )
-        && $invocant->id
-        && $invocant->id eq $shipment_id )
-    {
+    if ( $invocant->is_same_object($shipment_id) ) {
         $shipment = $invocant;
     }
     else {
         $shipment = WebService::Shippo::Shipment->fetch( $shipment_id );
     }
-    confess "Expected a shipment id"
-        unless $shipment_id;
     my $currency;
     if ( @params && @params % 2 ) {
         ( $currency, @params ) = @params;
