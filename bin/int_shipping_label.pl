@@ -91,7 +91,7 @@ my $transaction = Shippo::Transaction->create(
 # Get the shipping label...
 my $label_url = Shippo::Transaction->get_shipping_label( $transaction->object_id );
 my $browser = LWP::UserAgent->new;
-$browser->get( $label_url, ':content_file' => './sample.png' );
+$browser->get( $label_url, ':content_file' => './int_sample.pdf' );
 
 # Refresh and view the transaction object...
 print "Transaction:\n", $transaction->refresh->to_json;
