@@ -66,7 +66,7 @@ WebService::Shippo - A Shippo API Perl Wrapper (coming soon)
 
 =head1 VERSION
 
-0.0.11 (2015-10-29)
+0.0.11 (2015-11-02)
 
 =head1 SYNOPIS
 

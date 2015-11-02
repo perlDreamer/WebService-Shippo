@@ -1,4 +1,4 @@
-[![Language](https://img.shields.io/badge/perl-v5.8%20to%205.22-blue.svg)](https://img.shields.io/badge/perl-v5.8%20to%205.22-blue.svg) [![Build Status](https://travis-ci.org/cpanic/WebService-Shippo.svg?branch=master)](https://travis-ci.org/cpanic/WebService-Shippo) [![Coverage Status](https://coveralls.io/repos/cpanic/WebService-Shippo/badge.svg?branch=master&service=github)](https://coveralls.io/github/cpanic/WebService-Shippo?branch=master)
+[![Build Status](https://travis-ci.org/cpanic/WebService-Shippo.svg?branch=master)](https://travis-ci.org/cpanic/WebService-Shippo) [![Coverage Status](https://coveralls.io/repos/cpanic/WebService-Shippo/badge.svg?branch=master&service=github)](https://coveralls.io/github/cpanic/WebService-Shippo?branch=master)
 
 ## Shippo API Perl Client
 
@@ -9,8 +9,7 @@ Don't have an account? Sign up at https://goshippo.com/
 
 ### Version
 
-* 0.0.11 (2015-10-30) on Github
-* 0.0.10 (2015-10-25) on CPAN
+* 0.0.11 (2015-11-02) on CPAN
 
 ### Requirements
 

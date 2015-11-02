@@ -14,7 +14,8 @@ my %WriteMakefileArgs = (
   },
   "DISTNAME" => "WebService-Shippo",
   "EXE_FILES" => [
-    "bin/create_shipping_label.pl"
+    "bin/create_shipping_label.pl",
+    "bin/int_shipping_label.pl"
   ],
   "LICENSE" => "perl",
   "MIN_PERL_VERSION" => "5.008008",
