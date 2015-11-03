@@ -3,7 +3,7 @@ use warnings;
 
 package WebService::Shippo;
 # ABSTRACT: A Shippo Perl API wrapper
-our $VERSION = '0.0.11';
+our $VERSION = '0.0.12';
 require WebService::Shippo::Entities;
 use boolean ':all';
 use Params::Callbacks ( 'callbacks', 'callback' );
@@ -64,10 +64,6 @@ BEGIN {
 
 WebService::Shippo - A Shippo API Perl Wrapper (coming soon)
 
-=head1 VERSION
-
-0.0.11 (2015-11-02)
-
 =head1 SYNOPIS
 
 Shippo is a shipping API that connects you with multiple shipping providers
@@ -99,9 +95,9 @@ Don't have an account? Sign up at L<https://goshippo.com/>
         metadata       => 'Customer ID 123456'
     );
     
-    print 'Success with Address 1 : ', $address
+    print 'Success with Address 1 : ', $address->to_json;
 
-All being well, you should see something like the following output:
+All being well, you should see something like this:
 
     Success with Address 1 : {
        "city" : "Woodridge",
