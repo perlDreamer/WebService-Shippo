@@ -7,7 +7,6 @@ use base (
     'WebService::Shippo::Resource',
     'WebService::Shippo::Creator',
     'WebService::Shippo::Fetcher',
-    'WebService::Shippo::Lister',
 );
 
 sub api_resource { 'parcels' }

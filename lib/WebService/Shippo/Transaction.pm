@@ -9,7 +9,6 @@ use base (
     'WebService::Shippo::Resource',
     'WebService::Shippo::Creator',
     'WebService::Shippo::Fetcher',
-    'WebService::Shippo::Lister',
     'WebService::Shippo::Async',
 );
 

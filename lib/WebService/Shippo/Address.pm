@@ -11,8 +11,6 @@ use base (
     'WebService::Shippo::Resource',
     'WebService::Shippo::Creator',
     'WebService::Shippo::Fetcher',
-    'WebService::Shippo::Lister',
-
 );
 
 sub api_resource { 'addresses' }
@@ -89,6 +87,40 @@ consistently in example code.
         metadata       => 'Customer ID 123456'
     );
     
+    # Validate an address (one way)
+    my $validated_address = Shippo::Address->validate($address->object_id);
+    
+    # Validate an address (another way)
+    $validated_address = $address->validate;
+    
+    # Fetch an address
+    my $object_id = $validated_address->object_id;
+    $address = Shippo::Address->fetch($object_id);
+    
+    # List all my addresses (only two requests but result could be huge!!)
+    my $address_list = Shippo::Address->list;
+    for my $address ( $address_list->items ) {
+        print $address->object_id, "\n";
+    }
+    
+    # List all my addresses (throttle the results window size)
+    my $address_list = Shippo::Address->list( results => 5 );
+    while ( 1 ) {
+        for my $address ( $address_list->items ) {
+            print $address->object_id, "\n";
+        }
+        $address_list = $address_list->next_page;
+        last unless $address_list;
+    }
+    
+    # A bit complicated all that! You could just use an iterator and dispense
+    # with all that pagination nonsense; the default results window size is 5
+    # but you can increase that to reduce the number of API requests.
+    my $it = Shippo::Address->iterator( results => 25 );
+    while ( my $address = $it->() ) {
+        print $address->object_id, "\n";
+    }
+    
 =head1 DESCRIPTION
 
 Address objects are used for creating Shipments, obtaining Rates and printing
@@ -99,11 +131,27 @@ API.
 
 =head2 all
 
+    $collection = Shippo::Address->all(\%params)
+        or die 'Empty result set';
+    $collection = Shippo::Address->all(@params)
+        or die 'Empty result set';
+    $collection = Shippo::Address->all
+        or die 'Empty result set';
+
+The C<all> method is used to fetch multiple address objects as a collection.
+
 =head2 create
+
+    $object = Shippo::Address->create(\%params);
+    $object = Shippo::Address->create(@params);
+
+This C<create> method is used to create new address objects.
 
 =head2 fetch
 
-=head2 retrieve
+    $object = Shippo::Address->fetch($object_id);
+
+This C<create> method is used to create new address objects.
 
 =head2 validate
 
@@ -136,7 +184,8 @@ B<Examples>
 
 =over 2
 
-=item 1. Let's validate a newly created address using the class method:
+=item 1. Let's validate a newly created address using C<validate> as a static
+method:
 
     my $address = Shippo::Address->create(
         object_purpose => 'PURCHASE',

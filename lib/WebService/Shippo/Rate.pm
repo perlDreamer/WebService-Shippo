@@ -6,7 +6,6 @@ package WebService::Shippo::Rate;
 use base (
     'WebService::Shippo::Resource',
     'WebService::Shippo::Fetcher',
-    'WebService::Shippo::Lister',
 );
 
 sub api_resource { 'rates' }
