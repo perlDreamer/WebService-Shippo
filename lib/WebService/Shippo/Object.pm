@@ -64,18 +64,6 @@ sub new
     }
 }
 
-{
-    my $value = 0;
-
-    sub pretty
-    {
-        my ( $class, $new_value ) = @_;
-        return $value unless @_ > 1;
-        $value = $new_value;
-        return $class;
-    }
-}
-
 sub refresh_from
 {
     my ( $invocant, $hash ) = @_;
@@ -107,7 +95,16 @@ sub is_same_object
 }
 
 {
-    my $json = JSON::XS->new->utf8->canonical->convert_blessed->allow_blessed;
+    my $json  = JSON::XS->new->utf8->canonical->convert_blessed->allow_blessed;
+    my $value = 0;
+
+    sub pretty
+    {
+        my ( $class, $new_value ) = @_;
+        return $value unless @_ > 1;
+        $value = $new_value;
+        return $class;
+    }
 
     # Note to non-Perl hackers:
     # Not having to unpack "@_" array gives slight speed boost, since it
@@ -131,8 +128,7 @@ sub is_same_object
     sub to_json
     {
         my ( $data, $pretty ) = @_;
-        $json->pretty
-            if $pretty || pretty;
+        $json->pretty( $pretty || pretty );
         return $json->encode( $data );
     }
 
@@ -141,8 +137,7 @@ sub is_same_object
     # overload at the top of this module.
     sub to_string
     {
-        $json->pretty
-            if pretty;
+        $json->pretty( pretty );
         return $json->encode( $_[0] );
     }
 }
@@ -160,18 +155,14 @@ sub AUTOLOAD
     my $sym = "$class\::$method";
     *$sym = set_subname(
         $sym => sub {
-            my ( $invocant, $new_value ) = @_;
-            unless ( @_ > 1 ) {
-                if ( wantarray && ref( $invocant->{$method} ) ) {
-                    return %{ $invocant->{$method} }
-                        if reftype( $invocant->{$method} ) eq 'HASH';
-                    return @{ $invocant->{$method} }
-                        if reftype( $invocant->{$method} ) eq 'ARRAY';
-                }
-                return $invocant->{$method};
+            my ( $invocant ) = @_;
+            if ( wantarray && ref( $invocant->{$method} ) ) {
+                return %{ $invocant->{$method} }
+                    if reftype( $invocant->{$method} ) eq 'HASH';
+                return @{ $invocant->{$method} }
+                    if reftype( $invocant->{$method} ) eq 'ARRAY';
             }
-            $invocant->{$method} = $new_value;
-            return $invocant;
+            return $invocant->{$method};
         }
     );
     goto &$sym;
