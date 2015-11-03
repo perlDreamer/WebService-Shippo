@@ -45,6 +45,7 @@ sub wait_while_status_in
 }
 
 BEGIN {
+    no warnings 'once';
     *wait_if_status_in = *wait_while_status_in;
 }
 
