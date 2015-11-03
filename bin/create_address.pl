@@ -4,7 +4,7 @@ use WebService::Shippo;
 Shippo->api_key( 'PASTE YOUR PRIVATE AUTH TOKEN HERE' )
     unless Shippo->api_key;
 
-my $address = Shippo::Address->create(
+my $address_1 = Shippo::Address->create(
     object_purpose => 'PURCHASE',
     name           => 'John Smith',
     street1        => '6512 Greene Rd.',
@@ -19,4 +19,7 @@ my $address = Shippo::Address->create(
     metadata       => 'Customer ID 123456'
 );
 
-print $address->validate->to_json(1);
+my $address_2 = $address_1->validate;
+
+print $address_1->to_json(1);
+print $address_2->to_json(1);
