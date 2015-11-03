@@ -27,10 +27,31 @@ sub all
     return $invocant->construct_from( $response, $callbacks );
 }
 
+sub iterator
+{
+    my ( $callbacks, $invocant, @params ) = &callbacks;
+    my $list     = $invocant->first_page( @params );
+    my $index    = 0;
+    my $iterator = sub {
+        if ( $index == @{ $list->{results} } ) {
+            $list = $list->next_page
+                or return;
+            $index = 0;
+        }
+        return $callbacks->smart_transform( $list->{results}[ $index++ ] );
+    };
+    return bless( $iterator, $invocant->list_class . '::Iterator' );
+}
+
 sub list_class
 {
     my ( $invocant ) = @_;
     return ( ref( $invocant ) || $invocant ) . 'List';
+}
+
+BEGIN {
+    no warnings 'once';
+    *list = *all;
 }
 
 1;
