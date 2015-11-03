@@ -48,13 +48,7 @@ sub iterator
         }
         return $callbacks->smart_transform( $list->{results}[ $index++ ] );
     };
-    return bless( $iterator, $invocant->list_class . '::Iterator' );
-}
-
-sub list_class
-{
-    my ( $invocant ) = @_;
-    return ( ref( $invocant ) || $invocant ) . 'List';
+    return bless( $iterator, $invocant->collection_class . '::Iterator' );
 }
 
 1;

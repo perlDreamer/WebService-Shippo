@@ -15,7 +15,9 @@ use base (
     'WebService::Shippo::Async',
 );
 
-sub api_resource { 'shipments' }
+sub api_resource ()     { 'shipments' }
+sub collection_class () { 'WebService::Shippo::Shipments' }
+sub item_class ()       { __PACKAGE__ }
 
 sub get_shipping_rates
 {
@@ -23,7 +25,7 @@ sub get_shipping_rates
     confess "Expected a shipment id"
         unless $shipment_id;
     my $shipment;
-    if ( $invocant->is_same_object($shipment_id) ) {
+    if ( $invocant->is_same_object( $shipment_id ) ) {
         $shipment = $invocant;
     }
     else {
@@ -43,6 +45,7 @@ sub get_shipping_rates
     $async = delete( $params{async} )
         if exists $params{async};
     @params = %params;
+
     unless ( $async ) {
         WebService::Shippo::Request->get( $rates_url, @params );
         $shipment->wait_if_status_in( 'QUEUED', 'WAITING' );
@@ -54,13 +57,15 @@ sub get_shipping_rates
         return bless( $_[0], 'WebService::Shippo::Rate' );
     };
     my $rates = $invocant->construct_from( $response, $callbacks );
-    bless $rates, WebService::Shippo::Rate->list_class;
+    bless $rates, WebService::Shippo::Rate->collection_class;
     return $rates;
 }
 
 package    # Hide from PAUSE
-    WebService::Shippo::ShipmentList;
-use base ( 'WebService::Shippo::ObjectList' );
+    WebService::Shippo::Shipments;
+use base ( 'WebService::Shippo::Collection' );
+sub item_class ()       { 'WebService::Shippo::Shipment' }
+sub collection_class () { __PACKAGE__ }
 
 BEGIN {
     no warnings 'once';

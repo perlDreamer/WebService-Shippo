@@ -12,7 +12,9 @@ use base (
     'WebService::Shippo::Async',
 );
 
-sub api_resource { 'transactions' }
+sub api_resource ()     { 'transactions' }
+sub collection_class () { 'WebService::Shippo::Transactions' }
+sub item_class ()       { __PACKAGE__ }
 
 sub get_shipping_label
 {
@@ -20,7 +22,7 @@ sub get_shipping_label
     confess "Expected a transaction id"
         unless $transaction_id;
     my $transaction;
-    if ( $invocant->is_same_object($transaction_id) ) {
+    if ( $invocant->is_same_object( $transaction_id ) ) {
         $transaction = $invocant;
     }
     else {
@@ -30,10 +32,11 @@ sub get_shipping_label
         unless $params{async};
     return $transaction->label_url;
 }
-
 package    # Hide from PAUSE
-    WebService::Shippo::TransactionList;
-use base ( 'WebService::Shippo::ObjectList' );
+    WebService::Shippo::Transactions;
+use base ( 'WebService::Shippo::Collection' );
+sub item_class ()       { 'WebService::Shippo::Transaction' }
+sub collection_class () { __PACKAGE__ }
 
 BEGIN {
     no warnings 'once';

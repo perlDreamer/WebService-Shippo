@@ -13,7 +13,9 @@ use base (
     'WebService::Shippo::Fetcher',
 );
 
-sub api_resource { 'addresses' }
+sub api_resource ()     { 'addresses' }
+sub collection_class () { 'WebService::Shippo::Addresses' }
+sub item_class ()       { __PACKAGE__ }
 
 sub validate
 {
@@ -35,8 +37,10 @@ sub validate
 }
 
 package    # Hide from PAUSE
-    WebService::Shippo::AddressList;
-use base ( 'WebService::Shippo::ObjectList' );
+    WebService::Shippo::Addresses;
+use base ( 'WebService::Shippo::Collection' );
+sub item_class ()       { 'WebService::Shippo::Address' }
+sub collection_class () { __PACKAGE__ }
 
 BEGIN {
     no warnings 'once';

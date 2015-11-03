@@ -8,11 +8,15 @@ use base (
     'WebService::Shippo::Fetcher',
 );
 
-sub api_resource { 'rates' }
+sub api_resource ()     { 'rates' }
+sub collection_class () { 'WebService::Shippo::Rates' }
+sub item_class ()       { __PACKAGE__ }
 
 package    # Hide from PAUSE
-    WebService::Shippo::RateList;
-use base ( 'WebService::Shippo::ObjectList' );
+    WebService::Shippo::Rates;
+use base ( 'WebService::Shippo::Collection' );
+sub item_class ()       { 'WebService::Shippo::Rate' }
+sub collection_class () { __PACKAGE__ }
 
 BEGIN {
     no warnings 'once';

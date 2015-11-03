@@ -13,9 +13,9 @@ use base (
 
 );
 
-sub api_resource { 'carrier_accounts' }    # why not "carrier/accounts", which
-                                           # would be consistent with Customs
-                                           # Declaration resource?
+sub api_resource ()     { 'carrier_accounts' }
+sub collection_class () { 'WebService::Shippo::CarrierAccounts' }
+sub item_class ()       { __PACKAGE__ }
 
 sub activate
 {
@@ -70,8 +70,10 @@ sub enable_production_mode
 }
 
 package    # Hide from PAUSE
-    WebService::Shippo::CarrierAccountList;
-use base ( 'WebService::Shippo::ObjectList' );
+    WebService::Shippo::CarrierAccounts;
+use base ( 'WebService::Shippo::Collection' );
+sub item_class ()       { 'WebService::Shippo::CarrierAccount' }
+sub collection_class () { __PACKAGE__ }
 
 BEGIN {
     no warnings 'once';

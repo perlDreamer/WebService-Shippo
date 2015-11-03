@@ -44,11 +44,11 @@ sub new
             if (   exists( $invocant->{count} )
                 && exists( $invocant->{results} ) )
             {
-                my $item_class = $invocant->class;
+                my $item_class = $invocant->item_class;
                 $invocant->{results}
                     = [ map { $callbacks->smart_transform( bless( $_, $item_class ) ) }
                         @{ $invocant->{results} } ];
-                return bless( $invocant, $invocant->list_class );
+                return bless( $invocant, $invocant->collection_class );
             }
             else {
                 return $callbacks->smart_transform( $invocant );

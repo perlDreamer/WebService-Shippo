@@ -9,11 +9,15 @@ use base (
     'WebService::Shippo::Fetcher',
 );
 
-sub api_resource { 'customs/declarations' }
+sub api_resource ()     { 'customs/declarations' }
+sub collection_class () { 'WebService::Shippo::CustomsDeclarations' }
+sub item_class ()       { __PACKAGE__ }
 
-package                               # Hide from PAUSE
-    WebService::Shippo::CustomsDeclarationList;
-use base ( 'WebService::Shippo::ObjectList' );
+package    # Hide from PAUSE
+    WebService::Shippo::CustomsDeclarations;
+use base ( 'WebService::Shippo::Collection' );
+sub item_class ()       { 'WebService::Shippo::CustomsDeclaration' }
+sub collection_class () { __PACKAGE__ }
 
 BEGIN {
     no warnings 'once';

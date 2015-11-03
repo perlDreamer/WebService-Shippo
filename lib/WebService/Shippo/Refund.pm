@@ -4,18 +4,22 @@ use MRO::Compat 'c3';
 
 package WebService::Shippo::Refund;
 use base (
-    'WebService::Shippo::Resource', 
+    'WebService::Shippo::Resource',
     'WebService::Shippo::Creator',
     'WebService::Shippo::Fetcher',
     'WebService::Shippo::Async',
 
 );
 
-sub api_resource {'refunds'}
+sub api_resource ()     { 'refunds' }
+sub collection_class () { 'WebService::Shippo::Refunds' }
+sub item_class ()       { __PACKAGE__ }
 
 package    # Hide from PAUSE
-    WebService::Shippo::RefundList;
-use base ('WebService::Shippo::ObjectList');
+    WebService::Shippo::Refunds;
+use base ( 'WebService::Shippo::Collection' );
+sub item_class ()       { 'WebService::Shippo::Refund' }
+sub collection_class () { __PACKAGE__ }
 
 BEGIN {
     no warnings 'once';
