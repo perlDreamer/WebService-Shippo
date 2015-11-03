@@ -1,8 +1,8 @@
 NAME
-    WebService::Shippo - A Shippo API Perl Wrapper (coming soon)
+    WebService::Shippo - A Shippo API Perl Wrapper (pre-release)
 
 VERSION
-    0.0.11 (2015-11-02)
+    version 0.0.12
 
 SYNOPIS
     Shippo is a shipping API that connects you with multiple shipping
@@ -34,9 +34,9 @@ SYNOPIS
             metadata       => 'Customer ID 123456'
         );
     
-        print 'Success with Address 1 : ', $address
+        print 'Success with Address 1 : ', $address->to_json;
 
-    All being well, you should see something like the following output:
+    All being well, you should see something like this:
 
         Success with Address 1 : {
            "city" : "Woodridge",

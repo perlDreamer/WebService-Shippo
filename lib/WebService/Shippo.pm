@@ -62,7 +62,7 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo - A Shippo API Perl Wrapper (coming soon)
+WebService::Shippo - A Shippo API Perl Wrapper (pre-release)
 
 =head1 SYNOPIS
 
