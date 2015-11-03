@@ -155,14 +155,12 @@ while ( @objects_under_test ) {
         },
         testInvalidCreate => sub {
             return if grep { /^testInvalidCreate$/ } @skip_tests;
-            eval {
-                $class->create( invalid_data => 'invalid' );
-            };
+            eval { $class->create( invalid_data => 'invalid' ); };
             like( $@, qr/400 BAD REQUEST/i, __TEST__ );
         },
         testListFirstPage => sub {
             return if grep { /^testListAll$/ } @skip_tests;
-            stash->{list} = $class->first_page( results => 3, page => 1 );
+            stash->{list} = $class->list( results => 3, page => 1 );
             my $list = stash->{list};
             ok( defined( $list->count ),   __TEST__ );
             ok( defined( $list->results ), __TEST__ );
@@ -170,10 +168,9 @@ while ( @objects_under_test ) {
         testListPageSize => sub {
             return if grep { /^testListPageSize$/ } @skip_tests;
             my $page_size = 1;
-            my $list      = $class->first_page(
-                {   'results' => $page_size,
-                    'page'    => 1
-                }
+            my $list      = $class->list(
+                'results' => $page_size,
+                'page'    => 1
             );
             is( $list->page_size, $page_size, __TEST__ );
         },
@@ -188,9 +185,7 @@ while ( @objects_under_test ) {
         testInvalidFetch => sub {
             return if grep { /^testInvalidFetch$/ } @skip_tests;
             my $id = 'Invalid Object Identifier';
-            eval {
-                $class->fetch( $id );
-            };
+            eval { $class->fetch( $id ); };
             like( $@, qr/404 NOT FOUND/i, __TEST__ );
         },
         $more_tests ? @$more_tests : (),
