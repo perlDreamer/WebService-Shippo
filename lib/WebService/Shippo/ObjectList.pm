@@ -23,7 +23,7 @@ sub next_page
     my ( $callbacks, $self ) = &callbacks;
     return unless defined $self->{next};
     my $response = WebService::Shippo::Request->get( $self->{next} );
-    return $self->construct_from( $response, $callbacks );
+    return $self->item_class->construct_from( $response, $callbacks );
 }
 
 sub plus_next_pages
@@ -33,7 +33,7 @@ sub plus_next_pages
     my $current = $self;
     while ( defined( $current->{next} ) ) {
         my $r = WebService::Shippo::Request->get( $current->{next} );
-        $current = $self->construct_from( $r, $callbacks );
+        $current = $self->item_class->construct_from( $r, $callbacks );
         push @{ $self->{results} }, @{ $current->{results} };
     }
     undef $self->{next};
@@ -45,7 +45,7 @@ sub previous_page
     my ( $callbacks, $self ) = &callbacks;
     return unless defined $self->{previous};
     my $response = WebService::Shippo::Request->get( $self->{previous} );
-    return $self->construct_from( $response, $callbacks );
+    return $self->item_class->construct_from( $response, $callbacks );
 }
 
 sub plus_previous_pages
@@ -55,7 +55,7 @@ sub plus_previous_pages
     my $current = $self;
     while ( defined( $current->{previous} ) ) {
         my $r = WebService::Shippo::Request->get( $current->{previous} );
-        $current = $self->construct_from( $r, $callbacks );
+        $current = $self->item_class->construct_from( $r, $callbacks );
         unshift @{ $self->{results} }, @{ $current->{results} };
     }
     undef $self->{previous};
@@ -95,6 +95,11 @@ sub list_class
 {
     my ( $invocant ) = @_;
     return ref( $invocant ) || $invocant;
+}
+
+BEGIN {
+    no warnings 'once';
+    *to_array = *items;
 }
 
 1;
