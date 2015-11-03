@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use MRO::Compat 'c3';
 
-package WebService::Shippo::ObjectList;
+package WebService::Shippo::Collection;
 use Params::Callbacks ( 'callbacks' );
 use base              ( 'WebService::Shippo::Object' );
 
@@ -82,19 +82,6 @@ sub item_at_index
 {
     my ( $callbacks, $self, $index ) = &callbacks;
     return $callbacks->smart_transform( $self->{results}[$index] );
-}
-
-sub item_class
-{
-    my ( $invocant ) = @_;
-    ( my $class_name = ( ref( $invocant ) || $invocant ) ) =~ s/List$//;
-    return $class_name;
-}
-
-sub list_class
-{
-    my ( $invocant ) = @_;
-    return ref( $invocant ) || $invocant;
 }
 
 BEGIN {
