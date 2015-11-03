@@ -88,7 +88,7 @@ my @tests = (
     },
     testObjectList => sub {
         my $carrier_accounts
-            = WebService::Shippo::CarrierAccount->list( results => 1 );
+            = WebService::Shippo::CarrierAccount->all( results => 1 );
         is( $carrier_accounts->item_class, 'WebService::Shippo::CarrierAccount',
             __TEST__
         );

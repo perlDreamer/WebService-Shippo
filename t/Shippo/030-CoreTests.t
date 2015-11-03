@@ -160,7 +160,7 @@ while ( @objects_under_test ) {
         },
         testListFirstPage => sub {
             return if grep { /^testListAll$/ } @skip_tests;
-            stash->{list} = $class->list( results => 3, page => 1 );
+            stash->{list} = $class->all( results => 3, page => 1 );
             my $list = stash->{list};
             ok( defined( $list->count ),   __TEST__ );
             ok( defined( $list->results ), __TEST__ );
@@ -168,10 +168,7 @@ while ( @objects_under_test ) {
         testListPageSize => sub {
             return if grep { /^testListPageSize$/ } @skip_tests;
             my $page_size = 1;
-            my $list      = $class->list(
-                'results' => $page_size,
-                'page'    => 1
-            );
+            my $list      = $class->all(results => $page_size, page => 1);
             is( $list->page_size, $page_size, __TEST__ );
         },
         testFetch => sub {
