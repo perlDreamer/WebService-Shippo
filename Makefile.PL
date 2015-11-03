@@ -40,7 +40,7 @@ my %WriteMakefileArgs = (
     "Data::Dumper::Concise" => 0,
     "Test::Deep" => 0
   },
-  "VERSION" => "0.0.12",
+  "VERSION" => "0.0.13",
   "test" => {
     "TESTS" => "t/*.t t/Shippo/*.t"
   }

@@ -2,7 +2,7 @@ NAME
     WebService::Shippo - A Shippo API Perl Wrapper (pre-release)
 
 VERSION
-    version 0.0.12
+    version 0.0.13
 
 SYNOPIS
     Shippo is a shipping API that connects you with multiple shipping
