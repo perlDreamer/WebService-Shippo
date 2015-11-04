@@ -2,10 +2,18 @@
 
 ## Shippo API Perl Client
 
-Shippo is a shipping API that connects you with multiple shipping 
-providers (such as USPS, UPS, and Fedex) through one interface, and offers you great discounts on shipping rates.
+The Shippo API can be used to automate and customize shipping capabilities for your e-commerce store or marketplace, enabling you to retrieve shipping rates, create and purchase shipping labels, track packages, and much more.
 
-Don't have an account? Sign up at https://goshippo.com/
+Shippo connects you with multiple shipping providers (USPS, UPS and Fedex, for example) through one interface, offering you great discounts on a selection of shipping rates.
+
+You can sign-up for an account at https://goshippo.com/.
+
+Shippo offer official clients for a bevy of major languages, but sadly not for the venerable Perl. This client is a community offering that fills the void.
+
+###PRE-RELEASE SOFTWARE
+
+**Though functional, this software is still very much in the process of being
+documented and should therefore be considered a work in progress.** 
 
 ### Version
 

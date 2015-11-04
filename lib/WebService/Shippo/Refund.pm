@@ -43,8 +43,24 @@ WebService::Shippo::CarrierAccount - Refund class
 
 =head1 DESCRIPTION
 
-Carrier accounts are used as credentials to retrieve shipping rates
-and purchase labels from a shipping provider.
+Refunds are reimbursements for successfully created but unused 
+L<Transactions|WebService::Shippo::Transaction>.
+
+Please keep the following in mind:
+
+=over 2
+
+=item * Once a Refund has been claimed, you must not use the shipping label
+for actual postage.
+
+=item * Refunds take several days to be processed.
+
+=item * Some carriers (e.g. FedEx and UPS) don't require refunds, since
+the corresponding labels will only be charged after they have been scanned;
+however, the Shippo refund may be used for refunding of the $0.05 Shippo
+label fee.
+
+=back
 
 =head1 API DOCUMENTATION
 

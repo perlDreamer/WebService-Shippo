@@ -62,20 +62,35 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo - A Shippo API Perl Wrapper (pre-release)
+WebService::Shippo - Shippo API Client
+
+=head1 PRE-RELEASE SOFTWARE
+
+B<Though functional, this software is still very much in the process of being
+documented and should therefore be considered a work in progress.> 
+
+=head1 INTRODUCTION
+
+The Shippo API can be used to automate and customize shipping capabilities
+for your e-commerce store or marketplace, enabling you to retrieve shipping 
+rates, create and purchase shipping labels, track packages, and much more.
+
+Shippo connects you with multiple shipping providers (USPS, UPS and Fedex,
+for example) through one interface, offering you great discounts on a
+selection of shipping rates.
+
+You can sign-up for an account at L<https://goshippo.com/>.
+
+While Shippo offer official API clients for a bevy of I<major> languages,
+the venerable Perl is not among them. This client is a community offering
+that attempts to fill that void.
 
 =head1 SYNOPIS
-
-Shippo is a shipping API that connects you with multiple shipping providers
-(such as USPS, UPS, and Fedex) through one interface, and offers you great
-discounts on shipping rates.
-
-Don't have an account? Sign up at L<https://goshippo.com/>
 
     use strict;
     use WebService::Shippo;
     
-    # If it hasn't already done outside of the script, you
+    # If it hasn't already been done outside of the script, you
     # must set your API key...
     Shippo->api_key( 'PASTE YOUR PRIVATE AUTH TOKEN HERE' )
         unless Shippo->api_key;
