@@ -102,5 +102,4 @@ You may distribute this software under the terms of either the GNU General
 Public License or the Artistic License, as specified in the Perl README
 file.
 
-
 =cut

@@ -23,8 +23,8 @@ BEGIN {
     no warnings 'once';
     # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
     # namespace is just cruel; allow the use of "Shippo", too.
-    *Shippo::Parcel::     = *WebService::Shippo::Parcel::;
-    *Shippo::ParcelList:: = *WebService::Shippo::ParcelList::;
+    *Shippo::Parcel::  = *WebService::Shippo::Parcel::;
+    *Shippo::Parcels:: = *WebService::Shippo::Parcels::;
 }
 
 1;

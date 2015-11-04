@@ -79,8 +79,8 @@ BEGIN {
     no warnings 'once';
     # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
     # namespace is just cruel; allow the use of "Shippo", too.
-    *Shippo::CarrierAccount::     = *WebService::Shippo::CarrierAccount::;
-    *Shippo::CarrierAccountList:: = *WebService::Shippo::CarrierAccountList::;
+    *Shippo::CarrierAccount::  = *WebService::Shippo::CarrierAccount::;
+    *Shippo::CarrierAccounts:: = *WebService::Shippo::CarrierAccounts::;
 }
 
 1;

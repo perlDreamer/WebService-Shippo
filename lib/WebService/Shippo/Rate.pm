@@ -16,7 +16,7 @@ sub item_class ()       { __PACKAGE__ }
 sub get_shipping_rates
 {
     my ( $invocant, @params ) = @_;
-    WebService::Shippo::Shipment->get_shipping_rates(@params);
+    WebService::Shippo::Shipment->get_shipping_rates( @params );
 }
 
 package    # Hide from PAUSE
@@ -29,8 +29,8 @@ BEGIN {
     no warnings 'once';
     # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
     # namespace is just cruel; allow the use of "Shippo", too.
-    *Shippo::Rate::     = *WebService::Shippo::Rate::;
-    *Shippo::RateList:: = *WebService::Shippo::RateList::;
+    *Shippo::Rate::  = *WebService::Shippo::Rate::;
+    *Shippo::Rates:: = *WebService::Shippo::Rates::;
 }
 
 1;

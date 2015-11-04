@@ -26,8 +26,8 @@ BEGIN {
 
     # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
     # namespace is just cruel; allow the use of "Shippo", too.
-    *Shippo::Refund::     = *WebService::Shippo::Refund::;
-    *Shippo::RefundList:: = *WebService::Shippo::RefundList::;
+    *Shippo::Refund::  = *WebService::Shippo::Refund::;
+    *Shippo::Refunds:: = *WebService::Shippo::Refunds::;
 }
 
 1;

@@ -47,7 +47,7 @@ BEGIN {
     # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
     # namespace is just cruel; allow the use of "Shippo", too.
     *Shippo::Address::     = *WebService::Shippo::Address::;
-    *Shippo::AddressList:: = *WebService::Shippo::AddressList::;
+    *Shippo::Addresses:: = *WebService::Shippo::Addresses::;
 }
 
 1;

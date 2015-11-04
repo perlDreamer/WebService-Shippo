@@ -72,9 +72,9 @@ BEGIN {
 
     # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
     # namespace is just cruel; allow the use of "Shippo", too.
-    *Shippo::Shipment::     = *WebService::Shippo::Shipment::;
-    *Shippo::ShipmentList:: = *WebService::Shippo::ShipmentList::;
-    *rates                  = *get_shipping_rates;
+    *Shippo::Shipment::  = *WebService::Shippo::Shipment::;
+    *Shippo::Shipments:: = *WebService::Shippo::Shipments::;
+    *rates               = *get_shipping_rates;
 }
 
 1;

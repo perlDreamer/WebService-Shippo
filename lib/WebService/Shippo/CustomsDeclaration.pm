@@ -23,9 +23,55 @@ BEGIN {
     no warnings 'once';
     # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
     # namespace is just cruel; allow the use of "Shippo", too.
-    *Shippo::CustomsDeclaration:: = *WebService::Shippo::CustomsDeclaration::;
-    *Shippo::CustomsDeclarationList::
-        = *WebService::Shippo::CustomsDeclarationList::;
+    *Shippo::CustomsDeclaration::  = *WebService::Shippo::CustomsDeclaration::;
+    *Shippo::CustomsDeclarations:: = *WebService::Shippo::CustomsDeclarations::;
 }
 
 1;
+
+=pod
+
+=encoding utf8
+
+=head1 NAME
+
+WebService::Shippo::CustomsItem - Shippo Customs Item
+
+=head1 DESCRIPTION
+
+Customs items are distinct items in your international shipment parcel.
+
+=head1 API DOCUMENTATION
+
+For more information about CustomsItem objects, consult the Shippo API
+documentation:
+
+=over 2
+
+=item * L<https://goshippo.com/docs/#customsitems>
+
+=back
+
+=head1 REPOSITORY
+
+=over 2
+
+=item * L<https://github.com/cpanic/WebService-Shippo>
+
+=item * L<https://github.com/cpanic/WebService-Shippo/wiki>
+
+=back
+
+=head1 AUTHOR
+
+Iain Campbell <cpanic@cpan.org>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2015 by Iain Campbell.
+
+You may distribute this software under the terms of either the GNU General
+Public License or the Artistic License, as specified in the Perl README
+file.
+
+=cut
