@@ -81,7 +81,7 @@ selection of shipping rates.
 
 You can sign-up for an account at L<https://goshippo.com/>.
 
-While Shippo offer official API clients for a bevy of I<major> languages,
+While do Shippo offer official API clients for a bevy of I<major> languages,
 the venerable Perl is not among them. This client is a community offering
 that attempts to fill that void.
 

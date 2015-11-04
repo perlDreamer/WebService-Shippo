@@ -8,7 +8,7 @@ Shippo connects you with multiple shipping providers (USPS, UPS and Fedex, for e
 
 You can sign-up for an account at https://goshippo.com/.
 
-Shippo offer official clients for a bevy of major languages, but sadly not for the venerable Perl. This client is a community offering that fills the void.
+While Shippo offer official API clients for a bevy of major languages, the venerable Perl is not among them. This client is a community offering that attempts to fill that void.
 
 ###PRE-RELEASE SOFTWARE
 
