@@ -35,6 +35,7 @@ sub get_shipping_label
 package    # Hide from PAUSE
     WebService::Shippo::Transactions;
 use base ( 'WebService::Shippo::Collection' );
+
 sub item_class ()       { 'WebService::Shippo::Transaction' }
 sub collection_class () { __PACKAGE__ }
 
@@ -54,7 +55,7 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::Transaction - Work with Shippo Transaction objects.
+WebService::Shippo::Transaction - Transaction class.
 
 =head1 DESCRIPTION
 
@@ -71,7 +72,7 @@ exclusively on the carrier's server.
 
 =head1 API DOCUMENTATION
 
-For more information about Transaction objects, consult the Shippo API
+For more information about Transactions, consult the Shippo API
 documentation:
 
 =over 2

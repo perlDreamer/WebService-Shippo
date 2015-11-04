@@ -58,7 +58,7 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::Address - Work with Shippo Address objects.
+WebService::Shippo::Address - Address class
 
 =head1 SYNOPIS
 
@@ -295,8 +295,7 @@ and C<object_state> attributes.
 
 =head1 API DOCUMENTATION
 
-For more information about Address objects, consult the Shippo API
-documentation:
+For more information about Addresses, consult the Shippo API documentation:
 
 =over 2
 

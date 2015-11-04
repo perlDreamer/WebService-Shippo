@@ -16,6 +16,7 @@ sub item_class ()       { __PACKAGE__ }
 package    # Hide from PAUSE
     WebService::Shippo::CustomsItems;
 use base ( 'WebService::Shippo::Collection' );
+
 sub item_class ()       { 'WebService::Shippo::CustomsItem' }
 sub collection_class () { __PACKAGE__ }
 
@@ -35,7 +36,7 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::CustomsItem - Shippo Customs Item
+WebService::Shippo::CustomsItem - Customs Item class
 
 =head1 DESCRIPTION
 
@@ -43,7 +44,7 @@ Customs items are distinct items in your international shipment parcel.
 
 =head1 API DOCUMENTATION
 
-For more information about CustomsItem objects, consult the Shippo API
+For more information about Customs Items, consult the Shippo API
 documentation:
 
 =over 2

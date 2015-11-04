@@ -16,6 +16,7 @@ sub item_class ()       { __PACKAGE__ }
 package    # Hide from PAUSE
     WebService::Shippo::CustomsDeclarations;
 use base ( 'WebService::Shippo::Collection' );
+
 sub item_class ()       { 'WebService::Shippo::CustomsDeclaration' }
 sub collection_class () { __PACKAGE__ }
 
@@ -35,20 +36,22 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::CustomsItem - Shippo Customs Item
+WebService::Shippo::CustomsDeclaration - Customs Declaration class
 
 =head1 DESCRIPTION
 
-Customs items are distinct items in your international shipment parcel.
+Customs declarations are relevant information, including one or
+multiple customs items, you need to provide for customs clearance
+for your international shipments.
 
 =head1 API DOCUMENTATION
 
-For more information about CustomsItem objects, consult the Shippo API
+For more information about Customs Declarations, consult the Shippo API
 documentation:
 
 =over 2
 
-=item * L<https://goshippo.com/docs/#customsitems>
+=item * L<https://goshippo.com/docs/#customsdeclarations>
 
 =back
 

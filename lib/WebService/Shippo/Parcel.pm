@@ -16,6 +16,7 @@ sub item_class ()       { __PACKAGE__ }
 package    # Hide from PAUSE
     WebService::Shippo::Parcels;
 use base ( 'WebService::Shippo::Collection' );
+
 sub item_class ()       { 'WebService::Shippo::Parcel' }
 sub collection_class () { __PACKAGE__ }
 
@@ -35,7 +36,7 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::Parcel - Work with Shippo Parcel objects.
+WebService::Shippo::Parcel - Parcel class.
 
 =head1 DESCRIPTION
 
@@ -45,8 +46,7 @@ API. Parcel objects are created with their basic dimensions and weight.
 
 =head1 API DOCUMENTATION
 
-For more information about Parcel objects, consult the Shippo API
-documentation:
+For more information about Parcels, consult the Shippo API documentation:
 
 =over 2
 

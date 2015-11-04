@@ -64,6 +64,7 @@ sub get_shipping_rates
 package    # Hide from PAUSE
     WebService::Shippo::Shipments;
 use base ( 'WebService::Shippo::Collection' );
+
 sub item_class ()       { 'WebService::Shippo::Shipment' }
 sub collection_class () { __PACKAGE__ }
 
@@ -85,7 +86,7 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::Shipment - Work with Shippo Shipment objects.
+WebService::Shippo::Shipment - Shipment class.
 
 =head1 DESCRIPTION
 
@@ -97,8 +98,7 @@ shipping label.
 
 =head1 API DOCUMENTATION
 
-For more information about Shipment objects, consult the Shippo API
-documentation:
+For more information about Shipments, consult the Shippo API documentation:
 
 =over 2
 
