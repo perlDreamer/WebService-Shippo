@@ -4,9 +4,9 @@ NAME
 VERSION
     version 0.0.14
 
-UNDER CONSTRUCTION
-    Though functional, this software is still in the process of being
-    documented and is, therefore, pre-release.
+PRE-RELEASE SOFTWARE
+    Though functional, this software is still very much in the process of
+    being documented and should therefore be considered a work in progress.
 
 INTRODUCTION
     The Shippo API can be used to automate and customize shipping
@@ -20,9 +20,9 @@ INTRODUCTION
 
     You can sign-up for an account at <https://goshippo.com/>.
 
-    While Shippo offer official API clients for a bevy of *major* languages,
-    the venerable Perl is not among them. This client is a community
-    offering that attempts to fill that void.
+    While do Shippo offer official API clients for a bevy of *major*
+    languages, the venerable Perl is not among them. This client is a
+    community offering that attempts to fill that void.
 
 SYNOPIS
         use strict;
