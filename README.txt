@@ -74,8 +74,8 @@ SYNOPIS
         }
 
 DESCRIPTION
-    While Shippo do offer official API clients for a bevy of *major*
-    languages, the venerable Perl is not in that list. This client is a
+    Shippo offer official API clients for a bevy of *major* languages,
+    though the venerable Perl is not in that list. This client is a
     community offering that attempts to correct that omission.
 
 FULL API DOCUMENTATION

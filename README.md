@@ -17,7 +17,7 @@ documented and should therefore be considered a work in progress.**
 
 ### Version
 
-* 0.0.13 (2015-11-03) on CPAN
+* 0.0.14 (2015-11-05) on CPAN
 
 ### Requirements
 
