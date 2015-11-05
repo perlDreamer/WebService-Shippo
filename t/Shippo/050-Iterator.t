@@ -8,7 +8,7 @@ use WebService::Shippo ':all';
 
 my @tests = (
     testIterator => sub {
-        my $it = Shippo::Address->iterator( results => 3 );
+        my $it = Shippo::Address->iterate( results => 3 );
         for ( my $i = 0; $i < 6; $i++ ) {
             my $address = $it->();
             ok( $address->object_id, __TEST__ );

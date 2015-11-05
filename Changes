@@ -1,7 +1,9 @@
 Revision history for WebService-Shippo
  
 {{$NEXT}}
-
+    - Some tidying up
+    - Some documentation
+    - A slow day
 0.0.13    2015-11-03 20:06:01+00:00 Europe/London
     - Some POD stubs added.
 0.0.12    2015-11-03 18:55:11+00:00 Europe/London

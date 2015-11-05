@@ -20,10 +20,6 @@ INTRODUCTION
 
     You can sign-up for an account at <https://goshippo.com/>.
 
-    While do Shippo offer official API clients for a bevy of *major*
-    languages, the venerable Perl is not among them. This client is a
-    community offering that attempts to fill that void.
-
 SYNOPIS
         use strict;
         use WebService::Shippo;
@@ -78,6 +74,10 @@ SYNOPIS
         }
 
 DESCRIPTION
+    While Shippo do offer official API clients for a bevy of *major*
+    languages, the venerable Perl is not in that list. This client is a
+    community offering that attempts to correct that omission.
+
 FULL API DOCUMENTATION
     * For API documentation, go to <https://goshippo.com/docs/>
 
@@ -85,9 +85,6 @@ FULL API DOCUMENTATION
       questions.
 
 REPOSITORY
-    * <http://search.cpan.org/dist/WebService-Shippo/lib/WebService/Shippo.p
-      m>
-
     * <https://github.com/cpanic/WebService-Shippo>
 
     * <https://github.com/cpanic/WebService-Shippo/wiki>
@@ -96,7 +93,7 @@ AUTHOR
     Iain Campbell <cpanic@cpan.org>
 
 COPYRIGHT AND LICENSE
-    This software is copyright (c) 2015 by Iain Campbell.
+    This software is copyright © 2015 by Iain Campbell.
 
     You may distribute this software under the terms of either the GNU
     General Public License or the Artistic License, as specified in the Perl

@@ -120,7 +120,7 @@ consistently in example code.
     # A bit complicated all that! You could just use an iterator and dispense
     # with all that pagination nonsense; the default results window size is 5
     # but you can increase that to reduce the number of API requests.
-    my $it = Shippo::Address->iterator( results => 25 );
+    my $it = Shippo::Address->iterate( results => 25 );
     while ( my $address = $it->() ) {
         print $address->object_id, "\n";
     }

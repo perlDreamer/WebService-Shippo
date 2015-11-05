@@ -30,7 +30,7 @@ sub all
     return $invocant->construct_from( $response, $callbacks );
 }
 
-sub iterator
+sub iterate
 {
     my ( $callbacks, $invocant, @params ) = &callbacks;
     @params = ( {} )
@@ -38,15 +38,15 @@ sub iterator
     my $params = ref( $params[0] ) ? $params[0] : {@params};
     $params->{results} = 5
         unless $params->{results};
-    my $list     = $invocant->all( $params );
-    my $index    = 0;
-    my $iterator = sub {
-        if ( $index == @{ $list->{results} } ) {
-            $list = $list->next_page
-                or return;
+    my $collection = $invocant->all( $params );
+    my $index      = 0;
+    my $iterator   = sub {
+        if ( $index == @{ $collection->results } ) {
+            $collection = $collection->next_page;
+            return unless $collection;
             $index = 0;
         }
-        return $callbacks->smart_transform( $list->{results}[ $index++ ] );
+        return $callbacks->smart_transform( $collection->{results}[ $index++ ] );
     };
     return bless( $iterator, $invocant->collection_class . '::Iterator' );
 }

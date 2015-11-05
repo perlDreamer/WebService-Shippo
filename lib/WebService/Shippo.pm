@@ -81,10 +81,6 @@ selection of shipping rates.
 
 You can sign-up for an account at L<https://goshippo.com/>.
 
-While Shippo do offer official API clients for a bevy of I<major> languages,
-the venerable Perl is not among them. This client is a community offering
-that attempts to fill that void.
-
 =head1 SYNOPIS
 
     use strict;
@@ -141,6 +137,10 @@ All being well, you should see something like this:
     
 =head1 DESCRIPTION
 
+Shippo offer official API clients for a bevy of I<major> languages, though
+the venerable Perl is not in that list. This client is a community offering
+that attempts to correct that omission.
+
 =head1 FULL API DOCUMENTATION
 
 =over 2
@@ -156,8 +156,6 @@ questions.
 
 =over 2
 
-=item * L<http://search.cpan.org/dist/WebService-Shippo/lib/WebService/Shippo.pm>
-
 =item * L<https://github.com/cpanic/WebService-Shippo>
 
 =item * L<https://github.com/cpanic/WebService-Shippo/wiki>
@@ -170,7 +168,7 @@ Iain Campbell <cpanic@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2015 by Iain Campbell.
+This software is copyright E<copy> 2015 by Iain Campbell.
 
 You may distribute this software under the terms of either the GNU General
 Public License or the Artistic License, as specified in the Perl README
