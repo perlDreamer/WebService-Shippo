@@ -56,14 +56,17 @@ sub get_shipping_rates
         return $_[0] unless defined $_[0];
         return bless( $_[0], 'WebService::Shippo::Rate' );
     };
-    my $rates = $invocant->construct_from( $response, $callbacks );
-    bless $rates, WebService::Shippo::Rate->collection_class;
+    my $rates = WebService::Shippo::Rate->construct_from( $response, $callbacks );
     return $rates;
 }
 
 package    # Hide from PAUSE
     WebService::Shippo::Shipments;
-use base ( 'WebService::Shippo::Collection' );
+use base (
+    'WebService::Shippo::Collection',
+    'WebService::Shippo::Creator',
+    'WebService::Shippo::Fetcher',
+);
 
 sub item_class ()       { 'WebService::Shippo::Shipment' }
 sub collection_class () { __PACKAGE__ }
