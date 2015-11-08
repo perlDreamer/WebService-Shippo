@@ -36,7 +36,7 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::CarrierAccount - Manifest class
+WebService::Shippo::CarrierAccount - Shippo Manifest class
 
 =head1 DESCRIPTION
 

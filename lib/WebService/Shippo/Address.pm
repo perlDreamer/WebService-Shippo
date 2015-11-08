@@ -58,7 +58,7 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::Address - Address class
+WebService::Shippo::Address - Shippo Address class
 
 =head1 SYNOPIS
 

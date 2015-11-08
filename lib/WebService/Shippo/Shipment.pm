@@ -86,7 +86,7 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::Shipment - Shipment class.
+WebService::Shippo::Shipment - Shippo Shipment class.
 
 =head1 DESCRIPTION
 

@@ -92,7 +92,7 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::CarrierAccount - Carrier Account class
+WebService::Shippo::CarrierAccount - Shippo Carrier Account class
 
 =head1 DESCRIPTION
 

@@ -39,7 +39,7 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::CarrierAccount - Refund class
+WebService::Shippo::CarrierAccount - Shippo Refund class
 
 =head1 DESCRIPTION
 

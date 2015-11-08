@@ -36,7 +36,7 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::CustomsDeclaration - Customs Declaration class
+WebService::Shippo::CustomsDeclaration - Shippo Customs Declaration class
 
 =head1 DESCRIPTION
 

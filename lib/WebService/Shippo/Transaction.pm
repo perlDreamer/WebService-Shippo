@@ -55,7 +55,7 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::Transaction - Transaction class.
+WebService::Shippo::Transaction - Shippo Transaction class.
 
 =head1 DESCRIPTION
 

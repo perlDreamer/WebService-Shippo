@@ -36,7 +36,7 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::Parcel - Parcel class.
+WebService::Shippo::Parcel - Shippo Parcel class.
 
 =head1 DESCRIPTION
 

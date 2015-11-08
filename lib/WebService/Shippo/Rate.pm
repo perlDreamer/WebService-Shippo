@@ -42,7 +42,7 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::Rate - Rate class.
+WebService::Shippo::Rate - Shippo Rate class.
 
 =head1 DESCRIPTION
 
