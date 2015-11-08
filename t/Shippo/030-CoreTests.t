@@ -70,7 +70,7 @@ my @objects_under_test = (
         class               => 'Shippo::Manifest',
         object_is_valid     => sub {
             my ( $object ) = @_;
-            return $object->status eq 'NOTRANSACTIONS';
+            return $object->object_status eq 'NOTRANSACTIONS';
         },
     },
     'Parcel' => {
@@ -131,7 +131,7 @@ my @objects_under_test = (
         class               => 'Shippo::Refund',
         object_is_valid     => sub {
             my ( $object ) = @_;
-            return $object->status eq 'ERROR';
+            return $object->object_status eq 'ERROR';
         },
     },
 );
