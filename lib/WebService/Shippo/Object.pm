@@ -156,6 +156,8 @@ sub AUTOLOAD
     *$sym = set_subname(
         $sym => sub {
             my ( $invocant ) = @_;
+            return ''
+                unless defined $invocant->{$method};
             if ( wantarray && ref( $invocant->{$method} ) ) {
                 return %{ $invocant->{$method} }
                     if reftype( $invocant->{$method} ) eq 'HASH';
