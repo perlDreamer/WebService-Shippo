@@ -10,7 +10,7 @@ sub create
 {
     my ( $callbacks, $invocant, @params ) = &callbacks;
     my $response = Shippo::Request->post( $invocant->url, @params );
-    return $invocant->construct_from( $response, $callbacks );
+    return $invocant->item_class->construct_from( $response, $callbacks );
 }
 
 1;

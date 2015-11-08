@@ -10,7 +10,7 @@ sub fetch
 {
     my ( $callbacks, $invocant, $id, @params ) = &callbacks;
     my $response = Shippo::Request->get( $invocant->url( $id ), @params );
-    return $invocant->construct_from( $response, $callbacks );
+    return $invocant->item_class->construct_from( $response, $callbacks );
 }
 
 sub all
@@ -27,7 +27,7 @@ sub all
             unless $params->{results};
     }
     $response = WebService::Shippo::Request->get( $invocant->url, $params );
-    return $invocant->construct_from( $response, $callbacks );
+    return $invocant->item_class->construct_from( $response, $callbacks );
 }
 
 sub iterate
