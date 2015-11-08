@@ -107,60 +107,11 @@ sub id
     return $invocant->{object_id};
 }
 
-sub owner
-{
-    my ( $invocant ) = @_;
-    return '' unless defined $invocant->{object_owner};
-    return $invocant->{object_owner};
-}
-
-sub created
-{
-    my ( $invocant ) = @_;
-    return '' unless defined $invocant->{object_created};
-    return $invocant->{object_created};
-}
-
 sub is_valid
 {
     my ( $invocant ) = @_;
     return '' unless defined $invocant->{object_state};
     return $invocant->{object_state} && $invocant->{object_state} eq 'VALID';
-}
-
-sub purpose
-{
-    my ( $invocant ) = @_;
-    return '' unless defined $invocant->{object_purpose};
-    return $invocant->{object_purpose};
-}
-
-sub status
-{
-    my ( $invocant ) = @_;
-    return '' unless defined $invocant->{object_status};
-    return $invocant->{object_status};
-}
-
-sub state
-{
-    my ( $invocant ) = @_;
-    return '' unless defined $invocant->{object_state};
-    return $invocant->{object_state};
-}
-
-sub source
-{
-    my ( $invocant ) = @_;
-    return '' unless defined $invocant->{object_source};
-    return $invocant->{object_source};
-}
-
-sub updated
-{
-    my ( $invocant ) = @_;
-    return '' unless defined $invocant->{object_updated};
-    return $invocant->{object_updated};
 }
 
 BEGIN {
