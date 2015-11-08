@@ -17,7 +17,11 @@ sub item_class ()       { __PACKAGE__ }
 
 package    # Hide from PAUSE
     WebService::Shippo::Refunds;
-use base ( 'WebService::Shippo::Collection' );
+use base (
+    'WebService::Shippo::Collection',
+    'WebService::Shippo::Creator',
+    'WebService::Shippo::Fetcher',
+);
 
 sub item_class ()       { 'WebService::Shippo::Refund' }
 sub collection_class () { __PACKAGE__ }

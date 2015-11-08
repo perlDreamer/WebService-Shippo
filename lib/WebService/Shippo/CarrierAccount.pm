@@ -71,7 +71,12 @@ sub enable_production_mode
 
 package    # Hide from PAUSE
     WebService::Shippo::CarrierAccounts;
-use base ( 'WebService::Shippo::Collection' );
+use base (
+    'WebService::Shippo::Collection',
+    'WebService::Shippo::Creator',
+    'WebService::Shippo::Fetcher',
+    'WebService::Shippo::Updater',
+);
 
 sub item_class ()       { 'WebService::Shippo::CarrierAccount' }
 sub collection_class () { __PACKAGE__ }

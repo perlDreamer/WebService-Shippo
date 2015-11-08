@@ -21,7 +21,10 @@ sub get_shipping_rates
 
 package    # Hide from PAUSE
     WebService::Shippo::Rates;
-use base ( 'WebService::Shippo::Collection' );
+use base (
+    'WebService::Shippo::Collection',
+    'WebService::Shippo::Fetcher',
+);
 
 sub item_class ()       { 'WebService::Shippo::Rate' }
 sub collection_class () { __PACKAGE__ }

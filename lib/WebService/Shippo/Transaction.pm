@@ -34,7 +34,11 @@ sub get_shipping_label
 }
 package    # Hide from PAUSE
     WebService::Shippo::Transactions;
-use base ( 'WebService::Shippo::Collection' );
+use base (
+    'WebService::Shippo::Collection',
+    'WebService::Shippo::Creator',
+    'WebService::Shippo::Fetcher',
+);
 
 sub item_class ()       { 'WebService::Shippo::Transaction' }
 sub collection_class () { __PACKAGE__ }
