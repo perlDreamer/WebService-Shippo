@@ -51,4 +51,9 @@ sub iterate
     return bless( $iterator, $invocant->collection_class . '::Iterator' );
 }
 
+BEGIN {
+    no warnings 'once';
+    *retrieve = *fetch;
+}
+
 1;
