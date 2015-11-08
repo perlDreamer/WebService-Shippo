@@ -1,82 +1,104 @@
+UNDER CONSTRUCTION
+    Though functional, this software is still in the process of being
+    documented and should, therefore, be considered a work in progress.
+
 NAME
     WebService::Shippo - Shippo API Client
 
 VERSION
-    version 0.0.14
+    version 0.0.16
 
-PRE-RELEASE SOFTWARE
-    Though functional, this software is still very much in the process of
-    being documented and should therefore be considered a work in progress.
+SYNOPIS
+        use WebService::Shippo;
+    
+        # If you aren't using a config file or the environment (SHIPPO_TOKEN=...)
+        # to supply your API key, you can do so here...
+        Shippo->api_key('PASTE YOUR AUTH TOKEN HERE')
+            unless Shippo->api_key;
 
-INTRODUCTION
-    The Shippo API can be used to automate and customize shipping
-    capabilities for your e-commerce store or marketplace, enabling you to
-    retrieve shipping rates, create and purchase shipping labels, track
-    packages, and much more.
-
+DESCRIPTION
     Shippo connects you with multiple shipping providers (USPS, UPS and
     Fedex, for example) through one interface, offering you great discounts
     on a selection of shipping rates.
 
     You can sign-up for an account at <https://goshippo.com/>.
 
-SYNOPIS
-        use strict;
-        use WebService::Shippo;
-    
-        # If it hasn't already been done outside of the script, you
-        # must set your API key...
-        Shippo->api_key( 'PASTE YOUR PRIVATE AUTH TOKEN HERE' )
-            unless Shippo->api_key;
-    
-        my $address = Shippo::Address->create(
-            object_purpose => 'PURCHASE',
-            name           => 'John Smith',
-            street1        => '6512 Greene Rd.',
-            street2        => '',
-            company        => 'Initech',
-            phone          => '+1 234 346 7333',
-            city           => 'Woodridge',
-            state          => 'IL',
-            zip            => '60517',
-            country        => 'US',
-            email          => 'user@gmail.com',
-            metadata       => 'Customer ID 123456'
-        );
-    
-        print 'Success with Address 1 : ', $address->to_json;
+    Though Shippo *do* offer official API clients for a bevy of major
+    languages, the venerable Perl 5 was not included in that list. This
+    software is a community offering which attempts to correct that
+    omission.
 
-    All being well, you should see something like this:
+OVERVIEW
+    The Shippo API can be used to automate and customize shipping
+    capabilities for your e-commerce store or marketplace, enabling you to
+    retrieve shipping rates, create and purchase shipping labels, track
+    packages, and much more.
 
-        Success with Address 1 : {
-           "city" : "Woodridge",
-           "company" : "Initech",
-           "country" : "US",
-           "email" : "user@gmail.com",
-           "ip" : null,
-           "is_residential" : null,
-           "messages" : [],
-           "metadata" : "Customer ID 123456",
-           "name" : "John Smith",
-           "object_created" : "2015-10-16T16:14:16.296Z",
-           "object_id" : "475bb05d72b74a08a1d44b40ac85d635",
-           "object_owner" : "******@*********.***",
-           "object_purpose" : "PURCHASE",
-           "object_source" : "FULLY_ENTERED",
-           "object_state" : "VALID",
-           "object_updated" : "2015-10-16T16:14:16.296Z",
-           "phone" : "0012343467333",
-           "state" : "IL",
-           "street1" : "6512 Greene Rd.",
-           "street2" : "",
-           "street_no" : "",
-           "zip" : "60517"
-        }
+    The "WebService::Shippo" client complements Shippo's official open
+    source client libraries by helping to make API integration easier in
+    ecosystems built around Perl 5.
 
-DESCRIPTION
-    Shippo offer official API clients for a bevy of *major* languages,
-    though the venerable Perl is not in that list. This client is a
-    community offering that attempts to correct that omission.
+  API Resources
+    Access to all Shippo API resources is via URLs relative to the same
+    encrypted API endpoint (https://api.goshippo.com/v1/).
+
+    There are classes to help with the nitty-gritty of interacting with the
+    different API resource types:
+
+    *   Addresses ("WebService::Shippo::Address")
+
+    *   Parcels ("WebService::Shippo::Parcel")
+
+    *   Shipments ("WebService::Shippo::Shipment")
+
+    *   Rates ("WebService::Shippo::Rate")
+
+    *   Transactions ("WebService::Shippo::Transaction")
+
+    *   Customs Items ("WebService::Shippo::CustomsItem")
+
+    *   Customs Declarations ("WebService::Shippo::CustomsDeclaration")
+
+    *   Refunds ("WebService::Shippo::Refund")
+
+    *   Manifests ("WebService::Shippo::Manifest")
+
+    *   Carrier Accounts ("WebService::Shippo::CarrierAccount")
+
+    Note: though scripts and modules must always "use WebService::Shippo;"
+    to import the Shippo API Client, the "WebService::" portion of its
+    namespace may be dropped when referring to the "WebService::Shippo"
+    package and any of its resource helper classes. For example,
+    "WebService::Shippo::Address" and "Shippo::Address" may both be used
+    interchangeably. Forcing the developer to keep typing "WebService::"
+    seemed like an unreasonable form of torture, besides which, it probably
+    wouldn't leave much room for code formatting.
+
+  Request & Response Data
+    The "WebService::Shippo" client ensures that requests are properly
+    encoded and passed to the correct API endpoint using an appropriate HTTP
+    method. There is documentation for each API resource, containing more
+    details on the values accepted by and returned for a given resource (see
+    "FULL API DOCUMENTATION").
+
+    All requests return responses encoded as JSON strings, which are then
+    translated into blessed object references of the correct type. As a
+    rule, any resource attribute documented in the API specification will
+    respond to methods of the same name in client object instances.
+
+  REST & Disposable Objects
+    The Shippo API is built with simplicity and RESTful principles in mind.
+    Use POST requests to create objects, GET requests to list and retrieve
+    objects, and PUT requests to update objects. Addresses, Parcels,
+    Shipments, Rates, Transactions, Refunds, Customs Items and Customs
+    Declarations are disposable objects. This means that once you create an
+    object, you cannot change it. Instead, create a new one with the desired
+    values. Carrier Accounts are the exception and may be updated via PUT
+    requests.
+
+    The "WebService::Shippo" client provides "create", "all", "fetch", and
+    "update" methods for use with resource objects that permit these
+    operations.
 
 FULL API DOCUMENTATION
     * For API documentation, go to <https://goshippo.com/docs/>

@@ -2,6 +2,14 @@ Revision history for WebService-Shippo
  
 {{$NEXT}}
 
+0.0.15    2015-11-08 21:19:47+00:00 Europe/London
+    - With the exception of "id" methods that didn't started with
+      "object_" but were identical in function to AUTOLOADed methods
+      that did have that prefix have now been removed.
+    - AUTOLOADed methods with always return '' instead of undef.
+    - Collection classes (always the plural form of the item class) now
+      respond to the Creator, Fetcher, Updater interfaces.
+    - POD updates.
 0.0.14    2015-11-05 21:09:08+00:00 Europe/London
     - Some tidying up
     - Some documentation
