@@ -29,7 +29,7 @@ sub import
     my ( $class ) = @_;
     # Configure Shippo client on import
     WebService::Shippo::Config->config;
-    # The API key is overridden with the envornment's value if defined.
+    # The API key is overridden with the environment's value if defined.
     WebService::Shippo::Resource->api_username_password(
         @ENV{ 'SHIPPO_USER', 'SHIPPO_PASS' } )
         if $ENV{SHIPPO_USER} && !$ENV{SHIPPO_TOKEN};
@@ -71,20 +71,139 @@ WebService::Shippo - Shippo API Client
 
 =head1 SYNOPIS
 
+B<Note>: though scripts and modules must always C<use WebService::Shippo;>
+to import the client software, the C<WebService::> portion of that package
+namespace may be dropped when subsequently referring to the main package
+or any of its resource classes. For example, C<WebService::Shippo::Address>
+and C<Shippo::Address> refer to the same class. 
+
+To compel the developer to continue using the C<WebService::> prefix does
+seem like an unreasonable form of torture, besides which, it probably
+doesn't leave much scope for indenting code as some class names would be
+very long. Use it, or don't use it. It's entirely up to you.
+
+    use strict;
+    use LWP::UserAgent;
     use WebService::Shippo;
     
     # If you aren't using a config file or the environment (SHIPPO_TOKEN=...)
-    # to supply your API key, you can do so here...
+    # to supply your API key, you can do so here:
+    
     Shippo->api_key('PASTE YOUR AUTH TOKEN HERE')
         unless Shippo->api_key;
-        
+    
+    # Create a Shipment object:
+    
+    my $shipment = Shippo::Shipment->create(
+        object_purpose => 'PURCHASE',
+        address_from   => {
+            object_purpose => 'PURCHASE',
+            name           => 'Shawn Ippotle',
+            company        => 'Shippo',
+            street1        => '215 Clayton St.',
+            city           => 'San Francisco',
+            state          => 'CA',
+            zip            => '94117',
+            country        => 'US',
+            phone          => '+1 555 341 9393',
+            email          => 'shippotle@goshippo.com'
+        },
+        address_to => {
+            object_purpose => 'PURCHASE',
+            name           => 'Mr Hippo',
+            company        => '',
+            street1        => 'Broadway 1',
+            street2        => '',
+            city           => 'New York',
+            state          => 'NY',
+            zip            => '10007',
+            country        => 'US',
+            phone          => '+1 555 341 9393',
+            email          => 'mrhippo@goshippo.com'
+        },
+        parcel => {
+            length        => '5',
+            width         => '5',
+            height        => '5',
+            distance_unit => 'in',
+            weight        => '2',
+            mass_unit     => 'lb'
+        }
+    );
+    
+    # Retrieve shipping rates and select preferred rate:
+    
+    my $rates = Shippo::Shipment->get_shipping_rates( $shipment->object_id );
+    my $preferred_rate = $rates->item(2);
+    
+    # Purchase label at the preferred rate:
+    
+    my $transaction = Shippo::Transaction->create(
+        rate            => $preferred_rate->object_id,
+        label_file_type => 'PNG',
+    );
+    
+    # Get the shipping label:
+    
+    my $label_url = Shippo::Transaction->get_shipping_label( $transaction->object_id );
+    my $browser   = LWP::UserAgent->new;
+    $browser->get( $transaction->label_url, ':content_file' => './sample.png' );
+    
+    # Print the transaction object...
+    
+    print "Transaction:\n", $transaction->to_json(1); # '1' makes the JSON readable
+
+    --[content dumped to console]--
+    Transaction:
+    {
+       "commercial_invoice_url" : null,
+       "customs_note" : "",
+       "label_url" : "https://shippo-delivery-east.s3.amazonaws.com/da2e68fe85f94a9ebca458d9f9d
+    2446b.PNG?Signature=BjD2JMQt0ATd5jUWAKm%2B6FHcBPM%3D&Expires=1477323662&AWSAccessKeyId=AKIA
+    JGLCC5MYLLWIG42A",
+       "messages" : [],
+       "metadata" : "",
+       "notification_email_from" : false,
+       "notification_email_other" : "",
+       "notification_email_to" : false,
+       "object_created" : "2015-10-25T15:41:01.182Z",
+       "object_id" : "da2e68fe85f94a9ebca458d9f9d2446b",
+       "object_owner" : "******@*********.***",
+       "object_state" : "VALID",
+       "object_status" : "SUCCESS",
+       "object_updated" : "2015-10-25T15:41:02.494Z",
+       "order" : null,
+       "pickup_date" : null,
+       "rate" : "3c76e81733d7417b9a801ce957f4219d",
+       "submission_note" : "",
+       "tracking_history" : [],
+       "tracking_number" : "9499907123456123456781",
+       "tracking_status" : {
+          "object_created" : "2015-10-25T15:41:02.451Z",
+          "object_id" : "02ce6dbd6d5a48cfb764fdeb0cb6e404",
+          "object_updated" : "2015-10-25T15:41:02.451Z",
+          "status" : "UNKNOWN",
+          "status_date" : null,
+          "status_details" : ""
+       },
+       "tracking_url_provider" : "https://tools.usps.com/go/TrackConfirmAction_input?origTrackN
+    um=9499907123456123456781",
+       "was_test" : true
+    }
+    --[end of content]--
+
+The sample code in this synopsis produced the following label (at a much
+larger size, of course), which was then saved as a PNG file using the
+C<LWP::UserAgent> package:
+
+=for HTML <p style="padding-left:4em;"><img src="https://github.com/cpanic/WebService-Shippo/wiki/images/sample.png" height="432" width="288" /></p>
+
 =head1 DESCRIPTION
 
 Shippo connects you with multiple shipping providers (USPS, UPS and Fedex,
 for example) through one interface, offering you great discounts on a
-selection of shipping rates.
-
-You can sign-up for an account at L<https://goshippo.com/>.
+selection of shipping rates. You can sign-up for an account at 
+L<https://goshippo.com/>.
 
 Though Shippo I<do> offer official API clients for a bevy of major languages, 
 the venerable Perl 5 was not included in that list. This software is a community
@@ -131,15 +250,6 @@ different API resource types:
 =item * Carrier Accounts (C<L<WebService::Shippo::CarrierAccount>>)
 
 =back
-
-B<Note>: though scripts and modules must always C<B<use WebService::Shippo;>>
-to import the Shippo API Client, the C<B<WebService::>> portion of its
-namespace may be dropped when referring to the C<WebService::Shippo>
-package and any of its resource helper classes. For example, 
-C<WebService::Shippo::Address> and C<Shippo::Address> may both be
-used interchangeably. Forcing the developer to keep typing C<WebService::>
-seemed like an unreasonable form of torture, besides which, it probably
-wouldn't leave much room for code formatting.
 
 =head2 Request & Response Data
 
