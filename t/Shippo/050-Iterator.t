@@ -4,7 +4,7 @@ use FindBin;
 use lib "$FindBin::Bin/../lib";
 use lib "$FindBin::Bin/../../lib";
 use TestHarness;
-use WebService::Shippo ':all';
+use WebService::Shippo;
 
 my @tests = (
     testIterator => sub {

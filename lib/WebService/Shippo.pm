@@ -16,14 +16,6 @@ our @EXPORT = qw(
     callback
 );
 
-our @EXPORT_OK = qw(
-    isTrue
-    isFalse
-    isBoolean
-    callbacks
-);
-our %EXPORT_TAGS = ( all => [ @EXPORT, @EXPORT_OK ], bool => $boolean::EXPORT_TAGS{all} );
-
 sub import
 {
     my ( $class ) = @_;
@@ -215,9 +207,9 @@ The Shippo API can be used to automate and customize shipping capabilities
 for your e-commerce store or marketplace, enabling you to retrieve shipping 
 rates, create and purchase shipping labels, track packages, and much more.
 
-The C<WebService::Shippo> client complements Shippo's official open source
-client libraries by helping to make API integration easier in ecosystems
-built around Perl 5.
+This client complements Shippo's official Open Source client libraries by
+helping to make Shippo API integration easier in ecosystems built around
+Perl.
 
 =head2 API Resources
 
@@ -253,28 +245,42 @@ different API resource types:
 
 =head2 Request & Response Data
 
-The C<WebService::Shippo> client ensures that requests are properly encoded and
-passed to the correct API endpoint using an appropriate HTTP method. There is
-documentation for each API resource, containing more details on the values 
-accepted by and returned for a given resource (see L<FULL API DOCUMENTATION>).
+The Perl client ensures that requests are properly encoded and passed to the
+correct API endpoints using appropriate HTTP methods. There is documentation
+for each API resource, containing more details on the values accepted by and
+returned for a given resource (see L<FULL API DOCUMENTATION>).
 
-All requests return responses encoded as JSON strings, which are then translated
-into blessed object references of the correct type. As a rule, any resource
-attribute documented in the API specification will respond to methods of the
-same name in client object instances.
+All API requests return responses encoded as JSON strings, which the client
+converts into Perl blessed object references of the correct type. As a rule,
+any resource attribute documented in the API specification will have an
+accessor of the same same in a Perl instance of that object.
 
 =head2 REST & Disposable Objects
 
-The Shippo API is built with simplicity and RESTful principles in mind. Use
-B<POST> requests to create objects, B<GET> requests to list and retrieve
-objects, and B<PUT> requests to update objects. Addresses, Parcels, Shipments,
-Rates, Transactions, Refunds, Customs Items and Customs Declarations are
-disposable objects. This means that once you create an object, you cannot
-change it. Instead, create a new one with the desired values. Carrier Accounts
-are the exception and may be updated via B<PUT> requests.
+The Shippo API is built with simplicity and RESTful principles in mind:
+B<POST> requests are used to create objects, B<GET> requests to fetch and
+list objects, and B<PUT> requests to update objects. The Perl client provides
+C<create>, C<fetch>, C<all> and C<update> methods for use with resource
+objects that permit such operations.
 
-The C<WebService::Shippo> client provides C<create>, C<all>, C<fetch>, and
-C<update> methods for use with resource objects that permit these operations.
+
+Addresses, Parcels, Shipments, Rates, Transactions, Refunds, Customs Items and
+Customs Declarations are disposable objects. This means that once you create
+an object, you cannot change it. Instead, create a new one with the desired
+values. Carrier Accounts are the exception and may be updated via B<PUT>
+requests.
+
+=head1 EXPORTS
+
+The C<WebService::Shippo> package exports a number of subroutines by default:
+
+=head2 true
+
+=head2 false
+
+=head2 boolean
+
+=head2 callback
 
 =head1 FULL API DOCUMENTATION
 
