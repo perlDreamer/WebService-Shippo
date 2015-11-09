@@ -7,15 +7,17 @@ require WebService::Shippo::Request;
 use Carp              ( 'confess' );
 use Params::Callbacks ( 'callbacks' );
 use Scalar::Util      ( 'blessed' );
-use base (
-    'WebService::Shippo::Resource',
-    'WebService::Shippo::Creator',
-    'WebService::Shippo::Fetcher',
+use base qw(
+    WebService::Shippo::Resource
+    WebService::Shippo::Creator
+    WebService::Shippo::Fetcher
 );
 
-sub api_resource ()     { 'addresses' }
+sub api_resource () { 'addresses' }
+
 sub collection_class () { 'WebService::Shippo::Addresses' }
-sub item_class ()       { __PACKAGE__ }
+
+sub item_class () { __PACKAGE__ }
 
 sub validate
 {
@@ -36,23 +38,9 @@ sub validate
     return $invocant->construct_from( $response, $callbacks );
 }
 
-package    # Hide from PAUSE
-    WebService::Shippo::Addresses;
-use base (
-    'WebService::Shippo::Collection',
-    'WebService::Shippo::Creator',
-    'WebService::Shippo::Fetcher',
-);
-
-sub item_class ()       { 'WebService::Shippo::Address' }
-sub collection_class () { __PACKAGE__ }
-
 BEGIN {
     no warnings 'once';
-    # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
-    # namespace is just cruel; allow the use of "Shippo", too.
-    *Shippo::Address::     = *WebService::Shippo::Address::;
-    *Shippo::Addresses:: = *WebService::Shippo::Addresses::;
+    *Shippo::Address:: = *WebService::Shippo::Address::;
 }
 
 1;
