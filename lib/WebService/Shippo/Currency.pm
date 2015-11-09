@@ -4,8 +4,9 @@ use MRO::Compat 'c3';
 
 package WebService::Shippo::Currency;
 use Carp ( 'confess' );
-use Locale::Currency ();
-use Locale::Codes ();
+use Locale::Currency (); # I cannot get these modules to play nicely on ALL versions of Perl
+use Locale::Codes ();    # and even now Perl 5.14 is a problem so I intend to stop using them
+                         # very shortly because they're not nice to use.
 
 {
     my @codes = Locale::Codes::_all_codes('currency');
@@ -21,6 +22,11 @@ use Locale::Codes ();
             if wantarray;
         return uc( $currency_code );
     }
+}
+
+BEGIN {
+    no warnings 'once';
+    *Shippo::Currency:: = *WebService::Shippo::Currency::;
 }
 
 1;

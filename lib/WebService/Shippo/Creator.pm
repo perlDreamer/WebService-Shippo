@@ -13,4 +13,9 @@ sub create
     return $invocant->item_class->construct_from( $response, $callbacks );
 }
 
+BEGIN {
+    no warnings 'once';
+    *Shippo::Creator:: = *WebService::Shippo::Creator::;
+}
+
 1;

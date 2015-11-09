@@ -86,6 +86,7 @@ sub item_at_index
 
 BEGIN {
     no warnings 'once';
+    *Shippo::Collection:: = *WebService::Shippo::Collection::;
     *to_array = *items;
 }
 

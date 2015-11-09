@@ -13,4 +13,9 @@ sub update
     return $invocant->item_class->construct_from( $response, $callbacks );
 }
 
+BEGIN {
+    no warnings 'once';
+    *Shippo::Updater:: = *WebService::Shippo::Updater::;
+}
+
 1;

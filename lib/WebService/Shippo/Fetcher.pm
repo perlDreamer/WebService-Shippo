@@ -54,6 +54,7 @@ sub iterate
 BEGIN {
     no warnings 'once';
     *retrieve = *fetch;
+    *Shippo::Fetcher:: = *WebService::Shippo::Fetcher::;
 }
 
 1;

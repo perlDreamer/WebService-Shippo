@@ -170,4 +170,9 @@ sub AUTOLOAD
     goto &$sym;
 }
 
+BEGIN {
+    no warnings 'once';
+    *Shippo::Object:: = *WebService::Shippo::Object::;
+}
+
 1;
