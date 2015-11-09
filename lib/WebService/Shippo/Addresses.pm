@@ -35,8 +35,6 @@ Address objects are used for creating Shipments, obtaining Rates and printing
 Labels, and thus are one of the fundamental building blocks of the Shippo
 API.
 
-=back
-
 =head1 API DOCUMENTATION
 
 For more information about Addresses, consult the Shippo API documentation:

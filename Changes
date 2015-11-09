@@ -2,6 +2,15 @@ Revision history for WebService-Shippo
  
 {{$NEXT}}
 
+0.0.16    2015-11-09 22:32:19+00:00 Europe/London
+    - Some of the ancillary modules that didn't create Shippo::
+      namespace aliases now do so for the sake of consistency.
+    - There were some symbols exported on request and via tag :all; 
+      they're no longer exported at all because I'm not sure they'll
+      be used anyway.
+    - Begun to separate API entity classes from their collection classes
+      to make documentation easier. I'll continue this in the next release.
+    - POD updates.
 0.0.15    2015-11-08 21:19:47+00:00 Europe/London
     - With the exception of "id" methods that didn't started with
       "object_" but were identical in function to AUTOLOADed methods

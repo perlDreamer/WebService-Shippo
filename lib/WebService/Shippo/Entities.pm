@@ -5,7 +5,7 @@ package WebService::Shippo::Entities;
 require WebService::Shippo::Object;
 require WebService::Shippo::Collection;
 require WebService::Shippo::Resource;
-require WebService::Shippo::Address;
+require WebService::Shippo::Addresses;
 require WebService::Shippo::CarrierAccount;
 require WebService::Shippo::CustomsDeclaration;
 require WebService::Shippo::CustomsItem;

@@ -40,7 +40,6 @@ BEGIN {
     *config                = *WebService::Shippo::Config::config;
     *pretty                = *WebService::Shippo::Object::pretty;
     *response              = *WebService::Shippo::Request::response;
-    *Response              = *WebService::Shippo::Request::response;
     # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
     # namespace is just cruel; allow the use of "Shippo", too.
     *Shippo:: = *WebService::Shippo::;
@@ -84,6 +83,9 @@ very long. Use it, or don't use it. It's entirely up to you.
     Shippo->api_key('PASTE YOUR AUTH TOKEN HERE')
         unless Shippo->api_key;
     
+    # Complete example illustrating the the process of Shipment creation
+    # through to label generation.
+    #
     # Create a Shipment object:
     
     my $shipment = Shippo::Shipment->create(
@@ -198,8 +200,8 @@ selection of shipping rates. You can sign-up for an account at
 L<https://goshippo.com/>.
 
 Though Shippo I<do> offer official API clients for a bevy of major languages, 
-the venerable Perl 5 was not included in that list. This software is a community
-offering which attempts to correct that omission.
+the venerable Perl 5 was not included in that list. This community offering 
+attempts to correct that omission ;-)
 
 =head1 OVERVIEW
 
@@ -216,8 +218,8 @@ Perl.
 Access to all Shippo API resources is via URLs relative to the same encrypted
 API endpoint (https://api.goshippo.com/v1/).
 
-There are classes to help with the nitty-gritty  of interacting with the 
-different API resource types:
+There are resource item classes to help with the nitty-gritty of interacting
+each type of resource:
 
 =over
 
@@ -242,6 +244,12 @@ different API resource types:
 =item * Carrier Accounts (C<L<WebService::Shippo::CarrierAccount>>)
 
 =back
+
+Each item class has a related collection class with a similar name I<in the
+plural form>. The rationale behind this is that the Shippo API can be used
+to retrieve single objects with the C<fetch> method, and collections of
+objects with the C<all> method, and different behaviours may be applied
+to collections, which is why both forms exist.
 
 =head2 Request & Response Data
 
@@ -270,17 +278,205 @@ an object, you cannot change it. Instead, create a new one with the desired
 values. Carrier Accounts are the exception and may be updated via B<PUT>
 requests.
 
+=head1 METHODS
+
+=head2 api_key
+
+    Shippo->api_key($auth_token);
+    my $api_key = Shippo->api_key;
+
+A suitably constructed configuration file should mean this method never needs
+to be called explicitly. As soon as the Shippo client is imported it will
+attempt to search for and load a YAML configuration from the following sequence
+of locations:
+
+=over 2
+
+=item 1. C<./.shipporc>
+
+=item 2. C</path/to/home/.shipporc>
+
+=item 3. C</etc/shipporc>
+
+=item 4. C</path/to/lib/WebService/Shippo/Config.yml>
+
+=back
+
+This method is used to set the token used for Shippo's Token-based
+authentication. It ensures that a properly encoded C<Authorizatio: ShippoToken ...>
+header accompanies all API requests. Used as a setter, this method is chainable.
+
+Used as a getter, the method returns the token currently being used for
+authentication.
+
+=head2 api_username_password
+
+    Shippo->api_username_password($username, $password);
+    my ($username, $password) = Shippo->api_username_password;
+
+A suitably constructed configuration file should mean this method never needs
+to be called explicitly. As soon as the Shippo client is imported it will
+attempt to search for and load a YAML configuration from the following sequence
+of locations:
+
+=over 2
+
+=item 1. C<./.shipporc>
+
+=item 2. C</path/to/home/.shipporc>
+
+=item 3. C</etc/shipporc>
+
+=item 4. C</path/to/lib/WebService/Shippo/Config.yml>
+
+=back
+
+Shippo's preferred authentication mechanism is based upon a Token or API key.
+
+The Perl client supports Shippo's legacy mechanism, which is based upon
+HTTP basic authentication. Use this method to force the client to use the
+legacy mechanism. It will ensure that a correctly encoded C<Authorization: Basic ...>
+header accompanies all API requests. Used as a setter, this method is chainable.
+
+Used as a getter, the method can be used to retrieve the current values of 
+the username and password.
+
+=head2 config
+
+    Shippo->config(\%configuration);
+    my $config_hash = Shippo->config;
+
+A suitably constructed configuration file should mean this method never needs
+to be called explicitly. As soon as the Shippo client is imported it will
+attempt to search for and load a YAML configuration from the following sequence
+of locations:
+
+=over 2
+
+=item 1. C<./.shipporc>
+
+=item 2. C</path/to/home/.shipporc>
+
+=item 3. C</etc/shipporc>
+
+=item 4. C</path/to/lib/WebService/Shippo/Config.yml>
+
+=back
+
+If no configuration could be found then it's up to the developer to define
+one using the C<config> method, or provide authentication details using the
+C<api_key> or C<api_username_password> methods.
+ 
+This method can be used to define a configuration for a Shippo client
+session. The configuration is presented as a hash reference and immediately
+defines session authentication parameters. Used this way, the method is
+chainable.
+
+When used as a getter, the method returns the current config.
+
+=over
+
+=item B<Example>
+
+    Shippo->config({
+        username      => 'martymcfly@pinheads.org',
+        password      => 'yadayada',
+        private_token => 'f0e1d2c3b4a5968778695a4b3c2d1e0f96877869',
+        public_token  => '96877869f0e1d2c3b4a5968778695a4b3c2d1e0f',
+        default_token => 'private_token'
+    });
+
+They are not absolutely necessary, but C<username> and C<password> will be
+required for Basic Authentication you don't intend to use Shippo's preferred
+Token-based authentication. The C<private_token> and C<public_token> fields
+are the Shippo Private and Publishable Auth Tokens, which can be found on the
+L<Shippo API page|https://goshippo.com/user/apikeys/>. The C<default_token>
+determines which of these will be used as the API key and defaults to the
+Private Auth Token if undefined.
+
+=back
+
+=head2 pretty
+
+    Shippo->pretty($boolean);
+    my $boolean = Shippo->pretty;
+
+Can be used to control whether or not JSON output is readable when calling
+the C<to_json> method on Shippo objects, or when those objects are subject
+to string overloading. Used this way, the method is chainable.
+
+When used as a getter, the method returns the current setting.
+
+=head2 response
+
+    my $last_response = Shippo->response;
+
+Returns a copy of the C<L<HTTP::Response>> resulting from the most recent request.
+
 =head1 EXPORTS
 
-The C<WebService::Shippo> package exports a number of subroutines by default:
+The C<WebService::Shippo> package exports a number of helpful subroutines by
+default:
 
 =head2 true
 
+    my $fedex_account = Shippo::CarrierAccount->create(
+        carrier    => 'fedex',
+        account_id => '<YOUR-FEDEX-ACCOUNT-NUMBER>',
+        parameters => { meter => '<YOUR-FEDEX-METER-NUMBER>' },
+        test       => true,
+        active     => true
+    );
+
+Returns a scalar value which will evaluate to true. 
+
+Since the I<lingua franca> connecting Shippo's API and the Perl client is
+JSON, it can feel more natural to think in those terms. Thus, C<true> may be
+used in place of C<1>. Now, when creating a new object from a JSON example,
+any literal and accidental use of C<true> or C<false> is much less likely
+to result in misery.
+
+See Ingy's L<boolean> package for more guidance.
+
 =head2 false
+
+    my $fedex_account = Shippo::CarrierAccount->create(
+        carrier    => 'fedex',
+        account_id => '<YOUR-FEDEX-ACCOUNT-NUMBER>',
+        parameters => { meter => '<YOUR-FEDEX-METER-NUMBER>' },
+        test       => false,
+        active     => false
+    );
+
+Returns a scalar value which will evaluate to false. 
+
+Since the I<lingua franca> connecting Shippo's API and the Perl client is
+JSON, it can feel more natural to think in those terms. Thus, C<false> may be
+used in place of C<0>. Now, when creating a new object from a JSON example,
+any literal and accidental use of C<true> or C<false> is much less likely
+to result in misery.
+
+See Ingy's L<boolean> package for more guidance.
 
 =head2 boolean
 
+    my $bool = boolean($value);
+
+Casts a scalar value to a boolean value (C<true> or C<false>).
+
+See Ingy's L<boolean> package for more guidance.
+
 =head2 callback
+
+    Shippo::CarrierAccounts->all(callback {
+        $_->enable_test_mode;
+    });
+    
+Returns a blessed C<sub> suitable for use as a callback. Some methods accept
+optional blocking callbacks in order to facilitate list transformations, so
+this package makes C<&Params::Callbacks::callback> available for use.
+
+See L<Params::Callbacks> for more guidance.
 
 =head1 FULL API DOCUMENTATION
 
