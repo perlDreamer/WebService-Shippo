@@ -141,13 +141,13 @@ my @tests = (
             my $val = Shippo::Currency->validate_currency( 'GBP' );
             my @val = Shippo::Currency->validate_currency( 'GBP' );
             is( $val, 'GBP', __TEST__ );
-            is_deeply( \@val, [ 'GBP', 'Pound Sterling' ], __TEST__ );
+            is_deeply( \@val, [ 'GBP', 'British Pound Sterling' ], __TEST__ );
         },
         usd => sub {
             my $val = Shippo::Currency->validate_currency( 'USD' );
             my @val = Shippo::Currency->validate_currency( 'USD' );
             is( $val, 'USD', __TEST__ );
-            is_deeply( \@val, [ 'USD', 'US Dollar' ], __TEST__ );
+            is_deeply( \@val, [ 'USD', 'United States Dollar' ], __TEST__ );
         },
     ],
     testConfig => sub {
