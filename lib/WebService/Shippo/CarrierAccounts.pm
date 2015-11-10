@@ -2,22 +2,22 @@ use strict;
 use warnings;
 use MRO::Compat 'c3';
 
-package WebService::Shippo::Parcel;
+package WebService::Shippo::CarrierAccounts;
+require WebService::Shippo::CarrierAccount;
 use base qw(
-    WebService::Shippo::Resource
+    WebService::Shippo::Collection
     WebService::Shippo::Creator
     WebService::Shippo::Fetcher
+    WebService::Shippo::Updater
 );
 
-sub api_resource ()     { 'parcels' }
+sub item_class () { 'WebService::Shippo::CarrierAccount' }
 
-sub collection_class () { 'WebService::Shippo::Parcels' }
-
-sub item_class ()       { __PACKAGE__ }
+sub collection_class () { __PACKAGE__ }
 
 BEGIN {
     no warnings 'once';
-    *Shippo::Parcel:: = *WebService::Shippo::Parcel::;
+    *Shippo::CarrierAccounts:: = *WebService::Shippo::CarrierAccounts::;
 }
 
 1;
@@ -28,21 +28,21 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::Parcel - Parcel class
+WebService::Shippo::CarrierAccounts - Carrier Account collection class
 
 =head1 DESCRIPTION
 
-Parcel objects are used for creating shipments, obtaining rates and printing
-labels. Thus they are one of the fundamental building blocks of the Shippo 
-API. Parcel objects are created with their basic dimensions and weight.
+Carrier accounts are used as credentials to retrieve shipping rates
+and purchase labels from a shipping provider.
 
 =head1 API DOCUMENTATION
 
-For more information about Parcels, consult the Shippo API documentation:
+For more information about Carrier Accounts, consult the Shippo API
+documentation:
 
 =over 2
 
-=item * L<https://goshippo.com/docs/#parcels>
+=item * L<https://goshippo.com/docs/#carrier-accounts>
 
 =back
 
@@ -67,6 +67,5 @@ This software is copyright (c) 2015 by Iain Campbell.
 You may distribute this software under the terms of either the GNU General
 Public License or the Artistic License, as specified in the Perl README
 file.
-
 
 =cut

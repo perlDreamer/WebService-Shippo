@@ -3,33 +3,21 @@ use warnings;
 use MRO::Compat 'c3';
 
 package WebService::Shippo::CustomsDeclaration;
-use base (
-    'WebService::Shippo::Resource',
-    'WebService::Shippo::Creator',
-    'WebService::Shippo::Fetcher',
+use base qw(
+    WebService::Shippo::Resource
+    WebService::Shippo::Creator
+    WebService::Shippo::Fetcher
 );
 
-sub api_resource ()     { 'customs/declarations' }
+sub api_resource () { 'customs/declarations' }
+
 sub collection_class () { 'WebService::Shippo::CustomsDeclarations' }
-sub item_class ()       { __PACKAGE__ }
 
-package    # Hide from PAUSE
-    WebService::Shippo::CustomsDeclarations;
-use base (
-    'WebService::Shippo::Collection',
-    'WebService::Shippo::Creator',
-    'WebService::Shippo::Fetcher',
-);
-
-sub item_class ()       { 'WebService::Shippo::CustomsDeclaration' }
-sub collection_class () { __PACKAGE__ }
+sub item_class () { __PACKAGE__ }
 
 BEGIN {
     no warnings 'once';
-    # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
-    # namespace is just cruel; allow the use of "Shippo", too.
-    *Shippo::CustomsDeclaration::  = *WebService::Shippo::CustomsDeclaration::;
-    *Shippo::CustomsDeclarations:: = *WebService::Shippo::CustomsDeclarations::;
+    *Shippo::CustomsDeclaration:: = *WebService::Shippo::CustomsDeclaration::;
 }
 
 1;
@@ -40,7 +28,7 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::CustomsDeclaration - Shippo Customs Declaration class
+WebService::Shippo::CustomsDeclaration - Customs Declaration class
 
 =head1 DESCRIPTION
 

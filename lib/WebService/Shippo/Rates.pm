@@ -2,28 +2,20 @@ use strict;
 use warnings;
 use MRO::Compat 'c3';
 
-package WebService::Shippo::Rate;
-require WebService::Shippo::Shipment;
+package WebService::Shippo::Rates;
+require WebService::Shippo::Rate;
 use base qw(
-    WebService::Shippo::Resource
+    WebService::Shippo::Collection
     WebService::Shippo::Fetcher
 );
 
-sub api_resource () { 'rates' }
+sub item_class () { 'WebService::Shippo::Rate' }
 
-sub collection_class () { 'WebService::Shippo::Rates' }
-
-sub item_class () { __PACKAGE__ }
-
-sub get_shipping_rates
-{
-    my ( $invocant, @params ) = @_;
-    WebService::Shippo::Shipment->get_shipping_rates( @params );
-}
+sub collection_class () { __PACKAGE__ }
 
 BEGIN {
     no warnings 'once';
-    *Shippo::Rate:: = *WebService::Shippo::Rate::;
+    *Shippo::Rates:: = *WebService::Shippo::Rates::;
 }
 
 1;
@@ -34,7 +26,7 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::Rate - Rate class
+WebService::Shippo::Rate - Rate collection class
 
 =head1 DESCRIPTION
 

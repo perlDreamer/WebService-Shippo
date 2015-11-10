@@ -2,42 +2,21 @@ use strict;
 use warnings;
 use MRO::Compat 'c3';
 
-package WebService::Shippo::Transaction;
-use Carp         ( 'confess' );
-use Scalar::Util ( 'blessed' );
+package WebService::Shippo::Transactions;
+require WebService::Shippo::Transaction;
 use base qw(
-    WebService::Shippo::Resource
+    WebService::Shippo::Collection
     WebService::Shippo::Creator
     WebService::Shippo::Fetcher
-    WebService::Shippo::Async
 );
 
-sub api_resource () { 'transactions' }
+sub item_class () { 'WebService::Shippo::Transaction' }
 
-sub collection_class () { 'WebService::Shippo::Transactions' }
-
-sub item_class () { __PACKAGE__ }
-
-sub get_shipping_label
-{
-    my ( $invocant, $transaction_id, %params ) = @_;
-    confess "Expected a transaction id"
-        unless $transaction_id;
-    my $transaction;
-    if ( $invocant->is_same_object( $transaction_id ) ) {
-        $transaction = $invocant;
-    }
-    else {
-        $transaction = WebService::Shippo::Transaction->fetch( $transaction_id );
-    }
-    $transaction->wait_if_status_in( 'QUEUED', 'WAITING' )
-        unless $params{async};
-    return $transaction->label_url;
-}
+sub collection_class () { __PACKAGE__ }
 
 BEGIN {
     no warnings 'once';
-    *Shippo::Transaction:: = *WebService::Shippo::Transaction::;
+    *Shippo::Transactions:: = *WebService::Shippo::Transactions::;
 }
 
 1;
@@ -48,7 +27,7 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::Transaction - Transaction class
+WebService::Shippo::Transaction - Transaction collection class
 
 =head1 DESCRIPTION
 

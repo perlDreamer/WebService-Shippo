@@ -2,22 +2,21 @@ use strict;
 use warnings;
 use MRO::Compat 'c3';
 
-package WebService::Shippo::Parcel;
+package WebService::Shippo::Parcels;
+require WebService::Shippo::Parcel;
 use base qw(
-    WebService::Shippo::Resource
+    WebService::Shippo::Collection
     WebService::Shippo::Creator
     WebService::Shippo::Fetcher
 );
 
-sub api_resource ()     { 'parcels' }
+sub item_class () { 'WebService::Shippo::Parcel' }
 
-sub collection_class () { 'WebService::Shippo::Parcels' }
-
-sub item_class ()       { __PACKAGE__ }
+sub collection_class () { __PACKAGE__ }
 
 BEGIN {
     no warnings 'once';
-    *Shippo::Parcel:: = *WebService::Shippo::Parcel::;
+    *Shippo::Parcels:: = *WebService::Shippo::Parcels::;
 }
 
 1;
@@ -28,7 +27,7 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::Parcel - Parcel class
+WebService::Shippo::Parcel - Parcels collection class
 
 =head1 DESCRIPTION
 

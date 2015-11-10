@@ -2,23 +2,21 @@ use strict;
 use warnings;
 use MRO::Compat 'c3';
 
-package WebService::Shippo::Refund;
+package WebService::Shippo::Refunds;
+require WebService::Shippo::Refund;
 use base qw(
-    WebService::Shippo::Resource
+    WebService::Shippo::Collection
     WebService::Shippo::Creator
     WebService::Shippo::Fetcher
-    WebService::Shippo::Async
 );
 
-sub api_resource ()     { 'refunds' }
+sub item_class () { 'WebService::Shippo::Refund' }
 
-sub collection_class () { 'WebService::Shippo::Refunds' }
-
-sub item_class ()       { __PACKAGE__ }
+sub collection_class () { __PACKAGE__ }
 
 BEGIN {
     no warnings 'once';
-    *Shippo::Refund::  = *WebService::Shippo::Refund::;
+    *Shippo::Refunds:: = *WebService::Shippo::Refunds::;
 }
 
 1;
@@ -29,7 +27,7 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::CarrierAccount - Refund class
+WebService::Shippo::CarrierAccount - Refund collection class
 
 =head1 DESCRIPTION
 

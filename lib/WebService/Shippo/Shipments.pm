@@ -2,21 +2,21 @@ use strict;
 use warnings;
 use MRO::Compat 'c3';
 
-package WebService::Shippo::Addresses;
-require WebService::Shippo::Address;
+package WebService::Shippo::Shipments;
+require WebService::Shippo::Shipment;
 use base qw(
     WebService::Shippo::Collection
     WebService::Shippo::Creator
     WebService::Shippo::Fetcher
 );
 
-sub item_class () { 'WebService::Shippo::Address' }
+sub item_class ()       { 'WebService::Shippo::Shipment' }
 
 sub collection_class () { __PACKAGE__ }
 
 BEGIN {
     no warnings 'once';
-    *Shippo::Addresses:: = *WebService::Shippo::Addresses::;
+    *Shippo::Shipments:: = *WebService::Shippo::Shipments::;
 }
 
 1;
@@ -27,21 +27,23 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::Addresses - Address collection class
+WebService::Shippo::Shipment - Shipment collection class
 
 =head1 DESCRIPTION
 
-Address objects are used for creating Shipments, obtaining Rates and printing
-Labels, and thus are one of the fundamental building blocks of the Shippo
-API.
+At the heart of the Shippo API is the Shipment object. It is made up
+of sender and recipient addresses, details of the parcel to be shipped
+and, for international shipments, the customs declaration. Once created,
+a Shipment object can be used to retrieve shipping rates and purchase a
+shipping label.
 
 =head1 API DOCUMENTATION
 
-For more information about Addresses, consult the Shippo API documentation:
+For more information about Shipments, consult the Shippo API documentation:
 
 =over 2
 
-=item * L<https://goshippo.com/docs/#addresses>
+=item * L<https://goshippo.com/docs/#shipments>
 
 =back
 

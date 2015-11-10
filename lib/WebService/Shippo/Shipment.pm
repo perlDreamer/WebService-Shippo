@@ -7,17 +7,19 @@ require WebService::Shippo::Rate;
 use Carp              ( 'confess' );
 use Params::Callbacks ( 'callbacks', 'callback' );
 use Scalar::Util      ( 'blessed' );
-use base (
-    'WebService::Shippo::Resource',
-    'WebService::Shippo::Creator',
-    'WebService::Shippo::Fetcher',
-    'WebService::Shippo::Currency',
-    'WebService::Shippo::Async',
+use base qw(
+    WebService::Shippo::Resource
+    WebService::Shippo::Creator
+    WebService::Shippo::Fetcher
+    WebService::Shippo::Currency
+    WebService::Shippo::Async
 );
 
-sub api_resource ()     { 'shipments' }
+sub api_resource () { 'shipments' }
+
 sub collection_class () { 'WebService::Shippo::Shipments' }
-sub item_class ()       { __PACKAGE__ }
+
+sub item_class () { __PACKAGE__ }
 
 sub get_shipping_rates
 {
@@ -60,25 +62,10 @@ sub get_shipping_rates
     return $rates;
 }
 
-package    # Hide from PAUSE
-    WebService::Shippo::Shipments;
-use base (
-    'WebService::Shippo::Collection',
-    'WebService::Shippo::Creator',
-    'WebService::Shippo::Fetcher',
-);
-
-sub item_class ()       { 'WebService::Shippo::Shipment' }
-sub collection_class () { __PACKAGE__ }
-
 BEGIN {
     no warnings 'once';
-
-    # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
-    # namespace is just cruel; allow the use of "Shippo", too.
-    *Shippo::Shipment::  = *WebService::Shippo::Shipment::;
-    *Shippo::Shipments:: = *WebService::Shippo::Shipments::;
-    *rates               = *get_shipping_rates;
+    *Shippo::Shipment:: = *WebService::Shippo::Shipment::;
+    *rates              = *get_shipping_rates;
 }
 
 1;
@@ -89,7 +76,7 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::Shipment - Shippo Shipment class.
+WebService::Shippo::Shipment - Shipment class
 
 =head1 DESCRIPTION
 

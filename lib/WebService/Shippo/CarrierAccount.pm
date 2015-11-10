@@ -5,17 +5,18 @@ use MRO::Compat 'c3';
 package WebService::Shippo::CarrierAccount;
 use Carp         ( 'confess' );
 use Scalar::Util ( 'blessed' );
-use base (
-    'WebService::Shippo::Resource',
-    'WebService::Shippo::Creator',
-    'WebService::Shippo::Fetcher',
-    'WebService::Shippo::Updater',
-
+use base qw(
+    WebService::Shippo::Resource
+    WebService::Shippo::Creator
+    WebService::Shippo::Fetcher
+    WebService::Shippo::Updater
 );
 
-sub api_resource ()     { 'carrier_accounts' }
+sub api_resource () { 'carrier_accounts' }
+
 sub collection_class () { 'WebService::Shippo::CarrierAccounts' }
-sub item_class ()       { __PACKAGE__ }
+
+sub item_class () { __PACKAGE__ }
 
 sub activate
 {
@@ -69,24 +70,9 @@ sub enable_production_mode
     return $invocant->refresh_from( $upd );
 }
 
-package    # Hide from PAUSE
-    WebService::Shippo::CarrierAccounts;
-use base (
-    'WebService::Shippo::Collection',
-    'WebService::Shippo::Creator',
-    'WebService::Shippo::Fetcher',
-    'WebService::Shippo::Updater',
-);
-
-sub item_class ()       { 'WebService::Shippo::CarrierAccount' }
-sub collection_class () { __PACKAGE__ }
-
 BEGIN {
     no warnings 'once';
-    # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
-    # namespace is just cruel; allow the use of "Shippo", too.
-    *Shippo::CarrierAccount::  = *WebService::Shippo::CarrierAccount::;
-    *Shippo::CarrierAccounts:: = *WebService::Shippo::CarrierAccounts::;
+    *Shippo::CarrierAccount:: = *WebService::Shippo::CarrierAccount::;
 }
 
 1;
@@ -97,7 +83,7 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::CarrierAccount - Shippo Carrier Account class
+WebService::Shippo::CarrierAccount - Carrier Account class
 
 =head1 DESCRIPTION
 

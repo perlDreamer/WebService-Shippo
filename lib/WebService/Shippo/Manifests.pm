@@ -2,22 +2,21 @@ use strict;
 use warnings;
 use MRO::Compat 'c3';
 
-package WebService::Shippo::Manifest;
+package WebService::Shippo::Manifests;
+require WebService::Shippo::Manifest;
 use base qw(
-    WebService::Shippo::Resource
+    WebService::Shippo::Collection
     WebService::Shippo::Creator
     WebService::Shippo::Fetcher
 );
 
-sub api_resource () { 'manifests' }
+sub item_class () { 'WebService::Shippo::Manifest' }
 
-sub collection_class () { 'WebService::Shippo::Manifests' }
-
-sub item_class () { __PACKAGE__ }
+sub collection_class () { __PACKAGE__ }
 
 BEGIN {
     no warnings 'once';
-    *Shippo::Manifest:: = *WebService::Shippo::Manifest::;
+    *Shippo::Manifests:: = *WebService::Shippo::Manifests::;
 }
 
 1;
@@ -28,7 +27,7 @@ BEGIN {
 
 =head1 NAME
 
-WebService::Shippo::CarrierAccount - Manifest class
+WebService::Shippo::CarrierAccount - Manifest collection class
 
 =head1 DESCRIPTION
 
