@@ -27,7 +27,6 @@ my %WriteMakefileArgs = (
     "JSON::XS" => 0,
     "LWP" => 0,
     "LWP::Protocol::https" => 0,
-    "Locale::Codes" => 0,
     "MRO::Compat" => 0,
     "Params::Callbacks" => 0,
     "Path::Class" => 0,
@@ -40,7 +39,7 @@ my %WriteMakefileArgs = (
     "Data::Dumper::Concise" => 0,
     "Test::Deep" => 0
   },
-  "VERSION" => "0.0.16",
+  "VERSION" => "0.0.17",
   "test" => {
     "TESTS" => "t/*.t t/Shippo/*.t"
   }
@@ -54,7 +53,6 @@ my %FallbackPrereqs = (
   "JSON::XS" => 0,
   "LWP" => 0,
   "LWP::Protocol::https" => 0,
-  "Locale::Codes" => 0,
   "MRO::Compat" => 0,
   "Params::Callbacks" => 0,
   "Path::Class" => 0,

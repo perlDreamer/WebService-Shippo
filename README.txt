@@ -6,7 +6,7 @@ NAME
     WebService::Shippo - Shippo API Client
 
 VERSION
-    version 0.0.16
+    version 0.0.17
 
 SYNOPIS
     Note: though scripts and modules must always "use WebService::Shippo;"
@@ -144,19 +144,14 @@ DESCRIPTION
     on a selection of shipping rates. You can sign-up for an account at
     <https://goshippo.com/>.
 
-    Though Shippo *do* offer official API clients for a bevy of major
-    languages, the venerable Perl 5 was not included in that list. This
-    community offering attempts to correct that omission ;-)
-
-OVERVIEW
     The Shippo API can be used to automate and customize shipping
     capabilities for your e-commerce store or marketplace, enabling you to
     retrieve shipping rates, create and purchase shipping labels, track
     packages, and much more.
 
-    This client complements Shippo's official Open Source client libraries
-    by helping to make Shippo API integration easier in ecosystems built
-    around Perl.
+    Though Shippo *do* offer official API clients for a bevy of major
+    languages, the venerable Perl 5 was not included in that list. This
+    community offering attempts to correct that omission ;-)
 
   API Resources
     Access to all Shippo API resources is via URLs relative to the same
@@ -219,106 +214,57 @@ OVERVIEW
 
 METHODS
   api_key
-        Shippo->api_key($auth_token);
-        my $api_key = Shippo->api_key;
+    Get or set the key used by API requests for Shippo's token-based
+    authentication. This is Shippo's preferred method of authentication.
 
-    A suitably constructed configuration file should mean this method never
-    needs to be called explicitly. As soon as the Shippo client is imported
-    it will attempt to search for and load a YAML configuration from the
-    following sequence of locations:
+    * Return the token currently being used for authentication.
 
-    1. "./.shipporc"
-    2. "/path/to/home/.shipporc"
-    3. "/etc/shipporc"
-    4. "/path/to/lib/WebService/Shippo/Config.yml"
+          my $api_key = Shippo->api_key;
 
-    This method is used to set the token used for Shippo's Token-based
-    authentication. It ensures that a properly encoded "Authorizatio:
-    ShippoToken ..." header accompanies all API requests. Used as a setter,
-    this method is chainable.
+    * Set the token to be used for authentication.
 
-    Used as a getter, the method returns the token currently being used for
-    authentication.
+          Shippo->api_key($auth_token);
 
-  api_username_password
-        Shippo->api_username_password($username, $password);
-        my ($username, $password) = Shippo->api_username_password;
+      The "api_key" method is chainable when used as a setter.
 
-    A suitably constructed configuration file should mean this method never
-    needs to be called explicitly. As soon as the Shippo client is imported
-    it will attempt to search for and load a YAML configuration from the
-    following sequence of locations:
+  api_credentials
+    Get or set the login credentials used by API requests for Shippo's
+    legacy authentication. Legacy authentication means encoding the HTTP
+    Authorization header for Basic Authentication so, even though requests
+    and repsonses are encrypted, you should still consider using the
+    token-based authentication instead (see "api_key").
 
-    1. "./.shipporc"
-    2. "/path/to/home/.shipporc"
-    3. "/etc/shipporc"
-    4. "/path/to/lib/WebService/Shippo/Config.yml"
+    * Return the login credentials currently being used for authentication.
 
-    Shippo's preferred authentication mechanism is based upon a Token or API
-    key.
+          my ($username, $password) = Shippo->api_credentials;
 
-    The Perl client supports Shippo's legacy mechanism, which is based upon
-    HTTP basic authentication. Use this method to force the client to use
-    the legacy mechanism. It will ensure that a correctly encoded
-    "Authorization: Basic ..." header accompanies all API requests. Used as
-    a setter, this method is chainable.
+    * Set the credentials to be used for authentication.
 
-    Used as a getter, the method can be used to retrieve the current values
-    of the username and password.
+          Shippo->api_credentials($username, $password);
 
-  config
-        Shippo->config(\%configuration);
-        my $config_hash = Shippo->config;
+      The "api_credentials" method is chainable when used as a setter.
 
-    A suitably constructed configuration file should mean this method never
-    needs to be called explicitly. As soon as the Shippo client is imported
-    it will attempt to search for and load a YAML configuration from the
-    following sequence of locations:
-
-    1. "./.shipporc"
-    2. "/path/to/home/.shipporc"
-    3. "/etc/shipporc"
-    4. "/path/to/lib/WebService/Shippo/Config.yml"
-
-    If no configuration could be found then it's up to the developer to
-    define one using the "config" method, or provide authentication details
-    using the "api_key" or "api_username_password" methods.
-
-    This method can be used to define a configuration for a Shippo client
-    session. The configuration is presented as a hash reference and
-    immediately defines session authentication parameters. Used this way,
-    the method is chainable.
-
-    When used as a getter, the method returns the current config.
-
-    Example
-            Shippo->config({
-                username      => 'martymcfly@pinheads.org',
-                password      => 'yadayada',
-                private_token => 'f0e1d2c3b4a5968778695a4b3c2d1e0f96877869',
-                public_token  => '96877869f0e1d2c3b4a5968778695a4b3c2d1e0f',
-                default_token => 'private_token'
-            });
-
-        They are not absolutely necessary, but "username" and "password"
-        will be required for Basic Authentication you don't intend to use
-        Shippo's preferred Token-based authentication. The "private_token"
-        and "public_token" fields are the Shippo Private and Publishable
-        Auth Tokens, which can be found on the Shippo API page
-        <https://goshippo.com/user/apikeys/>. The "default_token" determines
-        which of these will be used as the API key and defaults to the
-        Private Auth Token if undefined.
+    Whenever a configuration specifies both token and login credentials, the
+    client will always favour token-based authentication. If "api_key" and
+    "api_credentials" are both set manually then it is the most recently set
+    mechanism that defines the HTTP Authorization header.
 
   pretty
-        Shippo->pretty($boolean);
-        my $boolean = Shippo->pretty;
+    Get or set the state of the attribute influencing the default
+    readability of objects serialized as JSON using the "to_json" method or
+    automatic stringification.
 
-    Can be used to control whether or not JSON output is readable when
-    calling the "to_json" method on Shippo objects, or when those objects
-    are subject to string overloading. Used this way, the method is
-    chainable.
+    * Return the current state of the "pretty" attribute.
 
-    When used as a getter, the method returns the current setting.
+          my $boolean = Shippo->pretty;
+
+    * Set the state of the "pretty" attribute.
+
+          Shippo->pretty($boolean);
+
+    Note: the "to_json" method also takes optional boolean argument that may
+    be set to "true" or "false" to achieve the same effect for a single
+    serialization, regardless of the default currently in force.
 
   response
         my $last_response = Shippo->response;
@@ -386,6 +332,43 @@ EXPORTS
     available for use.
 
     See Params::Callbacks for more guidance.
+
+CONFIGURATION
+    While the client does provide "api_key" and "api_credentials" methods to
+    help with authentication, hard-coding such calls in anything more
+    mission critical than a simple test script may *not* be the best way to
+    go.
+
+    As soon as it is imported, one of the first things the client does is
+    search a number of locations for a YAML-encoded
+    <https://en.wikipedia.org/wiki/YAML> configuration file. The first one
+    it finds is loaded.
+
+    In order, the locations searched are as follows:
+
+    * "./.shipporc"
+
+    * "/*path*/*to*/*home*/.shipporc"
+
+    * "/*etc*/shipporc"
+
+    * "/*path*/*to*/*perl*/*module*/*install*/*lib*/WebService/Shippo/Config
+      .yml"
+
+    The configuration file is very simple and needs to have the following
+    structure, though not all elements are mandatory:
+
+        ---
+        username: martymcfly@pinheads.org
+        password: yadayada
+        private_token: f0e1d2c3b4a5968778695a4b3c2d1e0f96877869
+        public_token: 96877869f0e1d2c3b4a5968778695a4b3c2d1e0f
+        default_token: private_token
+
+    At a minimum, your configuration should define values for
+    "private_token" and "public_token". These are your Shippo Private and
+    Publishable Auth tokens, which are found on your Shippo API page
+    <https://goshippo.com/user/apikeys/>.
 
 FULL API DOCUMENTATION
     * For API documentation, go to <https://goshippo.com/docs/>

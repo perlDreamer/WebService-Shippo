@@ -343,9 +343,9 @@ stringification.
 
 =back
 
-B<Note>: when using the C<to_json> method, it takes optional argument that
-may be set to C<true> or C<false> to achieve the same effect only for that
-serialization regardless of the default currently in force.
+B<Note>: the C<to_json> method also takes optional boolean argument that
+may be set to C<true> or C<false> to achieve the same effect for a single
+serialization, regardless of the default currently in force.
  
 =head2 response
 
