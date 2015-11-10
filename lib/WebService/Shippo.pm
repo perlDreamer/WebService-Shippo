@@ -276,44 +276,6 @@ an object, you cannot change it. Instead, create a new one with the desired
 values. Carrier Accounts are the exception and may be updated via B<PUT>
 requests.
 
-=head1 CONFIGURATION
-
-While the client does provide C<api_key> and C<api_credentials> methods to
-help with authentication, hard-coding such calls in anything more mission 
-critical than a simple test script may I<not> be the best way to go.
-
-As soon as it is imported, one of the first things the client does is search
-a number of locations for a L<YAML-encoded|https://en.wikipedia.org/wiki/YAML>
-configuration file. The first one it finds is loaded.
-
-In order, the locations searched are as follows:
-
-=over 2
-
-=item * C<./.shipporc>
-
-=item * C</I<path>/I<to>/I<home>/.shipporc>
-
-=item * C</I<etc>/shipporc>
-
-=item * C</I<path>/I<to>/I<perl>/I<module>/I<install>/I<lib>/WebService/Shippo/Config.yml>
-
-=back
-
-The configuration file is very simple and needs to have the following
-structure, though not all elements are mandatory:
-
-    ---
-    username: martymcfly@pinheads.org
-    password: yadayada
-    private_token: f0e1d2c3b4a5968778695a4b3c2d1e0f96877869
-    public_token: 96877869f0e1d2c3b4a5968778695a4b3c2d1e0f
-    default_token: private_token
-
-At a minimum, your configuration should define values for C<private_token> and
-C<public_token>. These are your Shippo Private and Publishable Auth tokens,
-which are found on your L<Shippo API page|https://goshippo.com/user/apikeys/>.
-
 =head1 METHODS
 
 =head2 api_key
@@ -455,6 +417,44 @@ optional blocking callbacks in order to facilitate list transformations, so
 this package makes C<&Params::Callbacks::callback> available for use.
 
 See L<Params::Callbacks> for more guidance.
+
+=head1 CONFIGURATION
+
+While the client does provide C<api_key> and C<api_credentials> methods to
+help with authentication, hard-coding such calls in anything more mission 
+critical than a simple test script may I<not> be the best way to go.
+
+As soon as it is imported, one of the first things the client does is search
+a number of locations for a L<YAML-encoded|https://en.wikipedia.org/wiki/YAML>
+configuration file. The first one it finds is loaded.
+
+In order, the locations searched are as follows:
+
+=over 2
+
+=item * C<./.shipporc>
+
+=item * C</I<path>/I<to>/I<home>/.shipporc>
+
+=item * C</I<etc>/shipporc>
+
+=item * C</I<path>/I<to>/I<perl>/I<module>/I<install>/I<lib>/WebService/Shippo/Config.yml>
+
+=back
+
+The configuration file is very simple and needs to have the following
+structure, though not all elements are mandatory:
+
+    ---
+    username: martymcfly@pinheads.org
+    password: yadayada
+    private_token: f0e1d2c3b4a5968778695a4b3c2d1e0f96877869
+    public_token: 96877869f0e1d2c3b4a5968778695a4b3c2d1e0f
+    default_token: private_token
+
+At a minimum, your configuration should define values for C<private_token> and
+C<public_token>. These are your Shippo Private and Publishable Auth tokens,
+which are found on your L<Shippo API page|https://goshippo.com/user/apikeys/>.
 
 =head1 FULL API DOCUMENTATION
 
