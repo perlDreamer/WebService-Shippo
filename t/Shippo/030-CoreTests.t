@@ -107,14 +107,16 @@ my @objects_under_test = (
                 is( $object->id, $item->id, __TEST__ );
             },
             testRates => sub {
-                stash->{item}->get_shipping_rates(
+                my $rates = stash->{item}->get_shipping_rates(
                     stash->{item}->id,
                 );
+                ok( $rates->results, __TEST__ );
             },
             testRates => sub {
-                stash->{item}->get_shipping_rates(
+                my $rates = WebService::Shippo::Rate->get_shipping_rates(
                     stash->{item}->id, 'GBP',
                 );
+                ok( $rates->results, __TEST__ );
             },
         ],
     },
@@ -168,7 +170,7 @@ while ( @objects_under_test ) {
         testListPageSize => sub {
             return if grep { /^testListPageSize$/ } @skip_tests;
             my $page_size = 1;
-            my $list      = $class->all(results => $page_size, page => 1);
+            my $list = $class->all( results => $page_size, page => 1 );
             is( $list->page_size, $page_size, __TEST__ );
         },
         testFetch => sub {
