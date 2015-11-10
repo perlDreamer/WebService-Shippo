@@ -64,7 +64,7 @@ our @SEARCH_PATH = (
         Shippo::Resource->api_public_token( $config->{public_token} );
         Shippo::Resource->api_key( $api_key )
             if $api_key;
-        Shippo::Resourse->api_username_password( $user, $pass )
+        Shippo::Resourse->api_credentials( $user, $pass )
             if $user && !$api_key;
         bless $config, $class;
         return $invocant;

@@ -22,7 +22,7 @@ sub import
     # Configure Shippo client on import
     WebService::Shippo::Config->config;
     # The API key is overridden with the environment's value if defined.
-    WebService::Shippo::Resource->api_username_password(
+    WebService::Shippo::Resource->api_credentials(
         @ENV{ 'SHIPPO_USER', 'SHIPPO_PASS' } )
         if $ENV{SHIPPO_USER} && !$ENV{SHIPPO_TOKEN};
     WebService::Shippo::Resource->api_key( $ENV{SHIPPO_TOKEN} )
@@ -35,14 +35,11 @@ BEGIN {
     no warnings 'once';
     # There are some useful symbols defined elsewhere that I'd like to
     # make available (alias) via the root namespace.
-    *api_key               = *WebService::Shippo::Resource::api_key;
-    *api_username_password = *WebService::Shippo::Resource::api_username_password;
-    *config                = *WebService::Shippo::Config::config;
-    *pretty                = *WebService::Shippo::Object::pretty;
-    *response              = *WebService::Shippo::Request::response;
-    # Forcing the dev to always use CPAN's perferred "WebService::Shippo"
-    # namespace is just cruel; allow the use of "Shippo", too.
-    *Shippo:: = *WebService::Shippo::;
+    *api_key         = *WebService::Shippo::Resource::api_key;
+    *api_credentials = *WebService::Shippo::Resource::api_credentials;
+    *pretty          = *WebService::Shippo::Object::pretty;
+    *response        = *WebService::Shippo::Request::response;
+    *Shippo::        = *WebService::Shippo::;
 }
 
 1;
@@ -190,7 +187,15 @@ The sample code in this synopsis produced the following label (at a much
 larger size, of course), which was then saved as a PNG file using the
 C<LWP::UserAgent> package:
 
-=for HTML <p style="padding-left:4em;"><img src="https://github.com/cpanic/WebService-Shippo/wiki/images/sample.png" height="432" width="288" /></p>
+=begin HTML
+
+<p style="padding-left:4em;">
+<a target="_blank" href="https://raw.githubusercontent.com/wiki/cpanic/WebService-Shippo/images/sample.png">
+<img src="https://raw.githubusercontent.com/wiki/cpanic/WebService-Shippo/images/sample.png" height="432" width="288" alt="https://raw.githubusercontent.com/wiki/cpanic/WebService-Shippo/images/sample.png" />
+</a>
+</p>
+
+=end HTML
 
 =head1 DESCRIPTION
 
@@ -199,19 +204,13 @@ for example) through one interface, offering you great discounts on a
 selection of shipping rates. You can sign-up for an account at 
 L<https://goshippo.com/>.
 
-Though Shippo I<do> offer official API clients for a bevy of major languages, 
-the venerable Perl 5 was not included in that list. This community offering 
-attempts to correct that omission ;-)
-
-=head1 OVERVIEW
-
 The Shippo API can be used to automate and customize shipping capabilities
 for your e-commerce store or marketplace, enabling you to retrieve shipping 
 rates, create and purchase shipping labels, track packages, and much more.
 
-This client complements Shippo's official Open Source client libraries by
-helping to make Shippo API integration easier in ecosystems built around
-Perl.
+Though Shippo I<do> offer official API clients for a bevy of major languages, 
+the venerable Perl 5 was not included in that list. This community offering 
+attempts to correct that omission ;-)
 
 =head2 API Resources
 
@@ -271,142 +270,121 @@ list objects, and B<PUT> requests to update objects. The Perl client provides
 C<create>, C<fetch>, C<all> and C<update> methods for use with resource
 objects that permit such operations.
 
-
 Addresses, Parcels, Shipments, Rates, Transactions, Refunds, Customs Items and
 Customs Declarations are disposable objects. This means that once you create
 an object, you cannot change it. Instead, create a new one with the desired
 values. Carrier Accounts are the exception and may be updated via B<PUT>
 requests.
 
+=head1 CONFIGURATION
+
+While the client does provide C<api_key> and C<api_credentials> methods to
+help with authentication, hard-coding such calls in anything more mission 
+critical than a simple test script may I<not> be the best way to go.
+
+As soon as it is imported, one of the first things the client does is search
+a number of locations for a L<YAML-encoded|https://en.wikipedia.org/wiki/YAML>
+configuration file. The first one it finds is loaded.
+
+In order, the locations searched are as follows:
+
+=over 2
+
+=item * C<./.shipporc>
+
+=item * C</I<path>/I<to>/I<home>/.shipporc>
+
+=item * C</I<etc>/shipporc>
+
+=item * C</I<path>/I<to>/I<perl>/I<module>/I<install>/I<lib>/WebService/Shippo/Config.yml>
+
+=back
+
+The configuration file is very simple and needs to have the following
+structure, though not all elements are mandatory:
+
+    ---
+    username: martymcfly@pinheads.org
+    password: yadayada
+    private_token: f0e1d2c3b4a5968778695a4b3c2d1e0f96877869
+    public_token: 96877869f0e1d2c3b4a5968778695a4b3c2d1e0f
+    default_token: private_token
+
+At a minimum, your configuration should define values for C<private_token> and
+C<public_token>. These are your Shippo Private and Publishable Auth tokens,
+which are found on your L<Shippo API page|https://goshippo.com/user/apikeys/>.
+
 =head1 METHODS
 
 =head2 api_key
 
-    Shippo->api_key($auth_token);
+Get or set the key used by API requests for Shippo's token-based
+authentication. This is Shippo's preferred method of authentication.
+
+=over 2
+
+=item * Return the token currently being used for authentication.
+
     my $api_key = Shippo->api_key;
 
-A suitably constructed configuration file should mean this method never needs
-to be called explicitly. As soon as the Shippo client is imported it will
-attempt to search for and load a YAML configuration from the following sequence
-of locations:
+=item * Set the token to be used for authentication.
+    
+    Shippo->api_key($auth_token);
+
+The C<api_key> method is chainable when used as a setter.
+
+=back
+
+=head2 api_credentials
+
+Get or set the login credentials used by API requests for Shippo's legacy
+authentication. Legacy authentication means encoding the HTTP Authorization
+header for Basic Authentication so, even though requests and repsonses are
+encrypted, you should still consider using the token-based authentication
+instead (see C<api_key>). 
 
 =over 2
 
-=item 1. C<./.shipporc>
+=item * Return the login credentials currently being used for authentication.
 
-=item 2. C</path/to/home/.shipporc>
+    my ($username, $password) = Shippo->api_credentials;
 
-=item 3. C</etc/shipporc>
+=item * Set the credentials to be used for authentication.
 
-=item 4. C</path/to/lib/WebService/Shippo/Config.yml>
+    Shippo->api_credentials($username, $password);
 
-=back
-
-This method is used to set the token used for Shippo's Token-based
-authentication. It ensures that a properly encoded C<Authorizatio: ShippoToken ...>
-header accompanies all API requests. Used as a setter, this method is chainable.
-
-Used as a getter, the method returns the token currently being used for
-authentication.
-
-=head2 api_username_password
-
-    Shippo->api_username_password($username, $password);
-    my ($username, $password) = Shippo->api_username_password;
-
-A suitably constructed configuration file should mean this method never needs
-to be called explicitly. As soon as the Shippo client is imported it will
-attempt to search for and load a YAML configuration from the following sequence
-of locations:
-
-=over 2
-
-=item 1. C<./.shipporc>
-
-=item 2. C</path/to/home/.shipporc>
-
-=item 3. C</etc/shipporc>
-
-=item 4. C</path/to/lib/WebService/Shippo/Config.yml>
+The C<api_credentials> method is chainable when used as a setter.
 
 =back
 
-Shippo's preferred authentication mechanism is based upon a Token or API key.
-
-The Perl client supports Shippo's legacy mechanism, which is based upon
-HTTP basic authentication. Use this method to force the client to use the
-legacy mechanism. It will ensure that a correctly encoded C<Authorization: Basic ...>
-header accompanies all API requests. Used as a setter, this method is chainable.
-
-Used as a getter, the method can be used to retrieve the current values of 
-the username and password.
-
-=head2 config
-
-    Shippo->config(\%configuration);
-    my $config_hash = Shippo->config;
-
-A suitably constructed configuration file should mean this method never needs
-to be called explicitly. As soon as the Shippo client is imported it will
-attempt to search for and load a YAML configuration from the following sequence
-of locations:
-
-=over 2
-
-=item 1. C<./.shipporc>
-
-=item 2. C</path/to/home/.shipporc>
-
-=item 3. C</etc/shipporc>
-
-=item 4. C</path/to/lib/WebService/Shippo/Config.yml>
-
-=back
-
-If no configuration could be found then it's up to the developer to define
-one using the C<config> method, or provide authentication details using the
-C<api_key> or C<api_username_password> methods.
- 
-This method can be used to define a configuration for a Shippo client
-session. The configuration is presented as a hash reference and immediately
-defines session authentication parameters. Used this way, the method is
-chainable.
-
-When used as a getter, the method returns the current config.
-
-=over
-
-=item B<Example>
-
-    Shippo->config({
-        username      => 'martymcfly@pinheads.org',
-        password      => 'yadayada',
-        private_token => 'f0e1d2c3b4a5968778695a4b3c2d1e0f96877869',
-        public_token  => '96877869f0e1d2c3b4a5968778695a4b3c2d1e0f',
-        default_token => 'private_token'
-    });
-
-They are not absolutely necessary, but C<username> and C<password> will be
-required for Basic Authentication you don't intend to use Shippo's preferred
-Token-based authentication. The C<private_token> and C<public_token> fields
-are the Shippo Private and Publishable Auth Tokens, which can be found on the
-L<Shippo API page|https://goshippo.com/user/apikeys/>. The C<default_token>
-determines which of these will be used as the API key and defaults to the
-Private Auth Token if undefined.
-
-=back
+Whenever a configuration specifies both token and login credentials, the
+client will always favour token-based authentication. If C<api_key> and
+C<api_credentials> are both set manually then it is the most recently
+set mechanism that defines the HTTP Authorization header.
 
 =head2 pretty
 
-    Shippo->pretty($boolean);
+Get or set the state of the attribute influencing the default readability
+of objects serialized as JSON using the C<to_json> method or automatic
+stringification.
+
+=over 2
+
+=item * Return the current state of the C<pretty> attribute.
+ 
+
     my $boolean = Shippo->pretty;
 
-Can be used to control whether or not JSON output is readable when calling
-the C<to_json> method on Shippo objects, or when those objects are subject
-to string overloading. Used this way, the method is chainable.
+=item * Set the state of the C<pretty> attribute.
 
-When used as a getter, the method returns the current setting.
+    Shippo->pretty($boolean);
 
+=back
+
+B<Note>: when using the C<to_json> method, it takes optional argument that
+may be set to C<true> or C<false> to achieve the same effect only for that
+serialization regardless of the default currently in force.
+ 
 =head2 response
 
     my $last_response = Shippo->response;

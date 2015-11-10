@@ -53,7 +53,7 @@ use constant DEFAULT_API_VERSION => 'v1';
 {
     my @value = ();
 
-    sub api_username_password
+    sub api_credentials
     {
         my ( $class, $user, $pass ) = @_;
         return @value unless @_ > 1;
