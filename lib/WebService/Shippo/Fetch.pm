@@ -22,12 +22,8 @@ sub all
     my $params = ref( $params[0] ) ? $params[0] : {@params};
     my $class = $invocant->item_class;
     my $response;
-    unless ( $params->{results} ) {
-        $response = WebService::Shippo::Request->get( $class->url, results => 1 );
-        $params->{results} = $class->construct_from( $response )->count;
-        $params->{results} = 3
-            unless $params->{results};
-    }
+    $params->{results} = 200
+        unless $params->{results};
     $response = WebService::Shippo::Request->get( $class->url, $params );
     return $class->construct_from( $response, $callbacks );
 }
@@ -38,7 +34,7 @@ sub iterate
     @params = ( {} )
         unless @params;
     my $params = ref( $params[0] ) ? $params[0] : {@params};
-    $params->{results} = 5
+    $params->{results} = 200
         unless $params->{results};
     my $collection = $invocant->all( $params );
     my $index      = 0;
