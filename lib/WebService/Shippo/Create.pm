@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use MRO::Compat 'c3';
 
-package WebService::Shippo::Creator;
+package WebService::Shippo::Create;
 require WebService::Shippo::Request;
 use Params::Callbacks ( 'callbacks' );
 
