@@ -187,15 +187,11 @@ The sample code in this synopsis produced the following label (at a much
 larger size, of course), which was then saved as a PNG file using the
 C<LWP::UserAgent> package:
 
-=begin HTML
+=over 2
 
-<p style="padding-left:4em;">
-<a target="_blank" href="https://raw.githubusercontent.com/wiki/cpanic/WebService-Shippo/images/sample.png">
-<img src="https://raw.githubusercontent.com/wiki/cpanic/WebService-Shippo/images/sample.png" height="432" width="288" alt="https://raw.githubusercontent.com/wiki/cpanic/WebService-Shippo/images/sample.png" />
-</a>
-</p>
+=item * L<https://github.com/cpanic/WebService-Shippo/blob/master/sample.png>
 
-=end HTML
+=back
 
 =head1 DESCRIPTION
 
@@ -220,27 +216,27 @@ API endpoint (https://api.goshippo.com/v1/).
 There are resource item classes to help with the nitty-gritty of interacting
 each type of resource:
 
-=over
+=over 2
 
-=item * Addresses (C<L<WebService::Shippo::Address>>)
+=item * Addresses
 
-=item * Parcels (C<L<WebService::Shippo::Parcel>>)
+=item * Parcels
 
-=item * Shipments (C<L<WebService::Shippo::Shipment>>)
+=item * Shipments
 
-=item * Rates (C<L<WebService::Shippo::Rate>>)
+=item * Rates
 
-=item * Transactions (C<L<WebService::Shippo::Transaction>>)
+=item * Transactions
 
-=item * Customs Items (C<L<WebService::Shippo::CustomsItem>>)
+=item * Customs Items
 
-=item * Customs Declarations (C<L<WebService::Shippo::CustomsDeclaration>>)
+=item * Customs Declarations
 
-=item * Refunds (C<L<WebService::Shippo::Refund>>)
+=item * Refunds
 
-=item * Manifests (C<L<WebService::Shippo::Manifest>>)
+=item * Manifests
 
-=item * Carrier Accounts (C<L<WebService::Shippo::CarrierAccount>>)
+=item * Carrier Accounts
 
 =back
 
@@ -464,6 +460,60 @@ which are found on your L<Shippo API page|https://goshippo.com/user/apikeys/>.
 
 =item * For API support, contact L<mailto:support@goshippo.com> with any 
 questions.
+
+=back
+
+=head1 SEE ALSO
+
+=head2 Shippo Objects
+
+=over 2
+
+=item * L<WebService::Shippo::Address>
+
+=item * L<WebService::Shippo::Parcel>
+
+=item * L<WebService::Shippo::Shipment>
+
+=item * L<WebService::Shippo::Rate>
+
+=item * L<WebService::Shippo::Transaction>
+
+=item * L<WebService::Shippo::CustomsItem>
+
+=item * L<WebService::Shippo::CustomsDeclaration>
+
+=item * L<WebService::Shippo::Refund>
+
+=item * L<WebService::Shippo::Manifest>
+
+=item * L<WebService::Shippo::CarrierAccount>
+
+=back
+
+=head2 Shippo Collections
+
+=over 2
+
+=item * L<WebService::Shippo::Addresses>
+
+=item * L<WebService::Shippo::Parcels>
+
+=item * L<WebService::Shippo::Shipments>
+
+=item * L<WebService::Shippo::Rates>
+
+=item * L<WebService::Shippo::Transactions>
+
+=item * L<WebService::Shippo::CustomsItems>
+
+=item * L<WebService::Shippo::CustomsDeclarations>
+
+=item * L<WebService::Shippo::Refunds>
+
+=item * L<WebService::Shippo::Manifests>
+
+=item * L<WebService::Shippo::CarrierAccounts>
 
 =back
 
