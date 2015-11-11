@@ -134,16 +134,11 @@ sub is_same_object
 }
 
 {
-    my $json  = JSON::XS->new->utf8->canonical->convert_blessed->allow_blessed->pretty;
+    my $json  = JSON::XS->new->utf8->canonical->convert_blessed->allow_blessed->pretty(1);
 
-    # Also, serializes the object to a JSON string. This method will be
-    # called whenever the object is treated as a string, courtesy of the
-    # overload at the top of this module.
     sub to_string
     {
-        my ( $data, $pretty ) = @_;
-        $json->pretty( $pretty || pretty );
-        return $json->encode( $data );
+        return $json->encode( $_[0] );
     }
 }
 
