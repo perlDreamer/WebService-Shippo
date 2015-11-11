@@ -9,8 +9,9 @@ use Params::Callbacks ( 'callbacks' );
 sub update
 {
     my ( $callbacks, $invocant, $id, @params ) = &callbacks;
-    my $response = Shippo::Request->put( $invocant->url( $id ), @params );
-    return $invocant->item_class->construct_from( $response, $callbacks );
+    my $class = $invocant->item_class;
+    my $response = Shippo::Request->put( $class->url( $id ), @params );
+    return $class->construct_from( $response, $callbacks );
 }
 
 BEGIN {

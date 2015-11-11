@@ -9,8 +9,9 @@ use Params::Callbacks ( 'callbacks' );
 sub fetch
 {
     my ( $callbacks, $invocant, $id, @params ) = &callbacks;
-    my $response = Shippo::Request->get( $invocant->url( $id ), @params );
-    return $invocant->item_class->construct_from( $response, $callbacks );
+    my $class = $invocant->item_class;
+    my $response = Shippo::Request->get( $class->url( $id ), @params );
+    return $class->construct_from( $response, $callbacks );
 }
 
 sub all
@@ -19,15 +20,16 @@ sub all
     @params = ( {} )
         unless @params;
     my $params = ref( $params[0] ) ? $params[0] : {@params};
+    my $class = $invocant->item_class;
     my $response;
     unless ( $params->{results} ) {
-        $response = WebService::Shippo::Request->get( $invocant->url, results => 1 );
-        $params->{results} = $invocant->construct_from( $response )->count;
+        $response = WebService::Shippo::Request->get( $class->url, results => 1 );
+        $params->{results} = $class->construct_from( $response )->count;
         $params->{results} = 3
             unless $params->{results};
     }
-    $response = WebService::Shippo::Request->get( $invocant->url, $params );
-    return $invocant->item_class->construct_from( $response, $callbacks );
+    $response = WebService::Shippo::Request->get( $class->url, $params );
+    return $class->construct_from( $response, $callbacks );
 }
 
 sub iterate
