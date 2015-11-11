@@ -7,8 +7,8 @@ use Carp         ( 'confess' );
 use Scalar::Util ( 'blessed' );
 use base qw(
     WebService::Shippo::Resource
-    WebService::Shippo::Creator
-    WebService::Shippo::Fetcher
+    WebService::Shippo::Create
+    WebService::Shippo::Fetch
     WebService::Shippo::Async
 );
 

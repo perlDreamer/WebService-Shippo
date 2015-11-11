@@ -6,8 +6,8 @@ package WebService::Shippo::Parcels;
 require WebService::Shippo::Parcel;
 use base qw(
     WebService::Shippo::Collection
-    WebService::Shippo::Creator
-    WebService::Shippo::Fetcher
+    WebService::Shippo::Create
+    WebService::Shippo::Fetch
 );
 
 sub item_class () { 'WebService::Shippo::Parcel' }

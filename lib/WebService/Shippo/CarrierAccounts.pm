@@ -6,9 +6,9 @@ package WebService::Shippo::CarrierAccounts;
 require WebService::Shippo::CarrierAccount;
 use base qw(
     WebService::Shippo::Collection
-    WebService::Shippo::Creator
-    WebService::Shippo::Fetcher
-    WebService::Shippo::Updater
+    WebService::Shippo::Create
+    WebService::Shippo::Fetch
+    WebService::Shippo::Update
 );
 
 sub item_class () { 'WebService::Shippo::CarrierAccount' }

@@ -5,8 +5,8 @@ use MRO::Compat 'c3';
 package WebService::Shippo::Refund;
 use base qw(
     WebService::Shippo::Resource
-    WebService::Shippo::Creator
-    WebService::Shippo::Fetcher
+    WebService::Shippo::Create
+    WebService::Shippo::Fetch
     WebService::Shippo::Async
 );
 

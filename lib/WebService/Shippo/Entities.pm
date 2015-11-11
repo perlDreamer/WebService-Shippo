@@ -6,7 +6,6 @@ require WebService::Shippo::Object;
 require WebService::Shippo::Collection;
 require WebService::Shippo::Resource;
 require WebService::Shippo::Addresses;
-require WebService::Shippo::Config;
 require WebService::Shippo::CarrierAccounts;
 require WebService::Shippo::CustomsDeclarations;
 require WebService::Shippo::CustomsItems;
@@ -16,5 +15,6 @@ require WebService::Shippo::Rates;
 require WebService::Shippo::Refunds;
 require WebService::Shippo::Shipments;
 require WebService::Shippo::Transactions;
+require WebService::Shippo::Config;
 
 1;

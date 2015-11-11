@@ -6,7 +6,7 @@ package WebService::Shippo::Rate;
 require WebService::Shippo::Shipment;
 use base qw(
     WebService::Shippo::Resource
-    WebService::Shippo::Fetcher
+    WebService::Shippo::Fetch
 );
 
 sub api_resource () { 'rates' }

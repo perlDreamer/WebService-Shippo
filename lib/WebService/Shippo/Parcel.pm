@@ -5,8 +5,8 @@ use MRO::Compat 'c3';
 package WebService::Shippo::Parcel;
 use base qw(
     WebService::Shippo::Resource
-    WebService::Shippo::Creator
-    WebService::Shippo::Fetcher
+    WebService::Shippo::Create
+    WebService::Shippo::Fetch
 );
 
 sub api_resource ()     { 'parcels' }
