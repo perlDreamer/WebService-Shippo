@@ -2,6 +2,13 @@ Revision history for WebService-Shippo
  
 {{$NEXT}}
 
+0.0.19    2015-11-12 01:45:32+00:00 Europe/London
+    - Didn't run tests before releasing 0.0.18 to CPAN.
+    - Should have run tests before releasing 0.0.18 to CPAN.
+    - Travis you're the best!
+    - Clear out debug from tests causing one failure and fix a 
+      serialization bug in another test.
+    - Once more, with feeling...
 0.0.18    2015-11-12 01:32:55+00:00 Europe/London
     - Some work on the iterator
     - A new collector added, which uses the iterator to gather matches

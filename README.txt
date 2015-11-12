@@ -6,7 +6,7 @@ NAME
     WebService::Shippo - Shippo API Client
 
 VERSION
-    version 0.0.18
+    version 0.0.19
 
 SYNOPIS
     Note: though scripts and modules must always "use WebService::Shippo;"
