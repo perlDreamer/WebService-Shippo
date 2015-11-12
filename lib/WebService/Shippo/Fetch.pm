@@ -51,33 +51,21 @@ sub iterator
         return @results if wantarray;
         return \@results;
     };
-    return bless( $iterator, $invocant->collection_class . '::Iterator' );
+    return $iterator;
 }
 
 sub collector
 {
-    my ( $callbacks, $invocant, @params ) = &callbacks;
-    @params = ( {} )
-        unless @params;
-    my $params = ref( $params[0] ) ? $params[0] : {@params};
-    $params->{results} = 200
-        unless $params->{results};
-    my $collection = $invocant->all( $params );
-    my $index      = 0;
-    my $collector  = sub {
+    my $iterator = &iterator;
+    my $collector = sub {
         my @results;
-        while ( $collection ) {
-            if ( $index == @{ $collection->results } ) {
-                $collection = $collection->next_page;
-                last unless $collection;
-                $index = 0;
-            }
-            push @results, $callbacks->transform( $collection->{results}[ $index++ ] );
+        while ( my @list = $iterator->() ) {
+            push @results, @list;
         }
         return @results if wantarray;
         return \@results;
     };
-    return bless( $collector, $invocant->collection_class . '::Collector' );
+    return $collector;
 }
 
 BEGIN {
