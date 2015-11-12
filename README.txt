@@ -138,6 +138,8 @@ SYNOPIS
     larger size, of course), which was then saved as a PNG file using the
     "LWP::UserAgent" package:
 
+    * <https://github.com/cpanic/WebService-Shippo/blob/master/sample.png>
+
 DESCRIPTION
     Shippo connects you with multiple shipping providers (USPS, UPS and
     Fedex, for example) through one interface, offering you great discounts
@@ -160,25 +162,25 @@ DESCRIPTION
     There are resource item classes to help with the nitty-gritty of
     interacting each type of resource:
 
-    *   Addresses ("WebService::Shippo::Address")
+    * Addresses
 
-    *   Parcels ("WebService::Shippo::Parcel")
+    * Parcels
 
-    *   Shipments ("WebService::Shippo::Shipment")
+    * Shipments
 
-    *   Rates ("WebService::Shippo::Rate")
+    * Rates
 
-    *   Transactions ("WebService::Shippo::Transaction")
+    * Transactions
 
-    *   Customs Items ("WebService::Shippo::CustomsItem")
+    * Customs Items
 
-    *   Customs Declarations ("WebService::Shippo::CustomsDeclaration")
+    * Customs Declarations
 
-    *   Refunds ("WebService::Shippo::Refund")
+    * Refunds
 
-    *   Manifests ("WebService::Shippo::Manifest")
+    * Manifests
 
-    *   Carrier Accounts ("WebService::Shippo::CarrierAccount")
+    * Carrier Accounts
 
     Each item class has a related collection class with a similar name *in
     the plural form*. The rationale behind this is that the Shippo API can
@@ -375,6 +377,49 @@ FULL API DOCUMENTATION
 
     * For API support, contact <mailto:support@goshippo.com> with any
       questions.
+
+SEE ALSO
+  Shippo Objects
+    * WebService::Shippo::Address
+
+    * WebService::Shippo::Parcel
+
+    * WebService::Shippo::Shipment
+
+    * WebService::Shippo::Rate
+
+    * WebService::Shippo::Transaction
+
+    * WebService::Shippo::CustomsItem
+
+    * WebService::Shippo::CustomsDeclaration
+
+    * WebService::Shippo::Refund
+
+    * WebService::Shippo::Manifest
+
+    * WebService::Shippo::CarrierAccount
+
+  Shippo Collections
+    * WebService::Shippo::Addresses
+
+    * WebService::Shippo::Parcels
+
+    * WebService::Shippo::Shipments
+
+    * WebService::Shippo::Rates
+
+    * WebService::Shippo::Transactions
+
+    * WebService::Shippo::CustomsItems
+
+    * WebService::Shippo::CustomsDeclarations
+
+    * WebService::Shippo::Refunds
+
+    * WebService::Shippo::Manifests
+
+    * WebService::Shippo::CarrierAccounts
 
 REPOSITORY
     * <https://github.com/cpanic/WebService-Shippo>

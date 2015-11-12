@@ -17,7 +17,7 @@ documented and should therefore be considered a work in progress.**
 
 ### Version
 
-* 0.0.17 (2015-11-10) on CPAN
+* 0.0.18 (2015-11-12) on CPAN
 
 ### Requirements
 
@@ -43,7 +43,6 @@ Build tests have been conducted successfully on all later versions of Perl.
 <tt>JSON::XS</tt><br/>
 <tt>LWP</tt><br/>
 <tt>LWP::Protocol::https</tt><br/>
-<tt>Locale::Codes</tt><br/>
 <tt>MRO::Compat</tt><br/>
 <tt>Params::Callbacks</tt><br/>
 <tt>Path::Class</tt><br/>

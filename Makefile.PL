@@ -16,7 +16,8 @@ my %WriteMakefileArgs = (
   "EXE_FILES" => [
     "bin/create_address.pl",
     "bin/create_shipping_label.pl",
-    "bin/int_shipping_label.pl"
+    "bin/int_shipping_label.pl",
+    "bin/synopses/addresses.pl"
   ],
   "LICENSE" => "perl",
   "MIN_PERL_VERSION" => "5.008008",
