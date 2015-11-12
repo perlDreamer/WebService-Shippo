@@ -55,17 +55,6 @@ WebService::Shippo::Address - Address class
 
 =head1 SYNOPIS
 
-B<Note>: though scripts and modules must always C<use WebService::Shippo;>
-to import the client software, the C<WebService::> portion of that package
-namespace may be dropped when subsequently referring to the main package
-or any of its resource classes. For example, C<WebService::Shippo::Address>
-and C<Shippo::Address> refer to the same class. 
-
-To compel the developer to continue using the C<WebService::> prefix does
-seem like an unreasonable form of torture, besides which, it probably
-doesn't leave much scope for indenting code as some class names would be
-very long. Use it, or don't use it. It's entirely up to you.
-
     use WebService::Shippo;
     
     # If your client doesn't use a configuration file and you haven't set the
@@ -116,7 +105,7 @@ very long. Use it, or don't use it. It's entirely up to you.
     # fib. The maximum size for any cursor is 200 items, so the "all"
     # method will return a collection containing 200 or fewer objects.
     
-    $collection = Shippo::Addresses->all;
+    $collection = Shippo::Address->all;
     for $address ( $collection->results ) {
         print $address;
     }
@@ -125,7 +114,7 @@ very long. Use it, or don't use it. It's entirely up to you.
     # the "all" with the "next_page" methods. This example lists only the
     # addresses that were validated and used for a transaction.
     
-    $collection = Shippo::Addresses->all;
+    $collection = Shippo::Address->all;
     while ( $collection ) {
         for $address ( $collection->results ) {
             next unless $address->object_source  eq 'VALIDATOR'
@@ -140,7 +129,7 @@ very long. Use it, or don't use it. It's entirely up to you.
     # use a single loop and a simple iterator. Again, we place the
     # filter code inside the loop, which does the job well enough.
     
-    $next_address = Shippo::Addresses->iterate();
+    $next_address = Shippo::Address->iterate();
     while ( my ( $address ) = $next_address->() ) {
         next unless $address->object_source  eq 'VALIDATOR'
                  && $address->object_state   eq 'VALID';
@@ -154,7 +143,7 @@ very long. Use it, or don't use it. It's entirely up to you.
     # this case the lambda sequence could be expressed as a single callback,
     # but has been presented as a sequence for illustrative purposes.
     
-    my $next_validated_purchase_address = Shippo::Addresses->iterate(
+    my $next_validated_purchase_address = Shippo::Address->iterate(
         callback {
             return unless $_[0]->object_source  eq 'VALIDATOR'
                        && $_[0]->object_state   eq 'VALID';
@@ -176,7 +165,7 @@ very long. Use it, or don't use it. It's entirely up to you.
     # lambda functions called by the collector. Suitable objects pass
     # through the filter while others are discarded.
     
-    my $all_validated_purchase_addresses = Shippo::Addresses->collect(
+    my $all_validated_purchase_addresses = Shippo::Address->collect(
         callback {
             return unless $_[0]->object_source  eq 'VALIDATOR'
                        && $_[0]->object_state   eq 'VALID'
@@ -234,6 +223,5 @@ This software is copyright (c) 2015 by Iain Campbell.
 You may distribute this software under the terms of either the GNU General
 Public License or the Artistic License, as specified in the Perl README
 file.
-
 
 =cut

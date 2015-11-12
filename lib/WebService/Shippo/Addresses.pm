@@ -31,35 +31,171 @@ WebService::Shippo::Addresses - Address collection class
 
 =head1 SYNOPIS
 
-
-B<Note>: though scripts and modules must always C<use WebService::Shippo;>
-to import the client software, the C<WebService::> portion of that package
-namespace may be dropped when subsequently referring to the main package
-or any of its resource classes. For example, C<WebService::Shippo::Address>
-and C<Shippo::Address> refer to the same class. 
-
-To compel the developer to continue using the C<WebService::> prefix does
-seem like an unreasonable form of torture, besides which, it probably
-doesn't leave much scope for indenting code as some class names would be
-very long. Use it, or don't use it. It's entirely up to you.
-
     use WebService::Shippo;
     
     # If your client doesn't use a configuration file and you haven't set the
     # SHIPPO_TOKEN environment variable, you should provide authentication
-    # details below:
-    #
+    # details below.
+
     Shippo->api_key( 'PASTE YOUR PRIVATE AUTH TOKEN HERE' )
         unless Shippo->api_key;
+    
+    # Create a new address object.
+    
+    $address = Shippo::Addresses->create(
+        object_purpose => 'PURCHASE',
+        name           => 'John Smith',
+        street1        => '6512 Greene Rd.',
+        street2        => '',
+        company        => 'Initech',
+        phone          => '+1 234 346 7333',
+        city           => 'Woodridge',
+        state          => 'IL',
+        zip            => '60517',
+        country        => 'US',
+        email          => 'user@gmail.com',
+        metadata       => 'Customer ID 123456'
+    );
+    
+    # Serialize the address object as JSON.
+    
+    print $address->to_json;        # Not Pretty
+    print $address->to_string;      # Pretty
+    print $address;                 # Pretty and automatically stringified
+
+    # Fetch an address object using its object_id.
+    
+    $object_id = $address->object_id;
+    $address   = Shippo::Addresses->fetch($object_id);
+
+    # Validate an address object (returns a new validated address object).
+       
+    $address = $address->validate;
+
+    # Validate an address object using its object_id.
+    
+    $address = Shippo::Addresses->validate($object_id);
+    
+    # Get all my address objects. Particularly with a collection as
+    # potentially large as for addresses, "all" is actually a bit of a
+    # fib. The maximum size for any cursor is 200 items, so the "all"
+    # method will return a collection containing 200 or fewer objects.
+    
+    $collection = Shippo::Addresses->all;
+    for $address ( $collection->results ) {
+        print $address;
+    }
+    
+    # To cover the entire collection, you could use two loops and combine
+    # the "all" with the "next_page" methods. This example lists only the
+    # addresses that were validated and used for a transaction.
     
     $collection = Shippo::Addresses->all;
     while ( $collection ) {
         for $address ( $collection->results ) {
-            print "$address->{object_id}\n";
+            next unless $address->object_source  eq 'VALIDATOR'
+                     && $address->object_state   eq 'VALID';
+            next unless $address->object_purpose eq 'PURCHASE';
+            print $address;
         }
         $collection = $collection->next_page;
     }
+    
+    # Or, you can dispense with the potentially ugly pagination and
+    # use a single loop and a simple iterator. Again, we place the
+    # filter code inside the loop, which does the job well enough.
+    
+    $next_address = Shippo::Addresses->iterate();
+    while ( my ( $address ) = $next_address->() ) {
+        next unless $address->object_source  eq 'VALIDATOR'
+                 && $address->object_state   eq 'VALID';
+        next unless $address->object_purpose eq 'PURCHASE';
+        print $address;
+    }
+    
+    # Or, single loop again with a named and specialised iterator. The filter
+    # code is a sequence of lambda functions called by the iterator. Suitable
+    # objects pass through the filter sequence while others are discarded. In
+    # this case the lambda sequence could be expressed as a single callback,
+    # but has been presented as a sequence for illustrative purposes.
+    
+    my $next_validated_purchase_address = Shippo::Addresses->iterate(
+        callback {
+            return unless $_[0]->object_source  eq 'VALIDATOR'
+                       && $_[0]->object_state   eq 'VALID';
+            return $_[0];
+        } 
+        callback {
+            return unless $_[0]->object_purpose eq 'PURCHASE';
+            return $_[0];
+        }
+    );
+    
+    while ( my ( $address ) = $next_validated_purchase_address->() ) {
+        print $address;
+    }
 
+    # Or, single loop again with a named and specialised collector. The
+    # collector uses an iterator to gather the result set, returning the
+    # entire set once it is complete. The filter code is a sequence of
+    # lambda functions called by the collector. Suitable objects pass
+    # through the filter while others are discarded.
+    
+    my $all_validated_purchase_addresses = Shippo::Addresses->collect(
+        callback {
+            return unless $_[0]->object_source  eq 'VALIDATOR'
+                       && $_[0]->object_state   eq 'VALID'
+                       && $_[0]->object_purpose eq 'PURCHASE';
+            return $_[0];
+        } 
+    );
+
+    for my $address ( $all_validated_purchase_addresses->() ) {
+        print $address;
+    }
+    
+    # Check to see how big the entire collection is. 
+    
+    $size = Shippo::Addresses->count;       # Or, load a collection
+    $collection = Shippo::Addresses->all;   # Then check
+    $size = $collection->count;
+    
+    # Check to see how many items in this page of results (usually
+    # there's a maximum of 200). 
+    
+    $collection = Shippo::Addresses->all; 
+    $size = $collection->page_size;
+    
+    # Get all of the items in this page of results.
+    
+    $collection = Shippo::Addresses->all; 
+    @items = $collection->items;    # Array
+    $items = $collection->items;    # Array reference
+    
+    # Get an item at a position (1-based).
+    
+    $collection = Shippo::Addresses->all; 
+    $items = $collection->item(1); 
+    
+    # Get an item at an index (0-based).
+    
+    $collection = Shippo::Addresses->all; 
+    $items = $collection->item_at_index(0); 
+    
+    # Get a specific page of results
+    
+    $collection = Shippo::Addresses->all( results => 100, page => 20 ); 
+
+    # Get a specific page of results and all subsequent pages
+    
+    $collection = Shippo::Addresses->all( results => 100, page => 20 ); 
+    $collection = $collection->plus_next_pages;
+    
+    # Get a specific page of results and all previous pages
+    
+    $collection = Shippo::Addresses->all( results => 100, page => 20 ); 
+    $collection = $collection->plus_previous_pages;
+    
 =head1 DESCRIPTION
 
 Address objects are used for creating Shipments, obtaining Rates and printing
