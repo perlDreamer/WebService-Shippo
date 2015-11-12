@@ -204,30 +204,30 @@ attempts to correct that omission ;-)
 Access to all Shippo API resources is via URLs relative to the same encrypted
 API endpoint (https://api.goshippo.com/v1/).
 
-There are resource item classes to help with the nitty-gritty of interacting
+There are resource object classes to help with the nitty-gritty of interacting
 each type of resource:
 
 =over 2
 
-=item * Addresses
+=item * L<Addresses|WebService::Shippo::Address>
 
-=item * Parcels
+=item * L<Parcels|WebService::Shippo::Parcel>
 
-=item * Shipments
+=item * L<Shipments|WebService::Shippo::Shipment>
 
-=item * Rates
+=item * L<Rates|WebService::Shippo::Rate>
 
-=item * Transactions
+=item * L<Transactions|WebService::Shippo::Transaction>
 
-=item * Customs Items
+=item * L<Customs Items|WebService::Shippo::CustomsItem>
 
-=item * Customs Declarations
+=item * L<Customs Declarations|WebService::Shippo::CustomsDeclaration>
 
-=item * Refunds
+=item * L<Refunds|WebService::Shippo::Refund>
 
-=item * Manifests
+=item * L<Manifests|WebService::Shippo::Manifest>
 
-=item * Carrier Accounts
+=item * L<Carrier Accounts|WebService::Shippo::CarrierAccount>
 
 =back
 
