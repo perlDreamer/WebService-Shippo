@@ -13,7 +13,7 @@ use WebService::Shippo;
 
 my @tests = (
     testIterator => sub {
-        my $it = Shippo::Address->iterator( results => 3 );
+        my $it = Shippo::Addresses->iterate( results => 3 );
         for ( my $i = 0; $i < 6; $i++ ) {
             my ( $address ) = $it->();
             ok( $address->object_id, __TEST__ );

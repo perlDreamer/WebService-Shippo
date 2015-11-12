@@ -14,7 +14,7 @@ use WebService::Shippo;
 my @tests = (
     testCollector => sub {
         my $accounts = Shippo::CarrierAccounts->all->count;
-        my $collect  = Shippo::CarrierAccounts->collector( results => 200 );
+        my $collect  = Shippo::CarrierAccounts->collect( results => 200 );
         my @accounts = $collect->();
         is( scalar( @accounts ), $accounts, __TEST__ );
     },

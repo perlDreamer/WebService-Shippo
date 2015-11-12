@@ -28,7 +28,7 @@ sub all
     return $class->construct_from( $response, $callbacks );
 }
 
-sub iterator
+sub iterate
 {
     my ( $callbacks, $invocant, @params ) = &callbacks;
     @params = ( {} )
@@ -54,9 +54,9 @@ sub iterator
     return $iterator;
 }
 
-sub collector
+sub collect
 {
-    my $iterator = &iterator;
+    my $iterator = &iterate;
     my $collector = sub {
         my @results;
         while ( my @list = $iterator->() ) {
