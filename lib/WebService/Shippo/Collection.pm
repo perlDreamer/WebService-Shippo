@@ -6,12 +6,6 @@ package WebService::Shippo::Collection;
 use Params::Callbacks ( 'callbacks' );
 use base              ( 'WebService::Shippo::Object' );
 
-sub item_count
-{
-    my ( $invocant ) = @_;
-    return $invocant->{count};
-}
-
 sub page_size
 {
     my ( $invocant ) = @_;

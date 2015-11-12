@@ -93,7 +93,7 @@ my @tests = (
         );
         my $items = $carrier_accounts->items;
         is_deeply( $items, [ $carrier_accounts->items ], __TEST__ );
-        ok( $carrier_accounts->item_count, __TEST__ );
+        ok( $carrier_accounts->count, __TEST__ );
         for my $n ( 1 .. 3 ) {
             ok( $carrier_accounts->results, __TEST__ );
             last unless $carrier_accounts->{next};
