@@ -43,8 +43,11 @@ sub iterate
         while ( $collection && !@results ) {
             if ( $index == @{ $collection->results } ) {
                 $collection = $collection->next_page;
-                last unless $collection;
                 $index = 0;
+                unless ( $collection ) {
+                    $collection = $invocant->all( $params );
+                    last;
+                }
             }
             @results = $callbacks->transform( $collection->{results}[ $index++ ] );
         }
