@@ -19,26 +19,19 @@ our @EXPORT = qw(
 sub import
 {
     my ( $class ) = @_;
-    # Configure Shippo client on import
     WebService::Shippo::Config->config;
-    # The API key is overridden with the environment's value if defined.
     WebService::Shippo::Resource->api_credentials(
         @ENV{ 'SHIPPO_USER', 'SHIPPO_PASS' } )
         if $ENV{SHIPPO_USER} && !$ENV{SHIPPO_TOKEN};
     WebService::Shippo::Resource->api_key( $ENV{SHIPPO_TOKEN} )
         if $ENV{SHIPPO_TOKEN};
-    # Pass call frame to Exporter's import for further processing
     goto &Exporter::import;
 }
 
 BEGIN {
     no warnings 'once';
-    # There are some useful symbols defined elsewhere that I'd like to
-    # make available (alias) via the root namespace.
     *api_key         = *WebService::Shippo::Resource::api_key;
     *api_credentials = *WebService::Shippo::Resource::api_credentials;
-    *pretty          = *WebService::Shippo::Object::pretty;
-    *response        = *WebService::Shippo::Request::response;
     *Shippo::        = *WebService::Shippo::;
 }
 
@@ -142,7 +135,7 @@ very long. Use it, or don't use it. It's entirely up to you.
     
     # Print the transaction object...
     
-    print "Transaction:\n", $transaction->to_json(1); # '1' makes the JSON readable
+    print "Transaction:\n", $transaction;
 
     --[content dumped to console]--
     Transaction:
@@ -183,9 +176,7 @@ very long. Use it, or don't use it. It's entirely up to you.
     }
     --[end of content]--
 
-The sample code in this synopsis produced the following label (at a much
-larger size, of course), which was then saved as a PNG file using the
-C<LWP::UserAgent> package:
+The sample code in this synopsis produced the following label:
 
 =over 2
 
@@ -319,35 +310,6 @@ Whenever a configuration specifies both token and login credentials, the
 client will always favour token-based authentication. If C<api_key> and
 C<api_credentials> are both set manually then it is the most recently
 set mechanism that defines the HTTP Authorization header.
-
-=head2 pretty
-
-Get or set the state of the attribute influencing the default readability
-of objects serialized as JSON using the C<to_json> method or automatic
-stringification.
-
-=over 2
-
-=item * Return the current state of the C<pretty> attribute.
- 
-
-    my $boolean = Shippo->pretty;
-
-=item * Set the state of the C<pretty> attribute.
-
-    Shippo->pretty($boolean);
-
-=back
-
-B<Note>: the C<to_json> method also takes optional boolean argument that
-may be set to C<true> or C<false> to achieve the same effect for a single
-serialization, regardless of the default currently in force.
- 
-=head2 response
-
-    my $last_response = Shippo->response;
-
-Returns a copy of the C<L<HTTP::Response>> resulting from the most recent request.
 
 =head1 EXPORTS
 
@@ -522,8 +484,6 @@ questions.
 =over 2
 
 =item * L<https://github.com/cpanic/WebService-Shippo>
-
-=item * L<https://github.com/cpanic/WebService-Shippo/wiki>
 
 =back
 

@@ -7,9 +7,6 @@ use WebService::Shippo;
 Shippo->api_key( 'PASTE YOUR PRIVATE AUTH TOKEN HERE' )
     unless Shippo->api_key;
 
-# Pretty-up JSON...
-Shippo->pretty( 1 );
-
 my $customs_item = {
     description    => 'T-Shirt',
     quantity       => '2',
@@ -29,7 +26,7 @@ my $customs_declaration = Shippo::CustomsDeclaration->create(
     items                => [$customs_item]
 );
 
-print "Customs declaration:\n", $customs_declaration->to_json;
+print "Customs declaration:\n", $customs_declaration;
 
 # Create a Shipment object...
 my $shipment = Shippo::Shipment->create(
@@ -71,12 +68,12 @@ my $shipment = Shippo::Shipment->create(
     }
 );
 
-print "Shipment details:\n", $shipment->to_json;
+print "Shipment details:\n", $shipment;
 
 # Retrieve shipping rates...
 my $rates = Shippo::Shipment->get_shipping_rates( $shipment->object_id );
 
-print "Shipping rates:\n", $rates->to_json;
+print "Shipping rates:\n", $rates;
 
 # Get the preferred rate from your list of rates...
 my $rate = $rates->item( 2 );
@@ -94,4 +91,4 @@ my $browser = LWP::UserAgent->new;
 $browser->get( $label_url, ':content_file' => './int_sample.pdf' );
 
 # Refresh and view the transaction object...
-print "Transaction:\n", $transaction->refresh->to_json;
+print "Transaction:\n", $transaction->refresh;

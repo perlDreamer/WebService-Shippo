@@ -21,5 +21,5 @@ my $address_1 = Shippo::Address->create(
 
 my $address_2 = $address_1->validate;
 
-print $address_1->to_json(1);
-print $address_2->to_json(1);
+print $address_1;
+print $address_2;

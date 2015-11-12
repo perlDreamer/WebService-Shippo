@@ -27,12 +27,23 @@ BEGIN {
 
 =head1 NAME
 
-    # This file can be found in the distribution:
-    # bin/synopses/addresses.pl
-    #
-    use strict;
+WebService::Shippo::Addresses - Address collection class
+
+=head1 SYNOPIS
+
+
+B<Note>: though scripts and modules must always C<use WebService::Shippo;>
+to import the client software, the C<WebService::> portion of that package
+namespace may be dropped when subsequently referring to the main package
+or any of its resource classes. For example, C<WebService::Shippo::Address>
+and C<Shippo::Address> refer to the same class. 
+
+To compel the developer to continue using the C<WebService::> prefix does
+seem like an unreasonable form of torture, besides which, it probably
+doesn't leave much scope for indenting code as some class names would be
+very long. Use it, or don't use it. It's entirely up to you.
+
     use WebService::Shippo;
-    use Test::More;
     
     # If your client doesn't use a configuration file and you haven't set the
     # SHIPPO_TOKEN environment variable, you should provide authentication
@@ -41,115 +52,12 @@ BEGIN {
     Shippo->api_key( 'PASTE YOUR PRIVATE AUTH TOKEN HERE' )
         unless Shippo->api_key;
     
-    diag 'Create an address';
-    my $address = Shippo::Address->create(
-        object_purpose => 'PURCHASE',
-        name           => 'John Smith',
-        street1        => '6512 Greene Rd.',
-        street2        => '',
-        company        => 'Initech',
-        phone          => '+1 234 346 7333',
-        city           => 'Woodridge',
-        state          => 'IL',
-        zip            => '60517',
-        country        => 'US',
-        email          => 'user@gmail.com',
-        metadata       => 'Customer ID 123456'
-    );
-    diag $address->to_string;
-    
-    my $id = $address->object_id;
-    diag "Fetch an address object identified by its object_id ($id)";
-    $address = Shippo::Address->fetch( $id );
-    diag $address->to_string;
-    
-    diag 'Validate the address object';
-    my $val_1 = $address->validate;
-    diag $val_1->to_string;
-    
-    diag "Validate an address object identified by its object_id ($id)";
-    my $val_2 = Shippo::Address->validate( $id );
-    diag $val_2->to_string;
-    
-    diag "Get 'all' (but really the first 200 or less) address objects";
-    {
-        my $collection = Shippo::Addresses->all;
-        for my $address ( $collection->results ) {
+    $collection = Shippo::Addresses->all;
+    while ( $collection ) {
+        for $address ( $collection->results ) {
             print "$address->{object_id}\n";
         }
-    }
-    
-    diag "Really get all address objects";
-    {
-        my $collection = Shippo::Addresses->all;
-        while ( $collection ) {
-            for my $address ( $collection->results ) {
-                print "$address->{object_id}\n";
-            }
-            $collection = $collection->next_page;
-        }
-    }
-    
-    diag "Simple iteration through entire object collection";
-    {
-        my $it = Shippo::Address->iterator();
-        while ( my ( $address ) = $it->() ) {
-            print "$address->{object_id}\n";
-        }
-    }
-    
-    diag "Specialised iterator using a sequence of lambda functions as a filter";
-    {
-        my $next_validated_purchase_address = Shippo::Address->iterator(
-            callback {
-                my ( $address ) = @_;
-                # Discard address unless validated and valid
-                return
-                    unless $address->object_source eq 'VALIDATOR'
-                    && $address->object_state eq 'VALID';
-                # Else, keep address
-                return $address;
-            }
-            callback {
-                my ( $address ) = @_;
-                # Discard address unless created for transaction
-                return
-                    unless $address->object_purpose eq 'PURCHASE';
-                # Else, keep address
-                return $address;
-            }
-        );
-    
-        while ( my ( $address ) = $next_validated_purchase_address->() ) {
-            print $address;    # Automatically stringified using "to_string";
-        }
-    }
-    
-    diag "Collector using a sequence of lambda functions as a filter";
-    {
-        my $all_validated_purchase_addresses = Shippo::Address->collector(
-            callback {
-                my ( $address ) = @_;
-                # Discard address unless validated and valid
-                return
-                    unless $address->object_source eq 'VALIDATOR'
-                    && $address->object_state eq 'VALID';
-                # Else, keep address
-                return $address;
-            }
-            callback {
-                my ( $address ) = @_;
-                # Discard address unless created for transaction
-                return
-                    unless $address->object_purpose eq 'PURCHASE';
-                # Else, keep address
-                return $address;
-            }
-        );
-    
-        for my $address ( $all_validated_purchase_addresses->() ) {
-            print $address;
-        }
+        $collection = $collection->next_page;
     }
 
 =head1 DESCRIPTION
@@ -157,6 +65,16 @@ BEGIN {
 Address objects are used for creating Shipments, obtaining Rates and printing
 Labels, and thus are one of the fundamental building blocks of the Shippo
 API.
+
+=head1 SEE ALSO
+
+=over 2
+
+=item * L<WebService::Shippo::Address>
+
+=item * L<WebService::Shippo::Collection>
+
+=back
 
 =head1 API DOCUMENTATION
 
@@ -173,8 +91,6 @@ For more information about Addresses, consult the Shippo API documentation:
 =over 2
 
 =item * L<https://github.com/cpanic/WebService-Shippo>
-
-=item * L<https://github.com/cpanic/WebService-Shippo/wiki>
 
 =back
 

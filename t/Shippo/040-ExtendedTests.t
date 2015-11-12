@@ -51,7 +51,6 @@ my @tests = (
                 'mass_unit'     => 'lb',
             },
         );
-        is( $shipment->to_string, $shipment->to_json(1),          __TEST__ );
         my $rates;
         eval { $rates = $shipment->get_shipping_rates( $shipment->id, 'GBP' ); };
         my $exception = $@;
@@ -128,12 +127,6 @@ my @tests = (
             last unless $ii && $ip;
             is( $ip->id, $ii->id, __TEST__ );
         }
-    },
-    testpretty => sub {
-        Shippo->pretty( 1 );
-        is( Shippo->pretty, 1, __TEST__ );
-        Shippo->pretty( 0 );
-        is( Shippo->pretty, 0, __TEST__ );
     },
     testCurrency => [
         eur => sub {

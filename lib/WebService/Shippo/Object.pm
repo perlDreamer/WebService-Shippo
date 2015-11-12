@@ -95,51 +95,32 @@ sub is_same_object
 }
 
 {
-    my $json  = JSON::XS->new->utf8->canonical->convert_blessed->allow_blessed;
-    my $value = 0;
+    my $json = JSON::XS->new->utf8->canonical->convert_blessed->allow_blessed;
 
-    sub pretty
-    {
-        my ( $class, $new_value ) = @_;
-        return $value unless @_ > 1;
-        $value = $new_value;
-        return $class;
-    }
+    $json->pretty( 0 );
 
-    # Note to non-Perl hackers:
-    # Not having to unpack "@_" array gives slight speed boost, since it
-    # is possible that we might be creating many JSON strings in rapid
-    # succession. That weird looking "$_[0]" in the "TO_JSON", "to_json",
-    # and "to_string" methods is the first element of the "@_" array, i.e.
-    # the first argument passed to the method (the object itself).
-    #
-    # Required by JSON::XS because we use the convert_blessed encoding
-    # modifier to allow blessed references (aka Perl object instances)
-    # to be serialized. Returns a scalar value that can be serialized
-    # as JSON (essentially an unblessed shallow copy of the original
-    # object).
-    #
-    sub TO_JSON
-    {
-        return { %{ $_[0] } };
-    }
-
-    # Serializes the object to a JSON string.
     sub to_json
     {
-        my ( $data, $pretty ) = @_;
-        $json->pretty( $pretty || pretty );
+        my ( $data ) = @_;
         return $json->encode( $data );
     }
 }
 
 {
-    my $json  = JSON::XS->new->utf8->canonical->convert_blessed->allow_blessed->pretty(1);
+    my $json = JSON::XS->new->utf8->canonical->convert_blessed->allow_blessed;
+
+    $json->pretty( 1 );
 
     sub to_string
     {
-        return $json->encode( $_[0] );
+        my ( $data ) = @_;
+        return $json->encode( $data );
     }
+}
+
+sub TO_JSON
+{
+    return { %{ $_[0] } };
 }
 
 # Just in time creation of mutators for orphaned method calls, to facilitate

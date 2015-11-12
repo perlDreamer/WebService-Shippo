@@ -6,7 +6,7 @@ NAME
     WebService::Shippo - Shippo API Client
 
 VERSION
-    version 0.0.19
+    version 0.0.20
 
 SYNOPIS
     Note: though scripts and modules must always "use WebService::Shippo;"
@@ -93,7 +93,7 @@ SYNOPIS
     
         # Print the transaction object...
     
-        print "Transaction:\n", $transaction->to_json(1); # '1' makes the JSON readable
+        print "Transaction:\n", $transaction;
 
         --[content dumped to console]--
         Transaction:
@@ -134,9 +134,7 @@ SYNOPIS
         }
         --[end of content]--
 
-    The sample code in this synopsis produced the following label (at a much
-    larger size, of course), which was then saved as a PNG file using the
-    "LWP::UserAgent" package:
+    The sample code in this synopsis produced the following label:
 
     * <https://github.com/cpanic/WebService-Shippo/blob/master/sample.png>
 
@@ -423,8 +421,6 @@ SEE ALSO
 
 REPOSITORY
     * <https://github.com/cpanic/WebService-Shippo>
-
-    * <https://github.com/cpanic/WebService-Shippo/wiki>
 
 AUTHOR
     Iain Campbell <cpanic@cpan.org>
