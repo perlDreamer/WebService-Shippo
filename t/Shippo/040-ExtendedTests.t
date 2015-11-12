@@ -51,7 +51,7 @@ my @tests = (
                 'mass_unit'     => 'lb',
             },
         );
-        is( $shipment->to_string, $shipment->to_json,          __TEST__ );
+        is( $shipment->to_string, $shipment->to_json(1),          __TEST__ );
         my $rates;
         eval { $rates = $shipment->get_shipping_rates( $shipment->id, 'GBP' ); };
         my $exception = $@;

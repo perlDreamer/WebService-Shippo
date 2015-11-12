@@ -16,7 +16,6 @@ my @tests = (
         my $accounts = Shippo::CarrierAccounts->all->count;
         my $collect  = Shippo::CarrierAccounts->collector( results => 200 );
         my @accounts = $collect->();
-        dump([@accounts]);
         is( scalar( @accounts ), $accounts, __TEST__ );
     },
 );
