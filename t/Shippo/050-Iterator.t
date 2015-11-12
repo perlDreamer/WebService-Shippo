@@ -1,4 +1,4 @@
-# Not the greatest tests in the world, but more like a starter 
+# Not the greatest tests in the world, but more like a starter
 # for 10 influenced by tests of similar calibre (where present)
 # in Shippo's own APIs. I want to re-visit these after the first
 # gold release to make them more extensive.
@@ -13,9 +13,9 @@ use WebService::Shippo;
 
 my @tests = (
     testIterator => sub {
-        my $it = Shippo::Address->iterate( results => 3 );
+        my $it = Shippo::Address->iterator( results => 3 );
         for ( my $i = 0; $i < 6; $i++ ) {
-            my $address = $it->();
+            my ( $address ) = $it->();
             ok( $address->object_id, __TEST__ );
         }
     },
