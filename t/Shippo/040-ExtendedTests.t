@@ -14,7 +14,7 @@ use WebService::Shippo;
 my @tests = (
     testSize => sub {
         my $size = Shippo::Addresses->all( results => 10 )->count;
-        is($size, Shippo::Addresses->size, __TEST__);
+        is($size, Shippo::Addresses->count, __TEST__);
     },
     testSetRateTimeout => sub {
         Shippo::Async->timeout( 0 );
