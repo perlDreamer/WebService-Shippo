@@ -155,10 +155,9 @@ DESCRIPTION
 
   API Resources
     Access to all Shippo API resources is via URLs relative to the same
-    encrypted API endpoint (https://api.goshippo.com/v1/).
-
-    There are resource item classes to help with the nitty-gritty of
-    interacting each type of resource:
+    encrypted API endpoint (https://api.goshippo.com/v1/). The client
+    provides object and collection classes to help with the nitty-gritty of
+    dealing with those resources:
 
     * Addresses
 
@@ -212,6 +211,89 @@ DESCRIPTION
     one with the desired values. Carrier Accounts are the exception and may
     be updated via PUT requests.
 
+OBJECTS vs COLLECTIONS
+    Whereas a GET request to
+    <https://api.goshippo.com/v1/addresses/d799c2679e644279b59fe661ac8fa488>
+    might produce a single address whose structure would resemble this:
+
+        {
+           "object_state":"VALID",
+           "object_purpose":"PURCHASE",
+           "object_source":"FULLY_ENTERED",
+           "object_created":"2014-07-09T02:19:13.174Z",
+           "object_updated":"2014-07-09T02:19:13.174Z",
+           "object_id":"d799c2679e644279b59fe661ac8fa488",
+           "object_owner":"shippotle@goshippo.com",
+           "name":"Shawn Ippotle",
+           "street1":"215 Clayton St.",
+           "street2":"",
+           "city":"San Francisco",
+           "state":"CA",
+           "zip":"94117",
+           "country":"US",
+           "phone":"15553419393",
+           "email":"shippotle@goshippo.com",
+           "ip":null,
+           "is_residential":true,
+           "messages":[],
+           "metadata":"Customer ID 123456"
+        }
+
+    A GET request to <https://api.goshippo.com/v1/addresses/> might produce
+    a collection of address objects whose structure would resemble this:
+
+        {
+           "count":3,
+           "next":null,
+           "previous":null,
+           "results":[
+              {
+                 "object_state":"VALID",
+                 "object_purpose":"PURCHASE",
+                 "object_source":"FULLY_ENTERED",
+                 "object_created":"2014-07-16T23:20:31.089Z",
+                 "object_updated":"2014-07-16T23:20:31.089Z",
+                 "object_id":"747207de2ba64443b645d08388d0309c",
+                 "object_owner":"shippotle@goshippo.com",
+                 "name":"Shawn Ippotle",
+                 "street1":"215 Clayton St.",
+                 "street2":"",
+                 "city":"San Francisco",
+                 "state":"CA",
+                 "zip":"94117",
+                 "country":"US",
+                 "phone":"15553419393",
+                 "email":"shippotle@goshippo.com",
+                 "is_residential":true,
+                 "ip":null,
+                 "messages":[
+    
+                 ],
+                 "metadata":"Customer ID 123456"
+              },
+              {...},
+              {...}
+           ]
+        }
+
+    The Shippo API does not distinguish between a single object and a
+    collection of objects. It deals purely with JSON strings and both object
+    and collection are notionally considered to be the same type of object.
+
+    Nevertheless, the Perl client does distinguish between a single object
+    and a collection of objects. For each API resource, the client defines
+    an *Item Class* (e.g. "WebService::Shippo::Address") and a corresponding
+    *Collection Class* (e.g. "WebService::Shippo::Addresses"). The name of
+    the collection class is always the plural form of the item class.
+    Furthermore, any objects making up the "results" of a collection will be
+    blessed as instances of the appropriate item class.
+
+    Both item and collection classes implement different interfaces, but
+    they also exhibit common behaviours. Collection classes will respond to
+    methods that aid item access and cursor navigation, while both types of
+    class respond (where appropriate) to "create", "update", "fetch", "all",
+    "iterate" and "collect" methods.
+
 METHODS
   api_key
     Get or set the key used by API requests for Shippo's token-based
@@ -248,29 +330,6 @@ METHODS
     client will always favour token-based authentication. If "api_key" and
     "api_credentials" are both set manually then it is the most recently set
     mechanism that defines the HTTP Authorization header.
-
-  pretty
-    Get or set the state of the attribute influencing the default
-    readability of objects serialized as JSON using the "to_json" method or
-    automatic stringification.
-
-    * Return the current state of the "pretty" attribute.
-
-          my $boolean = Shippo->pretty;
-
-    * Set the state of the "pretty" attribute.
-
-          Shippo->pretty($boolean);
-
-    Note: the "to_json" method also takes optional boolean argument that may
-    be set to "true" or "false" to achieve the same effect for a single
-    serialization, regardless of the default currently in force.
-
-  response
-        my $last_response = Shippo->response;
-
-    Returns a copy of the "HTTP::Response" resulting from the most recent
-    request.
 
 EXPORTS
     The "WebService::Shippo" package exports a number of helpful subroutines
@@ -322,14 +381,12 @@ EXPORTS
     See Ingy's boolean package for more guidance.
 
   callback
-        Shippo::CarrierAccounts->all(callback {
-            $_->enable_test_mode;
-        });
+        $put_all_accounts_in_test_mode = Shippo::CarrierAccounts->collect( 
+            callback { shift->enable_test_mode } );
+        $put_all_accounts_in_test_mode->();
 
-    Returns a blessed "sub" suitable for use as a callback. Some methods
-    accept optional blocking callbacks in order to facilitate list
-    transformations, so this package makes &Params::Callbacks::callback
-    available for use.
+    Many of the Perl client's methods allow the use of lambda functions for
+    block operations and filtration.
 
     See Params::Callbacks for more guidance.
 
@@ -373,51 +430,8 @@ CONFIGURATION
 FULL API DOCUMENTATION
     * For API documentation, go to <https://goshippo.com/docs/>
 
-    * For API support, contact <mailto:support@goshippo.com> with any
-      questions.
-
-SEE ALSO
-  Shippo Objects
-    * WebService::Shippo::Address
-
-    * WebService::Shippo::Parcel
-
-    * WebService::Shippo::Shipment
-
-    * WebService::Shippo::Rate
-
-    * WebService::Shippo::Transaction
-
-    * WebService::Shippo::CustomsItem
-
-    * WebService::Shippo::CustomsDeclaration
-
-    * WebService::Shippo::Refund
-
-    * WebService::Shippo::Manifest
-
-    * WebService::Shippo::CarrierAccount
-
-  Shippo Collections
-    * WebService::Shippo::Addresses
-
-    * WebService::Shippo::Parcels
-
-    * WebService::Shippo::Shipments
-
-    * WebService::Shippo::Rates
-
-    * WebService::Shippo::Transactions
-
-    * WebService::Shippo::CustomsItems
-
-    * WebService::Shippo::CustomsDeclarations
-
-    * WebService::Shippo::Refunds
-
-    * WebService::Shippo::Manifests
-
-    * WebService::Shippo::CarrierAccounts
+    * For API support, contact support@goshippo.com
+      <mailto:support@goshippo.com> with any questions.
 
 REPOSITORY
     * <https://github.com/cpanic/WebService-Shippo>

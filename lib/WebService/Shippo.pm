@@ -501,7 +501,7 @@ which are found on your L<Shippo API page|https://goshippo.com/user/apikeys/>.
 
 =item * For API documentation, go to L<https://goshippo.com/docs/>
 
-=item * For API support, contact L<mailto:support@goshippo.com> with any 
+=item * For API support, contact L<support@goshippo.com|mailto:support@goshippo.com> with any 
 questions.
 
 =back

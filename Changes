@@ -2,6 +2,11 @@ Revision history for WebService-Shippo
  
 {{$NEXT}}
 
+0.0.20    2015-11-12 19:02:44+00:00 Europe/London
+    - De-clutter interface to main package
+    - Clean up serialization a bit
+    - The collection "count" method works as a static method
+    - POD updates
 0.0.19    2015-11-12 01:45:32+00:00 Europe/London
     - Didn't run tests before releasing 0.0.18 to CPAN.
     - Should have run tests before releasing 0.0.18 to CPAN.
