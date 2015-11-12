@@ -48,7 +48,8 @@ sub iterator
             }
             @results = $callbacks->transform( $collection->{results}[ $index++ ] );
         }
-        return @results;
+        return @results if wantarray;
+        return \@results;
     };
     return bless( $iterator, $invocant->collection_class . '::Iterator' );
 }
@@ -73,7 +74,8 @@ sub collector
             }
             push @results, $callbacks->transform( $collection->{results}[ $index++ ] );
         }
-        return @results;
+        return @results if wantarray;
+        return \@results;
     };
     return bless( $collector, $invocant->collection_class . '::Collector' );
 }
