@@ -12,6 +12,10 @@ use TestHarness;
 use WebService::Shippo;
 
 my @tests = (
+    testSize => sub {
+        my $size = Shippo::Addresses->all( results => 10 )->count;
+        is($size, Shippo::Addresses->size, __TEST__);
+    },
     testSetRateTimeout => sub {
         Shippo::Async->timeout( 0 );
         is( Shippo::Async->timeout, 0, __TEST__ );
