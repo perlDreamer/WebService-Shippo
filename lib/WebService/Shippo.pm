@@ -202,10 +202,9 @@ attempts to correct that omission ;-)
 =head2 API Resources
 
 Access to all Shippo API resources is via URLs relative to the same encrypted
-API endpoint (https://api.goshippo.com/v1/).
-
-There are resource object classes to help with the nitty-gritty of interacting
-each type of resource:
+API endpoint (https://api.goshippo.com/v1/). The client provides object and
+collection classes to help with the nitty-gritty of dealing with those
+resources:
 
 =over 2
 
@@ -262,6 +261,89 @@ Customs Declarations are disposable objects. This means that once you create
 an object, you cannot change it. Instead, create a new one with the desired
 values. Carrier Accounts are the exception and may be updated via B<PUT>
 requests.
+
+=head1 OBJECTS vs COLLECTIONS
+
+Whereas a GET request to L<https://api.goshippo.com/v1/addresses/d799c2679e644279b59fe661ac8fa488>
+might produce a single address whose structure would resemble this:
+
+    {
+       "object_state":"VALID",
+       "object_purpose":"PURCHASE",
+       "object_source":"FULLY_ENTERED",
+       "object_created":"2014-07-09T02:19:13.174Z",
+       "object_updated":"2014-07-09T02:19:13.174Z",
+       "object_id":"d799c2679e644279b59fe661ac8fa488",
+       "object_owner":"shippotle@goshippo.com",
+       "name":"Shawn Ippotle",
+       "street1":"215 Clayton St.",
+       "street2":"",
+       "city":"San Francisco",
+       "state":"CA",
+       "zip":"94117",
+       "country":"US",
+       "phone":"15553419393",
+       "email":"shippotle@goshippo.com",
+       "ip":null,
+       "is_residential":true,
+       "messages":[],
+       "metadata":"Customer ID 123456"
+    }
+
+A GET request to L<https://api.goshippo.com/v1/addresses/> might produce a
+collection of address objects whose structure would resemble this:
+
+    {
+       "count":3,
+       "next":null,
+       "previous":null,
+       "results":[
+          {
+             "object_state":"VALID",
+             "object_purpose":"PURCHASE",
+             "object_source":"FULLY_ENTERED",
+             "object_created":"2014-07-16T23:20:31.089Z",
+             "object_updated":"2014-07-16T23:20:31.089Z",
+             "object_id":"747207de2ba64443b645d08388d0309c",
+             "object_owner":"shippotle@goshippo.com",
+             "name":"Shawn Ippotle",
+             "street1":"215 Clayton St.",
+             "street2":"",
+             "city":"San Francisco",
+             "state":"CA",
+             "zip":"94117",
+             "country":"US",
+             "phone":"15553419393",
+             "email":"shippotle@goshippo.com",
+             "is_residential":true,
+             "ip":null,
+             "messages":[
+    
+             ],
+             "metadata":"Customer ID 123456"
+          },
+          {...},
+          {...}
+       ]
+    }
+
+The Shippo API does not distinguish between a single object and a collection
+of objects. It deals purely with JSON strings and both object and collection
+are notionally considered to be the same type of object.
+
+Nevertheless, the Perl client B<does> distinguish between a single object and
+a collection of objects. For each API resource, the client defines an I<Item
+Class> (e.g. C<L<WebService::Shippo::Address>>) and a corresponding
+I<Collection Class> (e.g. C<L<WebService::Shippo::Addresses>>). The name of
+the collection class is always the plural form of the item class. Furthermore,
+any objects making up the C<results> of a collection will be blessed as 
+instances of the appropriate item class.
+
+Both item and collection classes implement different interfaces, but they
+also exhibit common behaviours. Collection classes will respond to methods
+that aid item access and cursor navigation, while both types of class respond
+(where appropriate) to C<create>, C<update>, C<fetch>, C<all>, C<iterate> and
+C<collect> methods.
 
 =head1 METHODS
 
@@ -366,13 +448,12 @@ See Ingy's L<boolean> package for more guidance.
 
 =head2 callback
 
-    Shippo::CarrierAccounts->all(callback {
-        $_->enable_test_mode;
-    });
+    $put_all_accounts_in_test_mode = Shippo::CarrierAccounts->collect( 
+        callback { shift->enable_test_mode } );
+    $put_all_accounts_in_test_mode->();
     
-Returns a blessed C<sub> suitable for use as a callback. Some methods accept
-optional blocking callbacks in order to facilitate list transformations, so
-this package makes C<&Params::Callbacks::callback> available for use.
+Many of the Perl client's methods allow the use of lambda functions for
+block operations and filtration.
 
 See L<Params::Callbacks> for more guidance.
 
@@ -422,60 +503,6 @@ which are found on your L<Shippo API page|https://goshippo.com/user/apikeys/>.
 
 =item * For API support, contact L<mailto:support@goshippo.com> with any 
 questions.
-
-=back
-
-=head1 SEE ALSO
-
-=head2 Shippo Objects
-
-=over 2
-
-=item * L<WebService::Shippo::Address>
-
-=item * L<WebService::Shippo::Parcel>
-
-=item * L<WebService::Shippo::Shipment>
-
-=item * L<WebService::Shippo::Rate>
-
-=item * L<WebService::Shippo::Transaction>
-
-=item * L<WebService::Shippo::CustomsItem>
-
-=item * L<WebService::Shippo::CustomsDeclaration>
-
-=item * L<WebService::Shippo::Refund>
-
-=item * L<WebService::Shippo::Manifest>
-
-=item * L<WebService::Shippo::CarrierAccount>
-
-=back
-
-=head2 Shippo Collections
-
-=over 2
-
-=item * L<WebService::Shippo::Addresses>
-
-=item * L<WebService::Shippo::Parcels>
-
-=item * L<WebService::Shippo::Shipments>
-
-=item * L<WebService::Shippo::Rates>
-
-=item * L<WebService::Shippo::Transactions>
-
-=item * L<WebService::Shippo::CustomsItems>
-
-=item * L<WebService::Shippo::CustomsDeclarations>
-
-=item * L<WebService::Shippo::Refunds>
-
-=item * L<WebService::Shippo::Manifests>
-
-=item * L<WebService::Shippo::CarrierAccounts>
 
 =back
 
