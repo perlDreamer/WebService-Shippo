@@ -28,7 +28,7 @@ sub all
     return $class->construct_from( $response, $callbacks );
 }
 
-sub iterate
+sub iterator
 {
     my ( $callbacks, $invocant, @params ) = &callbacks;
     @params = ( {} )
@@ -39,19 +39,48 @@ sub iterate
     my $collection = $invocant->all( $params );
     my $index      = 0;
     my $iterator   = sub {
-        if ( $index == @{ $collection->results } ) {
-            $collection = $collection->next_page;
-            return unless $collection;
-            $index = 0;
+        my @results;
+        while ( $collection && !@results ) {
+            if ( $index == @{ $collection->results } ) {
+                $collection = $collection->next_page;
+                last unless $collection;
+                $index = 0;
+            }
+            @results = $callbacks->transform( $collection->{results}[ $index++ ] );
         }
-        return $callbacks->smart_transform( $collection->{results}[ $index++ ] );
+        return @results;
     };
     return bless( $iterator, $invocant->collection_class . '::Iterator' );
 }
 
+sub collector
+{
+    my ( $callbacks, $invocant, @params ) = &callbacks;
+    @params = ( {} )
+        unless @params;
+    my $params = ref( $params[0] ) ? $params[0] : {@params};
+    $params->{results} = 200
+        unless $params->{results};
+    my $collection = $invocant->all( $params );
+    my $index      = 0;
+    my $collector  = sub {
+        my @results;
+        while ( $collection ) {
+            if ( $index == @{ $collection->results } ) {
+                $collection = $collection->next_page;
+                last unless $collection;
+                $index = 0;
+            }
+            push @results, $callbacks->transform( $collection->{results}[ $index++ ] );
+        }
+        return @results;
+    };
+    return bless( $collector, $invocant->collection_class . '::Collector' );
+}
+
 BEGIN {
     no warnings 'once';
-    *retrieve = *fetch;
+    *retrieve          = *fetch;
     *Shippo::Fetcher:: = *WebService::Shippo::Fetcher::;
 }
 
