@@ -8,7 +8,7 @@ use Carp              ( 'confess' );
 use Params::Callbacks ( 'callbacks' );
 use Scalar::Util      ( 'blessed' );
 use base qw(
-    WebService::Shippo::Resource
+    WebService::Shippo::Item
     WebService::Shippo::Create
     WebService::Shippo::Fetch
 );

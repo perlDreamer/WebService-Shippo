@@ -4,7 +4,7 @@ use MRO::Compat 'c3';
 
 package WebService::Shippo::Collection;
 use Params::Callbacks ( 'callbacks' );
-use base              ( 'WebService::Shippo::Object' );
+use base              ( 'WebService::Shippo::Resource' );
 
 sub count
 {

@@ -4,7 +4,7 @@ use MRO::Compat 'c3';
 
 package WebService::Shippo::CustomsDeclaration;
 use base qw(
-    WebService::Shippo::Resource
+    WebService::Shippo::Item
     WebService::Shippo::Create
     WebService::Shippo::Fetch
 );

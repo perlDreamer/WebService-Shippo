@@ -5,7 +5,7 @@ use MRO::Compat 'c3';
 package WebService::Shippo::Rate;
 require WebService::Shippo::Shipment;
 use base qw(
-    WebService::Shippo::Resource
+    WebService::Shippo::Item
     WebService::Shippo::Fetch
 );
 

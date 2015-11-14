@@ -6,7 +6,7 @@ package WebService::Shippo::Transaction;
 use Carp         ( 'confess' );
 use Scalar::Util ( 'blessed' );
 use base qw(
-    WebService::Shippo::Resource
+    WebService::Shippo::Item
     WebService::Shippo::Create
     WebService::Shippo::Fetch
     WebService::Shippo::Async
