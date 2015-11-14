@@ -33,19 +33,19 @@ sub new
         return $ref_type
             unless defined $ref_type;
         if ( $ref_type eq 'HASH' ) {
-            my $invocant = $invocant->new( $response->{object_id} );
-            $invocant->refresh_from( $response );
-            if (   exists( $invocant->{count} )
-                && exists( $invocant->{results} ) )
+            my $self = $invocant->new( $response->{object_id} );
+            $self->refresh_from( $response );
+            if (   exists( $self->{count} )
+                && exists( $self->{results} ) )
             {
-                my $item_class = $invocant->item_class;
-                $invocant->{results}
+                my $item_class = $self->item_class;
+                $self->{results}
                     = [ map { $callbacks->smart_transform( bless( $_, $item_class ) ) }
-                        @{ $invocant->{results} } ];
-                return bless( $invocant, $invocant->collection_class );
+                        @{ $self->{results} } ];
+                return bless( $self, $invocant->collection_class );
             }
             else {
-                return $callbacks->smart_transform( $invocant );
+                return $callbacks->smart_transform( $self );
             }
         }
         else {
@@ -60,18 +60,18 @@ sub new
 
 sub refresh_from
 {
-    my ( $invocant, $hash ) = @_;
-    @{$invocant}{ keys %$hash } = values %$hash;
-    return $invocant;
+    my ( $self, $hash ) = @_;
+    @{$self}{ keys %$hash } = values %$hash;
+    return $self;
 }
 
 sub refresh
 {
-    my ( $invocant ) = @_;
-    my $url          = $invocant->url( $invocant->{object_id} );
-    my $response     = Shippo::Request->get( $url );
-    my $update       = $invocant->construct_from( $response );
-    return $invocant->refresh_from( $update );
+    my ( $self ) = @_;
+    my $url      = $self->url( $self->{object_id} );
+    my $response = Shippo::Request->get( $url );
+    my $update   = $self->construct_from( $response );
+    return $self->refresh_from( $update );
 }
 
 sub is_same_object
