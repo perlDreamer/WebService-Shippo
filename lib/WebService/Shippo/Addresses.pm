@@ -10,9 +10,9 @@ use base qw(
     WebService::Shippo::Fetch
 );
 
-sub item_class () { 'WebService::Shippo::Address' }
-
 sub collection_class () { __PACKAGE__ }
+
+sub item_class () { 'WebService::Shippo::Address' }
 
 BEGIN {
     no warnings 'once';
@@ -20,7 +20,7 @@ BEGIN {
 }
 
 1;
-
+__END__
 =pod
 
 =encoding utf8
