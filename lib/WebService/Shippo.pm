@@ -2,9 +2,21 @@ use strict;
 use warnings;
 
 package WebService::Shippo;
-# ABSTRACT: A Shippo Perl API wrapper
 our $VERSION = '0.0.21';
-require WebService::Shippo::Entities;
+# ABSTRACT: A Shippo Perl API wrapper
+
+require WebService::Shippo::Addresses;
+require WebService::Shippo::CarrierAccounts;
+require WebService::Shippo::CustomsDeclarations;
+require WebService::Shippo::CustomsItems;
+require WebService::Shippo::Manifests;
+require WebService::Shippo::Parcels;
+require WebService::Shippo::Rates;
+require WebService::Shippo::Refunds;
+require WebService::Shippo::Shipments;
+require WebService::Shippo::Transactions;
+require WebService::Shippo::Config;
+
 use boolean ':all';
 use Params::Callbacks ( 'callbacks', 'callback' );
 use base ( 'Exporter' );
@@ -36,7 +48,7 @@ BEGIN {
 }
 
 1;
-
+__END__
 =pod
 
 =encoding utf8
