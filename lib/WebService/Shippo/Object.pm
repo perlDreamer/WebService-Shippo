@@ -12,16 +12,10 @@ use overload          ( fallback => 1, '""' => 'to_string' );
 
 our $AUTOLOAD;
 
-sub class
-{
-    my ( $invocant ) = @_;
-    return ref( $invocant ) || $invocant;
-}
-
 sub new
 {
     my ( $invocant, $id ) = @_;
-    my $self = bless {}, $invocant->class;
+    my $self = bless {}, ref( $invocant ) || $invocant;
     $id = $id->{object_id}
         if ref( $id ) && reftype( $id ) eq 'HASH';
     $self->{object_id} = $id
