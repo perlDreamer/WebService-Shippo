@@ -184,6 +184,10 @@ use Carp ( 'confess' );
 
     my $json = JSON::XS->new->utf8->convert_blessed->allow_blessed;
 
+    # Attempts to freshen-up that list. I could use Locale::Codes or
+    # Locale::Currency for this but neither works consistently on all
+    # versions of a Perl and, under 5.14, they're particularly irksome.
+    
     eval {
         my $r
             = WebService::Shippo::Request->get(
