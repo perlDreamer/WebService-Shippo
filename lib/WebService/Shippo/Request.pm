@@ -82,6 +82,10 @@ sub query_string
         $url .= $invocant->query_string( $params );
         my $response = user_agent->get( $url, headers );
         $last_response = clone( $response );
+        if ($ENV{SHIPPO_DEBUG}) {
+            warn "GET URL: $url\n";
+            warn "GET RESPONSE: ".$response->content."\n";
+        }
         $invocant->confess_failure( $response )
             unless $response->is_success;
         return $response;
@@ -96,6 +100,11 @@ sub query_string
         my $payload  = $json->encode( $params );
         my $response = user_agent->put( $url, headers, Content => $payload );
         $last_response = clone( $response );
+        if ($ENV{SHIPPO_DEBUG}) {
+            warn "PUT URL: $url\n";
+            warn "PUT PAYLOAD: $payload\n";
+            warn "PUT RESPONSE: ".$response->content."\n";
+        }
         $invocant->confess_failure( $response )
             unless $response->is_success;
         return $response;
@@ -110,6 +119,11 @@ sub query_string
         my $payload  = $json->encode( $params );
         my $response = user_agent->post( $url, headers, Content => $payload );
         $last_response = clone( $response );
+        if ($ENV{SHIPPO_DEBUG}) {
+            warn "POST URL: $url\n";
+            warn "POST PAYLOAD: $payload\n";
+            warn "POST RESPONSE: ".$response->content."\n";
+        }
         $invocant->confess_failure( $response )
             unless $response->is_success;
         return $response;
